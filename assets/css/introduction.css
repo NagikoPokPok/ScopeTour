@@ -1,0 +1,43 @@
+/* Reset CSS */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Baloo2';
+    src: url('../font-text/Baloo2-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Baloo2_extra_bold';
+    src: url('../font-text/static/Baloo2-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Baloo2_regular';
+    src: url('../font-text/static/Baloo2-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Baloo2_medium';
+    src: url('../font-text/static/Baloo2-Medium.ttf') format('truetype');
+}
+
+html {
+    font-family: 'Baloo2', sans-serif;
+}
+
+
+
+.heading {
+    width: 100%;
+    height: 100vh;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    
+}
