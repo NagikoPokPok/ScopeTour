@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Baloo2';
 }
 
 :root {
@@ -12,6 +13,10 @@
     --error-color: #f44336;
 }
 
+@font-face {
+    font-family: 'GochiHand';
+    src: url('../font-text/GochiHand-Regular.ttf') format('truetype');
+}
 
 @font-face {
     font-family: 'Baloo2';
@@ -125,3 +130,73 @@ html {
     margin-left: 10px;
     align-self: center;
 }
+
+
+
+/* Content */
+/* Home */
+#home {
+    display: flex;
+    margin-top: 46px;
+    height: calc(100vh - 46px); /* Chiều cao bằng viewport trừ đi phần header */
+}
+
+#home .home-img-1 {
+    height: 100%; /* Chiều cao bằng với #home */
+    width: 2000px;
+    object-fit: cover; /* Ảnh bao phủ toàn bộ */
+    margin-left: -40px;
+   
+}
+
+#home .home-img-2 {
+   height: 70%;
+   width: 100px;
+   align-self: self-end; 
+}
+
+#home .home-content {
+    padding: 30px; /* Thêm khoảng cách nếu cần */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#home .home-content .home-heading {
+    font-family: 'GochiHand';
+    font-size: 100px;
+    text-align: center;
+}
+
+#home .home-content .home-slogan {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 12px;
+}
+
+#home .home-content .home-introduction {
+    text-align: justify;
+    line-height: 1.4;
+    padding: 12px 24px;
+    font-size: 16px;
+    
+}
+
+#home .home-content .sign-up-btn {
+    background-color: var(--primary-color);
+    border-style: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 24px;
+    color: #fff;
+    width: 50%;
+    align-self: center;
+    font-weight: bold;
+    margin-top: 86px;
+}
+
+#home .home-content .sign-up-btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
