@@ -306,4 +306,79 @@ html {
     margin-top: 32px;
 }
 
+/* Footer */
+#footer {
+    padding: 40px;
+    background-color: var(--background-color);
+}
+
+.footer-heading {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.footer-heading h1 {
+    width: 80%;
+    display: inline-block;
+    color: var(--primary-color);
+}
+
+.footer-content {
+    display: flex;
+    margin-top: 12px;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.footer-content .footer-content-contact {
+    height: 100%;
+    flex: 1;
+}
+
+.footer-content-contact .list-icons {
+    list-style: none;
+    
+}
+
+.footer-content-contact .list-icons li {
+    float: left;
+    padding: 0 4px;
+    color: var(--primary-color);
+    font-size: 32px;
+}
+
+.footer-content-contact .list-icons li:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.footer-content .footer-content-company {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content-company .list-company {
+    list-style: none;
+    opacity: 0.7;
+}
+
+.footer-content .footer-content-courses {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content-courses .list-courses {
+    list-style: none;
+    opacity: 0.7;
+}
+
+.footer-content .footer-content-subcribe {
+
+}
+
 
