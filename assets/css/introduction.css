@@ -308,10 +308,11 @@ html {
 
 /* Footer */
 #footer {
-    padding: 40px;
+    padding: 40px 40px 60px 40px;
     background-color: var(--background-color);
 }
 
+/* Footer Heading */
 .footer-heading {
     display: flex;
     margin-bottom: 16px;
@@ -323,11 +324,13 @@ html {
     color: var(--primary-color);
 }
 
+/* Footer Content */
 .footer-content {
     display: flex;
-    margin-top: 12px;
+    margin-top: 32px;
     justify-content: space-between;
-    height: 200px;
+    margin-bottom: 24px;
+    
 }
 
 .footer-content .footer-content-contact {
@@ -369,7 +372,7 @@ html {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-left: 50px;
 }
 
 .footer-content-courses .list-courses {
@@ -378,7 +381,64 @@ html {
 }
 
 .footer-content .footer-content-subcribe {
-
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }
 
+.footer-content-subcribe .email {
+    border-style: none;
+    border-radius: 10px;
+    padding: 18px;
+    margin-top: 8px;
+    outline-color: var(--primary-color);
+}
+
+.footer-content-subcribe .subcribe-btn {
+    border-style: none;
+    border-radius: 100px;
+    margin-top: 8px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 12px;
+    width: 50%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.footer-content-subcribe .subcribe-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/* Footer End */
+.footer-end {
+    display: flex;
+    margin-top: 16px;
+    justify-content: space-between;
+}
+
+.footer-end .footer-end-first {
+    display: flex;
+}
+
+.footer-end .footer-end-first .vertical-line {
+    width: 2px;
+    height: 10px; /* Chiều dài của đường */
+    background-color: #000;
+    margin: 0 20px; /* Khoảng cách hai bên */
+    align-self: center;
+}
+
+.footer-end .footer-end-second {
+    display: flex;
+}
+
+.footer-end .footer-end-second .vertical-line {
+    width: 2px;
+    height: 10px; /* Chiều dài của đường */
+    background-color: #000;
+    margin: 0 20px; /* Khoảng cách hai bên */
+    align-self: center;
+}
 
