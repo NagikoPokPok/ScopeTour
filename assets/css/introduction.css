@@ -11,6 +11,7 @@
     --secondary-color: #FFB54A;
     --success-color: #4caf50;
     --error-color: #f44336;
+    --background-color: #FFE1CC;
 }
 
 @font-face {
@@ -61,9 +62,7 @@ html {
 /* Logo */
 #logo {
     display: flex;
-  
     align-items: center; /* Căn giữa logo và tên theo chiều dọc */
-    
     height: 100%; /* Giữ chiều cao bằng với header */
 }
 
@@ -119,7 +118,7 @@ html {
     flex: 1;
     display: flex;
     background-color: var(--primary-color);
-    border-radius: 5px;
+    border-radius: 10px;
     max-width: 200px;
     height: calc(100% - 16px);
     max-height: 30px;
@@ -134,6 +133,9 @@ html {
 
 
 /* Content */
+#content {
+    margin-top: 46px;
+}
 /* Home */
 #home {
     display: flex;
@@ -160,6 +162,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-height: 100%;
 }
 
 #home .home-content .home-heading {
@@ -185,18 +188,51 @@ html {
 #home .home-content .sign-up-btn {
     background-color: var(--primary-color);
     border-style: none;
-    border-radius: 5px;
-    padding: 12px;
-    font-size: 24px;
+    border-radius: 10px;
+    padding: 12px 12px;
+    font-size: 18px;
     color: #fff;
     width: 50%;
     align-self: center;
     font-weight: bold;
-    margin-top: 86px;
+    margin-top: 24px;
 }
 
 #home .home-content .sign-up-btn:hover {
     opacity: 0.6;
     cursor: pointer;
+}
+
+
+/* Slider */
+#slider {
+    background-color: var(--background-color);
+    padding: 24px;
+}
+
+#slider .about-us {
+    display: flex;
+    
+}
+
+#slider .about-us .about-us-img {
+    width: 30%;
+    flex: 2;
+}
+
+#slider .about-us .about-us-content {
+    
+    align-self: center;
+    padding: 0 24px;
+    text-align: center;
+    width: 30%;
+}
+
+.about-us .about-us-content .about-us-heading {
+
+}
+
+.about-us .about-us-content .about-us-des {
+    
 }
 
