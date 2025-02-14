@@ -103,7 +103,7 @@ hr {
 
 #nav li {
     list-style: none;
-    height: calc(100% - 16px);
+    height: calc(100%);
     padding: 0 12px;
 }
 
