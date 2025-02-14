@@ -309,7 +309,7 @@ hr {
 
 #slider .dots{
     position: absolute;
-    bottom: 0;
+    bottom: 12px;
     left: 0;
     color: #000;
     width: 100%;
