@@ -18,10 +18,10 @@
                 <h3 class="logo-name">Scope Tour</h3>
             </div>
             <ul id="nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Attractive</a></li>
-                <li><a href="#">Info</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#slider">About us</a></li>
+                <li><a href="#attractive">Attractive</a></li>
+                <li><a href="#footer">Info</a></li>
             </ul>
             <div class="search-btn">
                 <i class="icon-search-btn fa-solid fa-magnifying-glass"></i>
@@ -47,14 +47,44 @@
 
              <!-- Begin: Slider About us -->
               <div id="slider">
-                <div class="about-us">
+                <div class="list">
+                    <div class="about-us slider1">
                     <img src="../assets/img/introduction/slider1.jpg" alt="" class ="about-us-img">
                     <div class="about-us-content">
                         <h3 class="about-us-heading">Personalized and Group Goal Setting</h3>
                         <p class="about-us-des">Tailor your objectives to fit your needs, whether individually or as part of a team, ensuring that every goal is meaningful and achievable.</p>
                     </div>
+                    </div>
                     
+                
+
+                    <div class="about-us slider2">
+                    <img src="../assets/img/introduction/slider2.png" alt="" class ="about-us-img">
+                    <div class="about-us-content">
+                        <h3 class="about-us-heading">Engaging Reward System with Streak</h3>
+                        <p class="about-us-des">Stay motivated with our point reward system that recognizes your achievements and encourages continuous progress in your goal-setting journey.</p>
+                    </div>
+                    </div>
+
+                    <div class="about-us slider3">
+                    <img src="../assets/img/introduction/slider3.png" alt="" class ="about-us-img">
+                    <div class="about-us-content">
+                        <h3 class="about-us-heading">Virtual Pet Companion</h3>
+                        <p class="about-us-des">Raise and care for your own virtual pet as you accomplish your goals, making your journey enjoyable and interactive.</p>
+                    </div>
+                    </div>
                 </div>
+                
+
+                <div class="buttons">
+                    <button id="prev"><</button>
+                    <button id="next">></button>
+                </div>
+                <ul class="dots">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                </ul>
               </div>
              <!-- End: Slider About us -->
 
@@ -171,6 +201,8 @@
         </div>
         <!-- End: Footer -->
     </div>
+
+    <script src="../js/introduction_slider.js"></script>
     
 </body>
 </html>
