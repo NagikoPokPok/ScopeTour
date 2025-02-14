@@ -301,6 +301,12 @@ hr {
     font-family: monospace;
     font-weight: bold;
 }
+
+#slider .buttons button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 #slider .dots{
     position: absolute;
     bottom: 0;
