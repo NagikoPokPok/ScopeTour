@@ -16,16 +16,16 @@
   
 }
 html{
-  font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Baloo2', sans-serif;
   line-height: 1.5rem;
 }
 body{
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--background-color);
-  color: var(--text-clr);
   display: grid;
   grid-template-columns: auto 1fr;
+  
 }
 #sidebar{
   box-sizing: border-box;
@@ -72,11 +72,13 @@ body{
     font-weight: 600;
   }
 }
+
 #sidebar > ul:last-child{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
+
 #sidebar > ul:last-child > li{
   display: block;
   margin-bottom: 0;
@@ -84,7 +86,7 @@ body{
 
 #sidebar ul li.active a{
   color: var(--primary-color);
-
+  font-weight: bold;
   svg{
     fill: var(--primary-color);
   }
@@ -100,7 +102,9 @@ body{
   align-items: center;
   /* Tạo khoảng cách */
   gap: 1em;
+  font-size: 18px;
 }
+
 .dropdown-btn{
   width: 100%;
   text-align: left;
@@ -129,9 +133,11 @@ body{
 #sidebar a span, #sidebar .dropdown-btn span{
   flex-grow: 1;
 }
+
 #sidebar a:hover, #sidebar .dropdown-btn:hover{
   background-color: var(--background-color);
 }
+
 #sidebar .sub-menu{
   display: grid;
   /* 0 fraction */
@@ -155,8 +161,29 @@ body{
 .rotate svg:last-child{
   rotate: 180deg;
 }
-#sidebar .sub-menu a{
+.rotate i:last-child{
+  rotate: 180deg;
+}
+
+.sidebar-part1 .sub-menu  li {
+  display: flex;
+  align-items: center;
   padding-left: 2em;
+  border-radius: 10px;
+  
+}
+
+.sidebar-part1 .sub-menu  li:hover {
+  background-color: var(--background-color);
+}
+
+#sidebar .sub-menu i {
+  color: #000;
+}
+
+#sidebar .sub-menu a{
+  /* padding-left: 2em; */
+  
 }
 #toggle-btn{
   margin-left: auto;
