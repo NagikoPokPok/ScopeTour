@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-:root{
-  --base-clr: #11121a;
-  --line-clr: #42434a;
-  --hover-clr: #222533;
-  --text-clr: #e6e6ef;
-  --accent-clr: #5e63ff;
-  --secondary-text-clr: #b0b3c1;
-  --background-color: #FFE1CC;
-  --primary-color: #FF7B4D;
-}
+
 
 *{
   margin: 0;
@@ -87,7 +78,7 @@ body{
 #sidebar ul li.active a{
   color: var(--primary-color);
   font-weight: bold;
-  svg{
+  i{
     fill: var(--primary-color);
   }
 }
@@ -212,9 +203,10 @@ main p{
   margin-bottom: 15px; */
 }
 .container{
-  border: 1px solid var(--line-clr);
+  border: 1px solid var(--primary-color);
   border-radius: 1em;
   margin-bottom: 20px;
+  margin-top: 20px;
   padding: min(3em, 15%);
 
   h2, p { margin-top: 1em }
@@ -290,4 +282,56 @@ main p{
       }
     }
   }
+}
+
+
+
+
+/* Content */
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#header .header-user {
+  display: flex;
+  align-items: center;
+}
+
+#header .header-user .user-avatar{
+  text-align: center;
+  flex-shrink: 0;
+  fill: #000;
+}
+
+#header .header-user .user-avatar i {
+  display: block;
+  font-size: 30px;
+}
+
+#header .header-user .user-name {
+  padding: 0 18px;
+}
+
+#header .user-streak {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  padding: 8px;
+}
+
+#header .user-streak .icon-streak {
+  width: 30px;
+}
+
+#header .user-streak .number-streak{
+  margin-left: 8px;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+#header .header-time {
+  font-size: 24px;
 }
