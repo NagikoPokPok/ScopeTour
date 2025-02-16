@@ -168,9 +168,8 @@ body{
 .sidebar-part1 .sub-menu  li {
   display: flex;
   align-items: center;
-  padding-left: 2em;
+  padding-left: 1em;
   border-radius: 10px;
-  
 }
 
 .sidebar-part1 .sub-menu  li:hover {
@@ -178,7 +177,7 @@ body{
 }
 
 #sidebar .sub-menu i {
-  color: #000;
+  /* color: #5e63ff; */
 }
 
 #sidebar .sub-menu a{
