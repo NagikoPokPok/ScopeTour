@@ -7,7 +7,7 @@
 }
 
 html {
-    
+    /* width: 100%; */
 }
 
 :root {
@@ -20,18 +20,25 @@ html {
 }
 body{
     background-color: var(--background-color);
+    display: flex;
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center; /* Căn giữa dọc */
+    height: 100vh; /* Chiều cao toàn màn hình */
+    margin: 0;
 }
 
 /* Logo */
 #logo {
+    position: absolute;
+    top: 10px; /* Điều chỉnh khoảng cách từ trên xuống */
+    left: 330px; /* Điều chỉnh khoảng cách từ trái sang */
     display: flex;
-    align-items: center; /* Căn giữa logo và tên theo chiều dọc */
-    height: 100%; /* Giữ chiều cao bằng với header */
+    align-items: center;
 }
 
 #logo .logo-img {
-    width: 35px;
-    height: 100%;
+    width: 150px;
+    height: auto;
     object-fit: contain; /* Giữ hình ảnh cân đối nếu có kích thước khác nhau */
 }
 
@@ -42,22 +49,58 @@ body{
     margin-left: 5px;
 }
 
-.login-container{
+.first-login{
+    display: flex;
+    height: auto;
+    margin: auto;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 15px; 
+    background-color: white; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+}
+
+.two-image-login{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    margin-top: -40px;
+}
+
+.first-login .img-login{
+    display: inline-block;
+    position: relative;
+    width: auto; /* Make sure the image takes up the full width */
+    height: auto; /* Make sure the image takes up the full height */
+    border-radius: 5px;  
+    padding-right: 15px;
+}
+.first-login .img-login2 {
+    position: relative;
+    width: 100%; /* Make sure the image takes up the full width */
+    height: 100%; /* Make sure the image takes up the full height */
+    border-radius: 5px;  
+    padding-right: 15px;
+}
+    
+
+
+.first-login .login-container{
+    position: relative;
+    border: #000;
+    height: auto; /* The height will be auto-adjusted */
+    padding-top: 50px;
+    
+}
+
+.title{
+    text-align: center;
+    color: #545252;
 }
 
 .form-email .email{
     width: 350px; 
-    padding: 12px;
-    border: none;
+    padding: 12.5px;
+    border: 0.7px solid #ccc;
     border-radius: 8px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); 
     font-size: 16px;
     outline: none;
     margin-top: 32px;
@@ -72,31 +115,47 @@ body{
 
 .form-password .password{
     width: 350px; 
-    padding: 12px;
-    border: none;
+    padding: 12.5px;
+    border: 0.7px solid #ccc; 
     border-radius: 8px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); 
     font-size: 16px;
     outline: none;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
 }
 
-.form-password .forgot-password{
+.remember-forgot{
+    display: flex;
+    justify-content: space-between; /* This will space out the two elements */
+    align-items: center;
+    width: 100%; /* Ensure it takes up the full width of its parent container */
+    margin-bottom: 15px;
+    }
+.remember-forgot .forgot-password{
     text-decoration: none;
-    color: var(--primary-color);
-    align-self: flex-start;
-    color: #F56601;
-}
+        color: var(--primary-color);
+        
+        color: #F56601;
+    }
+.remember-forgot .remember-me {
+        display: flex;
+        align-items: center; /* Vertically aligns checkbox and text */
+    }
+    
+    .remember-forgot .remember-me input[type="checkbox"] {
+        margin-right: 0px; /* Adjust the spacing between checkbox and text */
+    }
 
 .btn-login{
+    display: block;
     width: 250px;
     padding: 4px;
+    margin: 0 auto;
     border: none;
     border-radius: 10px; 
     font-size: 24px;
     color: #fff;
     outline: none;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     background-color: #F56601;
 }
 .btn-login:hover{
@@ -105,10 +164,11 @@ body{
 
 .sign-up{
     display: flex;
+    justify-content: center;
 }
 
 .sign-up .label{
-    font-size: 16px;
+    font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -116,11 +176,13 @@ body{
     margin-left: 5px;
     text-decoration: none;
     color: #F56601;
+    font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .login-gg-fb{
     display: flex;
+    justify-content: center;
     margin-top: 16px;
     gap: 20px;
 }
@@ -131,6 +193,7 @@ body{
     height: 60px;
     border: none;
     border-radius: 8px; 
+    border: #000 solid 1px ;
 }
 
 .login-gg-fb .fb-login{
@@ -139,4 +202,5 @@ body{
     height: 60px;
     border: none;
     border-radius: 8px; 
+    border: #000 solid 1px ;
 }
