@@ -1,0 +1,142 @@
+/* Reset CSS */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Baloo2';
+}
+
+html {
+    
+}
+
+:root {
+    --primary-color: #FF7B4D;
+    --secondary-color: #FFB54A;
+    --third-color: #FF7B4D;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+    --background-color: #FFE1CC;
+}
+body{
+    background-color: var(--background-color);
+}
+
+/* Logo */
+#logo {
+    display: flex;
+    align-items: center; /* Căn giữa logo và tên theo chiều dọc */
+    height: 100%; /* Giữ chiều cao bằng với header */
+}
+
+#logo .logo-img {
+    width: 35px;
+    height: 100%;
+    object-fit: contain; /* Giữ hình ảnh cân đối nếu có kích thước khác nhau */
+}
+
+#logo .logo-name {
+    color: #000;
+    font-size: 20px;
+    font-weight: 1000;
+    margin-left: 5px;
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin-top: -40px;
+}
+
+.form-email .email{
+    width: 350px; 
+    padding: 12px;
+    border: none;
+    border-radius: 8px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); 
+    font-size: 16px;
+    outline: none;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.form-password{
+    display: flex;
+    flex-direction: column;
+    margin-bottom:15px ;
+}
+
+.form-password .password{
+    width: 350px; 
+    padding: 12px;
+    border: none;
+    border-radius: 8px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); 
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 8px;
+}
+
+.form-password .forgot-password{
+    text-decoration: none;
+    color: var(--primary-color);
+    align-self: flex-start;
+    color: #F56601;
+}
+
+.btn-login{
+    width: 250px;
+    padding: 4px;
+    border: none;
+    border-radius: 10px; 
+    font-size: 24px;
+    color: #fff;
+    outline: none;
+    margin-bottom: 8px;
+    background-color: #F56601;
+}
+.btn-login:hover{
+    opacity: 0.7;
+}
+
+.sign-up{
+    display: flex;
+}
+
+.sign-up .label{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sign-up .link-sign-up{
+    margin-left: 5px;
+    text-decoration: none;
+    color: #F56601;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-gg-fb{
+    display: flex;
+    margin-top: 16px;
+    gap: 20px;
+}
+
+.login-gg-fb .gg-login{
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px; 
+}
+
+.login-gg-fb .fb-login{
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px; 
+}
