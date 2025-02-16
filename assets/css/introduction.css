@@ -10,38 +10,10 @@ html {
     scroll-behavior: smooth;
 }
 
-:root {
-    --primary-color: #FF7B4D;
-    --secondary-color: #FFB54A;
-    --third-color: #FF7B4D;
-    --success-color: #4caf50;
-    --error-color: #f44336;
-    --background-color: #FFE1CC;
-}
 
 @font-face {
     font-family: 'GochiHand';
     src: url('../font-text/GochiHand-Regular.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Baloo2';
-    src: url('../font-text/Baloo2-VariableFont_wght.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Baloo2_extra_bold';
-    src: url('../font-text/static/Baloo2-ExtraBold.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Baloo2_regular';
-    src: url('../font-text/static/Baloo2-Regular.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Baloo2_medium';
-    src: url('../font-text/static/Baloo2-Medium.ttf') format('truetype');
 }
 
 
