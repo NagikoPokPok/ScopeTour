@@ -157,16 +157,14 @@ body{
     display: flex;
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center;
-    background-color: #fff;
-    align-items: center;
     width: 200px;
     height: 30px;
-    border: #ccc solid 0.3px ;
-    background-color: #e8e4e4;
+    border: #ccc solid 0.1px ;
+    background-color: #fff;
 }
 
 .login-gg-fb .facebook, .login-gg-fb .google{
     color: #000;
-    opacity: 0.7;
+    opacity: 0.5;
     text-align: center;
 }
