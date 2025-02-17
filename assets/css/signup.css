@@ -1,0 +1,141 @@
+/* Reset CSS */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Baloo2';
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color: #FF7B4D;
+    --secondary-color: #FFB54A;
+    --third-color: #FF7B4D;
+    --success-color: #4caf50;
+    --error-color: #f44336;
+    --background-color: #FFE1CC;
+}
+
+body{
+    background-color: var(--background-color);
+}
+
+/* Logo */
+#logo {
+    display: flex;
+    align-items: center; /* Căn giữa logo và tên theo chiều dọc */
+    height: 100%; /* Giữ chiều cao bằng với header */
+}
+
+#logo .logo-img {
+    width: 35px;
+    height: 100%;
+    object-fit: contain; /* Giữ hình ảnh cân đối nếu có kích thước khác nhau */
+}
+
+#logo .logo-name {
+    color: #000;
+    font-size: 20px;
+    font-weight: 1000;
+    margin-left: 5px;
+}
+
+.sign-up-title{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 50px;
+}
+
+.sign-up-title .scope-tour-title{
+    color: var(--primary-color) ;
+}
+
+.first-sign-up{
+    display: flex;
+    align-items: center;
+    min-height: 300px;
+    width: fit-content;
+    margin: auto;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 0px 36px; 
+    background-color: white; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    margin-top: 30px;
+}
+.container-sign-up{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.container-sign-up input{
+    width: 300px; 
+    padding: 5px;
+    border: 0.7px solid #ccc;
+    border-radius: 4px; 
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 8px;
+    transition: border-color .2sease-in-out;
+
+}
+
+.container-sign-up label{
+    display: flex;
+    flex-direction: column;
+    width: auto; /* Độ rộng cố định cho label */
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #757575;
+    margin-bottom: 8px;
+}
+
+.sign-up-btn{
+    display: block;
+    width: 100%;
+    padding: 4px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 3px; 
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+    background-color: #F56601;
+    margin-top: 8px;
+}
+
+.sign-up-btn:hover{
+    opacity: 0.7;
+}
+
+
+.log-in{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.log-in .label{
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.log-in .link-log-in{
+    margin-left: 5px;
+    text-decoration: none;
+    color: #F56601;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
