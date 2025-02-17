@@ -55,7 +55,6 @@ body{
 }
 
 .img-login2 .image-descr2{
-    justify-content: center ;
     min-height: 500px;
 }
 
@@ -74,14 +73,14 @@ body{
 }
 
 .form-email .email{
-    width: 300px; 
-    padding: 12.5px;
+    width: 250px; 
+    padding: 8px;
     border: 0.7px solid #ccc;
-    border-radius: 8px; 
-    font-size: 16px;
+    border-radius: 4px; 
+    font-size: 14px;
     outline: none;
     margin-top: 32px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .form-password{
@@ -91,11 +90,11 @@ body{
 }
 
 .form-password .password{
-    width: 300px; 
-    padding: 12.5px;
+    width: 250px; 
+    padding: 8px;
     border: 0.7px solid #ccc; 
-    border-radius: 8px; 
-    font-size: 16px;
+    border-radius: 4px; 
+    font-size: 14px;
     outline: none;
     margin-bottom: 0px;
 }
@@ -104,16 +103,17 @@ body{
     text-decoration: none;
     padding-top: 4px;
     color: #F56601;
+    font-size: 12px;
     }
 
 .btn-login{
     display: block;
-    width: 200px;
+    width: 150px;
     padding: 4px;
     margin: 0 auto;
     border: none;
-    border-radius: 10px; 
-    font-size: 24px;
+    border-radius: 5px; 
+    font-size: 18px;
     color: #fff;
     outline: none;
     margin-bottom: 8px;
@@ -131,7 +131,7 @@ body{
 }
 
 .sign-up .label{
-    font-size: 14px;
+    font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -139,7 +139,7 @@ body{
     margin-left: 5px;
     text-decoration: none;
     color: #F56601;
-    font-size: 14px;
+    font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -148,7 +148,7 @@ body{
     flex-direction: column;
     margin-top: 8px;
     gap: 5px;
-    font-size: 16px;
+    font-size: 14px;
     justify-content: center;
     align-items: center;
 }
@@ -159,8 +159,8 @@ body{
     align-items: center;
     background-color: #fff;
     align-items: center;
-    width: 250px;
-    height: 40px;
+    width: 200px;
+    height: 30px;
     border: #ccc solid 0.3px ;
     background-color: #e8e4e4;
 }
