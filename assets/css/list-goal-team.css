@@ -288,6 +288,7 @@ main p{
 
 
 /* Content */
+/* Header */
 #header {
   display: flex;
   justify-content: space-between;
@@ -334,4 +335,98 @@ main p{
 
 #header .header-time {
   font-size: 24px;
+}
+
+/* Button list */
+#buttons{
+  margin-top: 24px;
+}
+
+
+#buttons .button-list {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  width: 100%;
+}
+
+#buttons .button-list .create-btn button {
+  padding: 12px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+  font-family: 'Baloo2';
+  text-align: center;
+  align-items: center;
+  font-size: 18px;
+  height: 54px;
+  width: 130px;
+  flex: 1;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+.button-list .create-btn i {
+  margin-right: 4px;
+}
+
+#buttons .search-btn {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  position: relative;
+}
+
+#buttons .search-btn .email {
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 18px;
+  height: 30px;
+  font-family: 'Baloo2';
+  width: 100%;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  outline-color: var(--primary-color);
+}
+
+#buttons .search-btn .email::placeholder {
+  color: #ccc;
+}
+
+#buttons .search-btn i{
+  position: absolute;
+  right: 10px; /* Căn sát bên phải của input */
+  top: 50%;
+  transform: translateY(-50%) translateX(-100%); /* Căn giữa theo chiều dọc */
+  font-size: 18px;
+  color: #888; /* Màu sắc icon */
+  pointer-events: none; /* Ngăn chặn icon nhận sự kiện chuột */
+}
+
+#buttons .button-list ul {
+  list-style: none;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: right;
+}
+
+.button-list ul li {
+  background-color: rgba(255,255,255,0.4);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  margin-left: 12px;
+  width: 32px;
+  height: 24px;
+  text-align: center;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.button-list ul li i{
+  color: var(--primary-color);
+  font-size: 18px;
 }
