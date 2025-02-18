@@ -10,6 +10,7 @@ html{
   font-family: 'Baloo2', sans-serif;
   line-height: 1.5rem;
 }
+
 body{
   min-height: 100vh;
   display: grid;
@@ -162,14 +163,6 @@ body{
 
 .sidebar-part1 .sub-menu  li:hover {
   background-color: var(--background-color);
-}
-
-#sidebar .sub-menu i {
-  /* color: #5e63ff; */
-}
-
-#sidebar .sub-menu a{
-  /* padding-left: 2em; */
 }
 
 #toggle-btn{
