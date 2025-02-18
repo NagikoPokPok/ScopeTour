@@ -1,5 +1,6 @@
 const toggleButton = document.getElementById('toggle-btn')
 const sidebar = document.getElementById('sidebar')
+const elementActive = document.getElementsByClassName('sub-menu')
 
 function toggleSidebar(){
   sidebar.classList.toggle('close')
@@ -34,4 +35,13 @@ function closeAllSubMenus(){
     ul.classList.remove('show')
     ul.previousElementSibling.classList.remove('rotate')
   })
+}
+
+function showSubMenu(){
+  // Duyệt qua tất cả các phần tử có class 'sub-menu' và thay đổi nội dung
+  for (let i = 0; i < elementActive.length; i++) {
+    if(elementActive[i].children.classList.contains('active')){
+        
+    }
+  }
 }

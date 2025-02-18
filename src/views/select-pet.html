@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/public/css/main-style.css">
+    <link rel="stylesheet" href="/src/public/css/select-pet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" src="/src/js/list-goal-team-sidebar.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+
+  
+    <!--Begin: Slider -->
+  <nav id="sidebar">
+    <ul class="sidebar-part1">
+      <li>
+        <img class = "logo-img" src="../public/img/introduction/icon.png" alt="Scope Tour"  >
+        <span class="logo">Scope Tour</span>
+        <button onclick=toggleSidebar() id="toggle-btn">
+          <i class="fa-solid fa-angles-left"></i>        
+        </button>
+      </li>
+      <li>
+        <a href="../html/introduction.html">
+            <i class="fa-solid fa-house"></i>          
+            <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <button onclick=toggleSubMenu(this) class="dropdown-btn">
+          <i class="fa-solid fa-list-check"></i>            
+          <span>List goals</span>
+          <i class="fa-solid fa-angle-down"></i>          </button>
+          <ul class="sub-menu">
+            <div>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-user"></i>
+                  Personal
+                </a>
+              </li>
+              <li  class="active">
+                <a href="#">
+                  <i class="fa-solid fa-people-group"></i>
+                  Team
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa-solid fa-calendar-days"></i>
+                  Calendar
+                </a>
+              </li>
+            </div>
+          </ul>
+      </li>
+      <li>
+        <a href="calendar.html">
+          <i class="fa-solid fa-comment-dots"></i>            <span>Messages</span>
+          </a>
+      </li>
+      <li>
+        <a href="calendar.html">
+            <i class="fa-solid fa-paw"></i>
+            <span>Pet</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>User Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+            <i class="fa-solid fa-bell"></i>
+            <span>Notification</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class="fa-solid fa-gear"></i>
+            <span>Setting</span>
+        </a>
+      </li>
+    </ul>
+
+    <ul class="sidebar-part2">
+      <li>
+        <a href="profile.html">
+          <i class="fa-solid fa-circle-question"></i>
+            <span>Help</span>
+        </a>
+      </li>
+      <li>
+        <a href="profile.html">
+          <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Log out</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!--End: Slider -->
+  <!--Begin: Main Content -->
+  <main>
+    <!--Begin: Header -->
+    <div id="header">
+      <div class="header-user">
+        <div class="user-avatar">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <div class="user-name">
+          <h3>Trần Quang Hiếu</h3>
+        </div>
+        <div class="user-streak">
+          <img src="/src/public/img/list-team-goal/slider2.png" alt="" class="icon-streak">
+          <div class="number-streak">
+            <span>30</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-time">
+        <h4 class="time">
+          9:41
+        </h4>
+      </div>
+    </div>
+    <!--End: Header -->
+    
+    
+    <div id="buttons">
+      <div class="button-list">
+        <div class="create-btn">
+          <button>
+            <i class="fa-solid fa-circle-plus"></i>
+            <span>Create</span>
+          </button>
+        </div> 
+
+        <div class="search-btn">
+          <input  type="email" placeholder="Seach your team name" required="" name="" id="" class="email">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <ul>
+          <li><i class="fa-solid fa-user-plus"></i></li>
+          <li><i class="fa-solid fa-filter"></i></li>
+          <li><i class="fa-solid fa-sort"></i></li>
+          
+        </ul>
+        
+      </div>
+    </div>
+
+    <div class="pet-block">
+        <ul class="pet-list">
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/bee.png" alt="" class="bee-pet">
+                <p class="pet-name">BumbleBee</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/koala.png" alt="" class="bee-pet">
+                <p class="pet-name">KocaKoala</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/dog.png" alt="" class="bee-pet">
+                <p class="pet-name">Bolt</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/cow.png" alt="" class="bee-pet">
+                <p class="pet-name">Toro</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/crab.png" alt="" class="bee-pet">
+                <p class="pet-name">HurryKing</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/dragon.png" alt="" class="bee-pet">
+                <p class="pet-name">Dragon</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/monkey.png" alt="" class="bee-pet">
+                <p class="pet-name">Vini</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/panda.png" alt="" class="bee-pet">
+                <p class="pet-name">Zuka</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/cat.png" alt="" class="bee-pet">
+                <p class="pet-name">OrangeCat</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/parrot.png" alt="" class="bee-pet">
+                <p class="pet-name">Parrot</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/elephant.png" alt="" class="bee-pet">
+                <p class="pet-name">Elephone</p>
+            </li>
+            <li class="pet">
+                <img class = "pet-img "  src="/assets/img/pets/killer-whale.png" alt="" class="bee-pet">
+                <p class="pet-name">WhaleFin</p>
+            </li>
+        </ul>
+     </div>
+
+
+  </main>
+  <!--End: Main Content -->
+
+     
+    
+</body>
+</html>
