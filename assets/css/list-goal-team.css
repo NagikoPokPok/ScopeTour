@@ -16,7 +16,7 @@ body{
   background-color: var(--background-color);
   display: grid;
   grid-template-columns: auto 1fr;
-  
+
 }
 #sidebar{
   box-sizing: border-box;
@@ -27,8 +27,9 @@ body{
   border-right: 0px solid var(--line-clr);
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 
-  position: sticky;
+  position: sticky; /* Đổi sang fixed để sidebar không di chuyển */
   top: 0;
+  
   align-self: start;
   transition: 300ms ease-in-out;
   overflow: hidden;
@@ -288,6 +289,12 @@ main p{
 
 
 /* Content */
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 30px;
+  padding: min(30px, 7%);
+}
 /* Header */
 #header {
   display: flex;
@@ -339,7 +346,7 @@ main p{
 
 /* Button list */
 #buttons{
-  margin-top: 24px;
+  margin-top: 18px;
 }
 
 
@@ -430,3 +437,203 @@ main p{
   color: var(--primary-color);
   font-size: 18px;
 }
+
+/* Team List */
+#team {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.4);
+  margin-top: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+#team > .heading {
+  display: block;
+  padding: 24px 40px 0;
+  font-size: 20px;
+}
+
+#team .team-list {
+  padding: 18px 12px;
+}
+
+#team .team-list .box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 8px ;
+  border-radius: 10px;
+  border: #ccc;
+  border-style: solid;
+  border-width: 0.1px;
+  margin: 12px;
+}
+
+.team-list .box .box-1 {
+  display: flex;
+}
+
+#team .team-list {
+  .box-1 img{
+    width: 50px;
+    height: auto;
+  }
+
+  .box-2 img{
+    width: 20px;
+    height: auto;
+  }
+  
+}
+
+
+/* #team .team-streak {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+  padding: 8px;
+} */
+
+
+
+
+
+
+.olcards,
+  .olcards * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .olcards {
+    list-style: none;
+    counter-reset: cardCount;
+    display: flex;
+    flex-direction: column;
+    --cardsGap: 1rem;
+    gap: var(--cardsGap);
+    padding-bottom: var(--cardsGap);
+    margin: 24px 40px;
+    /* --cardColor: var(--primary-color); */
+  }
+  
+  .olcards li {
+    counter-increment: cardCount;
+    display: flex;
+    color: white;
+    /* Tạo ra những biến để dùng chung */
+    --labelOffset: 1rem;
+    --arrowClipSize: 1.5rem;
+    margin-top: var(--labelOffset);
+  }
+  
+  .olcards li::before {
+    content: counter(cardCount, decimal-leading-zero);
+    background: white;
+    color: var(--cardColor);
+    font-size: 2em;
+    font-weight: 700;
+    transform: translateY(calc(-1 * var(--labelOffset)));
+    margin-right: calc(-1 * var(--labelOffset));
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 0.5em;
+  }
+  
+  .olcards li .content {
+    background-color: var(--cardColor);
+    --inlinePadding: 1em;
+    --boxPadding: 0.5em;
+    display: flex;
+    align-items: center;
+    
+    padding: var(--boxPadding) calc(var(--inlinePadding) + var(--arrowClipSize))
+      var(--boxPadding) calc(var(--inlinePadding) + var(--labelOffset));
+    grid-template-areas:
+      "icon title"
+      "icon text";
+    gap: 0.25em 1em;
+    /* Tạo ra đường cắt cho hình chữ nhật  */
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--arrowClipSize)) 0,
+      100% 50%,
+      calc(100% - var(--arrowClipSize)) 100%,
+      calc(100% - var(--arrowClipSize)) calc(100% + var(--cardsGap)),
+      0 calc(100% + var(--cardsGap))
+    );
+    position: relative;
+    height: 70px;
+    width: 70%;
+    
+  }
+  /* Mặt trước của thẻ content */
+  .olcards li .content::before {
+    content: "";
+    position: absolute;
+    width: var(--labelOffset);
+    height: var(--labelOffset);
+    background: var(--cardColor);
+    left: 0;
+    bottom: 0;
+    /* Tạo những đường bóng chéo */
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    filter: brightness(0.75);
+  }
+  /* Mặt sau của thẻ content */
+  .olcards li .content::after {
+    content: "";
+    position: absolute;
+    /* Độ dài của bóng = khoảng cách của các card => Tạo cảm giác các card liền kề nhau */
+    height: var(--cardsGap);
+    width: var(--cardsGap);
+    /* Đổ bóng cho content về phía phải */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.25), transparent 50%);
+    left: 0;
+    top: 100%;
+  }
+  .olcards li .icon {
+    grid-area: icon;
+    align-self: center;
+    font-size: 2em;
+  }
+
+  .olcards li .content .team-des{
+    flex: 2;
+  }
+
+  .olcards li .content .title {
+    grid-area: title;
+    font-size: 1.25em;
+    font-weight: 600;
+  }
+  .olcards li .content .text {
+    grid-area: text;
+  }
+
+  .olcards li .content .team-streak {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.4);
+    padding: 8px;
+    height: 100% - 24px;
+    
+  }
+  #team .olcards li .content .team-streak .icon-streak {
+    width: 20px;
+    height: auto;
+  }
+
+  #team .team-streak .number-streak{
+    margin-left: 8px;
+    font-size: 18px;
+    font-weight: 650;
+    color: #fff;
+  }
