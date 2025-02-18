@@ -16,8 +16,8 @@ body{
   background-color: var(--background-color);
   display: grid;
   grid-template-columns: auto 1fr;
-
 }
+
 #sidebar{
   box-sizing: border-box;
   height: 100vh;
