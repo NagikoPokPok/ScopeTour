@@ -85,7 +85,7 @@ body{
 
 .title{
     text-align: center;
-    color: #757575;
+    color: #000;
     font-weight: bold;
     width: 300px;
 }
@@ -93,30 +93,33 @@ body{
 .form-email{
     display: flex;
     justify-content: center;
+    width: calc(100% - 32px);
 }
 
 .form-email .email{
-    width: 250px; 
-    padding: 8px;
+    width: calc(100% - 50px); 
+    padding: 10px;
     border: 0.7px solid #ccc;
-    border-radius: 4px; 
-    font-size: 14px;
+    border-radius: 10px; 
+    font-size: 16px;
     outline: none;
     margin-top: 32px;
     margin-bottom: 8px;
+    width: 100%;
 }
 
 .form-password{
     display: flex;
     justify-content: center;
+    width: calc(100% - 32px);
 }
 
 .form-password .password{
-    width: 250px; 
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     border: 0.7px solid #ccc; 
-    border-radius: 4px; 
-    font-size: 14px;
+    border-radius: 10px; 
+    font-size: 16px;
     outline: none;
     margin-bottom: 0px;
     
@@ -126,24 +129,24 @@ body{
     width: auto;
     text-decoration: none;
     color: #F56601;
-    font-size: 12px;
     margin-top: 8px;
+    width: 100%;
+    text-align: left;
 }
 
 .forgot-password-form .forgot-password{
     text-decoration: none;
     color: #F56601;
-    font-size: 12px;
+    font-size: 16px;
     margin-left: 25px;
 }
 
 .btn-login{
     display: block;
-    width: 150px;
-    padding: 4px;
-    margin: 0 auto;
+    width: calc(100% - 32px);
+    padding: 10px;
     border: none;
-    border-radius: 3px; 
+    border-radius: 10px; 
     font-size: 18px;
     color: #fff;
     outline: none;
@@ -159,18 +162,19 @@ body{
     display: flex;
     justify-content: center;
     padding: 0;
-    margin-bottom: 24px;
+    
 }
 
 .sign-up .label{
-    font-size: 12px;
+    font-size: 14px;
+    color: #ccc;
 }
 
 .sign-up .link-sign-up{
     margin-left: 5px;
     text-decoration: none;
     color: #F56601;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .login-gg-fb{
@@ -181,6 +185,7 @@ body{
     font-size: 14px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
 }
 
 .login-gg-fb .gg-login, .login-gg-fb .fb-login{
@@ -191,6 +196,7 @@ body{
     height: 30px;
     border: #ccc solid 0.1px ;
     background-color: #fff;
+    border-radius: 4px;
 }
 
 .login-gg-fb .gg-login:hover, .login-gg-fb .fb-login:hover{
@@ -201,4 +207,17 @@ body{
     color: #000;
     opacity: 0.5;
     text-align: center;
+}
+
+.login-gg-fb .facebook-img{
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+}
+
+.login-gg-fb .google-img{
+    height: 25px;
+    width: 24px;
+    margin-right: 10px;
+    margin-left: -6px;
 }
