@@ -12,11 +12,9 @@ html{
 }
 body{
   min-height: 100vh;
-  min-height: 100dvh;
-  background-color: var(--background-color);
   display: grid;
   grid-template-columns: auto 1fr;
-  
+  background-color: #ccc;
 }
 #sidebar{
   box-sizing: border-box;
@@ -195,6 +193,7 @@ body{
 
 main{
   padding: min(30px, 7%);
+  background-color: var(--background-color);
 }
 main p{
   color: var(--secondary-text-clr);
@@ -441,10 +440,10 @@ main p{
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    width: 1100px;
+    width: 100%;
     justify-content: center;
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: rgba( 255, 255, 255, 0.4  );
+    border-radius: 10px;
     border: none;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
     padding-top: 20px;
@@ -468,8 +467,9 @@ main p{
     height: auto;
     border-radius: 10px;
     border: none ;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.7);
     padding: 10px;
+    background-color: #fff;
 }
 
 .pet-list .pet-name{

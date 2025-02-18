@@ -34,7 +34,7 @@ body{
     width: auto;
     margin: auto;
     border: 1px solid #ccc; 
-    border-radius: 5px; 
+    border-radius: 10px; 
     padding: 0px; 
     background-color: white; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
@@ -54,7 +54,9 @@ body{
 }
 
 .img-login2 .image-descr2{
-    min-height: 500px;
+    min-height: 600px;
+    border-top-left-radius: 10px ;
+    border-bottom-left-radius: 10px ;
 }
 
 
@@ -122,7 +124,7 @@ body{
 
 .btn-login{
     display: block;
-    width: 150px;
+    width: 250px;
     padding: 4px;
     margin: 0 auto;
     border: none;
@@ -133,6 +135,7 @@ body{
     margin-bottom: 8px;
     background-color: #F56601;
     margin-top: 16px;
+    font-weight: 600;
 }
 .btn-login:hover{
     opacity: 0.7;
