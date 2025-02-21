@@ -37,11 +37,24 @@ function closeAllSubMenus(){
   })
 }
 
-function showSubMenu(){
-  // Duyệt qua tất cả các phần tử có class 'sub-menu' và thay đổi nội dung
+// Đảm bảo showSubMenu được định nghĩa
+function showSubMenu() {
+  console.log("showSubMenu is called");
+  const elementActive = document.getElementsByClassName('sub-menu');
   for (let i = 0; i < elementActive.length; i++) {
-    if(elementActive[i].children.classList.contains('active')){
-        
+    const activeChildren = elementActive[i].querySelectorAll('.active');
+    const parent = elementActive[i].nextElementSibling;
+
+    if (activeChildren.length > 0 && parent) {
+      if (parent.nextElementSibling) {
+        parent.nextElementSibling.classList.add('show');
+      }
+      parent.classList.add('rotate');
+      break;
     }
   }
 }
+
+// Gọi hàm khi DOM đã sẵn sàng
+document.addEventListener("DOMContentLoaded", showSubMenu);
+

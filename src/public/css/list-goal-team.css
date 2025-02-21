@@ -16,6 +16,8 @@ body{
   background-color: var(--background-color);
   display: grid;
   grid-template-columns: auto 1fr;
+  font-family: 'Baloo2', sans-serif;
+  margin: 0;
 }
 
 #sidebar{
@@ -40,10 +42,11 @@ body{
 }
 #sidebar.close{
   padding: 5px;
-  width: 59.5px;
+  width: 63.5px;
 }
 #sidebar ul{
   list-style: none;
+  padding-left: 0;
 }
 
 #sidebar .sidebar-part1 .logo-img{
@@ -76,8 +79,12 @@ body{
   margin-bottom: 0;
 }
 
-#sidebar ul li.active a{
-  color: var(--primary-color);
+#sidebar ul li.active {
+  background-color: var(--background-color);
+  a{
+    color: var(--primary-color);
+  }
+  
   font-weight: bold;
   i{
     fill: var(--primary-color);
@@ -168,14 +175,6 @@ body{
   background-color: var(--background-color);
 }
 
-#sidebar .sub-menu i {
-  /* color: #5e63ff; */
-}
-
-#sidebar .sub-menu a{
-  /* padding-left: 2em; */
-  
-}
 #toggle-btn{
   margin-left: auto;
   padding: 1em;
@@ -373,6 +372,11 @@ main {
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
 }
 
+#buttons .button-list .create-btn:hover button {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 .button-list .create-btn i {
   margin-right: 4px;
 }
@@ -390,7 +394,7 @@ main {
   border-radius: 10px;
   padding: 12px;
   font-size: 18px;
-  height: 30px;
+  height: 100%;
   font-family: 'Baloo2';
   width: 100%;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
@@ -417,6 +421,8 @@ main {
   flex: 1;
   align-items: center;
   justify-content: right;
+  height: 100%;
+  margin: 0;
 }
 
 .button-list ul li {
@@ -425,8 +431,8 @@ main {
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
   margin-left: 12px;
-  width: 32px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   text-align: center;
   display: flex;
   align-items: center; /* Căn giữa theo chiều dọc */
