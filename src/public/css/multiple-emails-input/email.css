@@ -1,15 +1,17 @@
 .emails.emails-input {
   max-height: inherit;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   background: #fff;
-  border: 1px solid #c3c2cf;
+  border: 1px solid #dee2e6;
   box-sizing: border-box;
   padding: 0.375rem;
   line-height: 1.5rem;
-  font-size: 0.875rem;
+  font-size: 1rem;
   cursor: text;
   overflow: auto;
+  margin-bottom: 4px;
 }
+
 
 .emails.emails-input .email-chip {
   box-sizing: border-box;
@@ -62,7 +64,8 @@
   line-height: inherit;
   font-size: inherit;
   color: inherit;
-  margin: 0.125rem;
+  padding: 0 8px;
+
 }
 
 .emails.emails-input input::placeholder,
@@ -74,4 +77,9 @@
 
 .emails.emails-input input:focus {
   outline: none;
+}
+
+
+.emails.emails-input:focus-within {
+  border-color: var(--primary-color);
 }

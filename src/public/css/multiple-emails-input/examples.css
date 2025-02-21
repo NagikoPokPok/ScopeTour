@@ -5,14 +5,7 @@
   margin: 2rem;
 }
 
-.examples pre {
-  background-color: #f7f7f7;
-}
-
-#sample1,
-#sample2,
-#sample3 {
+#sample1 {
   display: block;
 }
 
-#sample3 { max-height: 7rem; }

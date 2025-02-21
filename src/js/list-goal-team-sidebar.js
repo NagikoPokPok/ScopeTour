@@ -39,17 +39,20 @@ function closeAllSubMenus(){
 
 // Đảm bảo showSubMenu được định nghĩa
 function showSubMenu() {
-  console.log("showSubMenu is called");
-  const elementActive = document.getElementsByClassName('sub-menu');
+  // Tìm tất cả class có tên sub-menu
+  const elementActive = document.querySelectorAll('.sub-menu');
+  // Duyệt qua tất cả sub-menu tìm được
   for (let i = 0; i < elementActive.length; i++) {
+    // Với mỗi sub-menu, tìm tất cả con của sub-menu có class active
     const activeChildren = elementActive[i].querySelectorAll('.active');
-    const parent = elementActive[i].nextElementSibling;
+    // Tìm thằng nằm trước sub-menu, chính là nút button cần được rotate
+    const prev = elementActive[i].previousElementSibling;
 
-    if (activeChildren.length > 0 && parent) {
-      if (parent.nextElementSibling) {
-        parent.nextElementSibling.classList.add('show');
-      }
-      parent.classList.add('rotate');
+    // Kiểm tra xem có class con nào của sub-menu có active hay không
+    if (activeChildren.length > 0 && prev) {
+      // Nếu có thì sub-menu sẽ show ra và button sẽ được rotate
+      elementActive[i].classList.add('show');
+      prev.classList.add('rotate');
       break;
     }
   }
