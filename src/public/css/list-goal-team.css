@@ -641,5 +641,23 @@ main {
     margin-left: 8px;
     font-size: 18px;
     font-weight: 650;
-    color: #fff;
+    color: #000;
+  }
+
+
+  /* MODAL CREATE TEAM */
+  .examples {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    margin: 2rem;
+  }
+  
+  .examples pre {
+    background-color: #f7f7f7;
+  }
+  
+  #sample1 {
+    display: block;
+    width: 100%;
   }

@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="../public/css/main-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
+  <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
+  <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
   <script type="text/javascript" src="../js/list-goal-team-sidebar.js" defer></script>
 </head>
 <body>
@@ -157,7 +159,7 @@
     </div>
 
 
-    <!-- modal itself -->
+    <!-- MODAL CREATE TEAM itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
   <div class="modal fade" id="reg-modal" 
     tabindex="-1" 
@@ -183,8 +185,9 @@
               <label for="modal-professional" class="form-label my-1">Professional</label>
               <input type="text" class="form-control mb-3" id="modal-professional" required id="" placeholder="CMU-CS 445 BIS">
 
-              <label for="modal-invite" class="form-label my-1">Invite team member</label>
-              <input type="email" class="form-control mb-3" id="modal-invite" required id="" placeholder="tqh1234@gmail.com" multiple>
+              <label class="form-label my-1">Invite team member</label>
+              <!-- <input type="email" class="form-control mb-3" id="modal-invite" required id="" placeholder="tqh1234@gmail.com"> -->
+              <div id="sample1"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -334,6 +337,10 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script src="../js/multiple-emails-input/utils.js"></script>
+  <script src="../js/multiple-emails-input/emails-input.js"></script>
+  <script src="../js/multiple-emails-input/examples.js"></script>
 
 </body>
 </html>
