@@ -81,8 +81,10 @@ body{
 }
 
 #sidebar ul li.active {
-  background-color: var(--background-color);
+  border-radius: 10px;
+
   a{
+    font-size: 20px;
     color: var(--primary-color);
   }
   
