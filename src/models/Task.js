@@ -1,17 +1,34 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const Task = sequelize.define('Task', {
   task_id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
-  user_id: DataTypes.INTEGER,   // FK -> user.user_id (nếu là task cho user)
-  team_id: DataTypes.INTEGER,   // FK -> team.team_id (nếu là task cho team)
-  title: DataTypes.STRING(255),
-  description: DataTypes.TEXT,
-  due_date: DataTypes.DATE,
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  team_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true
+  },
+  subject_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  title: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  description: {
+    type: DataTypes.TEXT
+  },
+  due_date: {
+    type: DataTypes.DATE
+  },
   status: {
     type: DataTypes.STRING(50),
     defaultValue: 'pending'
@@ -21,8 +38,16 @@ const Task = sequelize.define('Task', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'tasks',
+  tableName: 'task',
   timestamps: false
 });
 
-module.exports = Tasks;
+// Định nghĩa quan hệ
+Task.associate = function(models) {
+  Task.belongsTo(models.User, { foreignKey: 'user_id' });
+  Task.belongsTo(models.Team, { foreignKey: 'team_id' });
+  Task.belongsTo(models.Subject, { foreignKey: 'subject_id' });
+  Task.hasMany(models.TasksCompleted, { foreignKey: 'task_id' });
+};
+
+module.exports = Task;

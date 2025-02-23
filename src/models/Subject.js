@@ -1,28 +1,32 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Subject = sequelize.define('Subject', {
   subject_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   subject_name: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: false
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.TEXT
   },
   created_at: {
     type: DataTypes.DATE,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-  },
+    defaultValue: DataTypes.NOW
+  }
 }, {
   tableName: 'Subject',
-  timestamps: false, // Nếu không dùng createdAt/updatedAt mặc định
+  timestamps: false
 });
 
-Subject.belongsTo(sequelize.models.Team, { foreignKey: 'team_id' });
+// Định nghĩa quan hệ
+Subject.associate = function(models) {
+  Subject.belongsTo(models.Team, { foreignKey: 'team_id' });
+  Subject.hasMany(models.Task, { foreignKey: 'subject_id' });
+};
 
 module.exports = Subject;

@@ -1,6 +1,5 @@
-// models/Messages.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const Message = sequelize.define('Message', {
   msg_id: {
@@ -28,5 +27,11 @@ const Message = sequelize.define('Message', {
   tableName: 'messages',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+Message.associate = function(models) {
+  Message.belongsTo(models.Team, { foreignKey: 'team_id' });
+  Message.belongsTo(models.User, { foreignKey: 'sender_id', as: 'sender' });
+};
 
 module.exports = Message;

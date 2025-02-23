@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const TasksCompleted = sequelize.define('TasksCompleted', {
   id: {
@@ -20,8 +20,14 @@ const TasksCompleted = sequelize.define('TasksCompleted', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'tasks_completed',
+  tableName: 'task_completed',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+TasksCompleted.associate = function(models) {
+  TasksCompleted.belongsTo(models.Task, { foreignKey: 'task_id' });
+  TasksCompleted.belongsTo(models.User, { foreignKey: 'user_id' });
+};
 
 module.exports = TasksCompleted;

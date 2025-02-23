@@ -1,21 +1,33 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./config/db');
-const teamRoutes = require('./routes/team_route');
+const sequelize = require('./src/config/database');
+const teamRoutes = require('./src/routes/team_route');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Linh hoạt PORT cho môi trường
+const PORT = 3000; // Linh hoạt PORT cho môi trường
 
 // Middleware
 app.use(express.json()); // Thay body-parser bằng built-in middleware
 app.use(express.urlencoded({ extended: true })); // Hỗ trợ form-encoded data
 app.use(cors({
-  origin: 'http://localhost:3000', // Chỉ định origin cụ thể thay vì cho phép tất cả
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Giới hạn phương thức
-  credentials: true // Nếu cần gửi cookie hoặc auth headers
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost'];
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
+
+
+
 
 // Serve static files từ thư mục "public"
 app.use(express.static(path.join(__dirname, 'public')));

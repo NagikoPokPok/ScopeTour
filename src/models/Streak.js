@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const Streak = sequelize.define('Streak', {
   streak_id: {
@@ -15,15 +15,21 @@ const Streak = sequelize.define('Streak', {
     type: DataTypes.INTEGER,
     defaultValue: 0
   },
-  // Ví dụ cột row hay longest_streak
   longest_streak: {
     type: DataTypes.INTEGER,
     defaultValue: 0
   },
-  last_completed_date: DataTypes.DATE
+  last_completed_date: {
+    type: DataTypes.DATE
+  }
 }, {
-  tableName: 'streaks',
+  tableName: 'streak',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+Streak.associate = function(models) {
+  Streak.belongsTo(models.User, { foreignKey: 'user_id' });
+};
 
 module.exports = Streak;

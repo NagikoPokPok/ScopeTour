@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const PetShop = sequelize.define('PetShop', {
   pet_shop_id: {
@@ -11,8 +11,12 @@ const PetShop = sequelize.define('PetShop', {
     type: DataTypes.STRING(100),
     allowNull: false
   },
-  price: DataTypes.INTEGER,
-  pet_img: DataTypes.STRING(500),
+  price: {
+    type: DataTypes.INTEGER
+  },
+  pet_img: {
+    type: DataTypes.STRING(500)
+  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
@@ -21,5 +25,11 @@ const PetShop = sequelize.define('PetShop', {
   tableName: 'pet_shop',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+PetShop.associate = function(models) {
+  PetShop.hasMany(models.Pet, { foreignKey: 'pet_type_id', as: 'pets' });
+  PetShop.hasMany(models.PetPurchased, { foreignKey: 'pet_shop_id' });
+};
 
 module.exports = PetShop;

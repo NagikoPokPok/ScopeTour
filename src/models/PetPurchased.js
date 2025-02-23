@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const PetPurchased = sequelize.define('PetPurchased', {
   purchase_id: {
@@ -23,5 +23,11 @@ const PetPurchased = sequelize.define('PetPurchased', {
   tableName: 'pet_purchased',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+PetPurchased.associate = function(models) {
+  PetPurchased.belongsTo(models.User, { foreignKey: 'user_id' });
+  PetPurchased.belongsTo(models.PetShop, { foreignKey: 'pet_shop_id' });
+};
 
 module.exports = PetPurchased;

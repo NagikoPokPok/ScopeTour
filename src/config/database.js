@@ -1,4 +1,3 @@
-// config/database.js
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
@@ -13,11 +12,10 @@ const sequelize = new Sequelize(
     dialectOptions: {
       connectTimeout: 10000,
     },
-    logging: false, // Tắt logging nếu không cần
+    logging: false,
   }
 );
 
-// Kiểm tra kết nối
 const testConnection = async () => {
   try {
     await sequelize.authenticate();

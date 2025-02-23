@@ -1,6 +1,5 @@
-// models/TeamMember.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index');
+const sequelize = require('../config/database');
 
 const TeamMember = sequelize.define('TeamMember', {
   team_id: {
@@ -20,8 +19,14 @@ const TeamMember = sequelize.define('TeamMember', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'team_members',
+  tableName: 'team_member',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+TeamMember.associate = function(models) {
+  TeamMember.belongsTo(models.Team, { foreignKey: 'team_id' });
+  TeamMember.belongsTo(models.User, { foreignKey: 'user_id' });
+};
 
 module.exports = TeamMember;

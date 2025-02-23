@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./index'); // import kết nối Sequelize
+const sequelize = require('../config/database');
 
 const User = sequelize.define('User', {
   user_id: {
@@ -12,10 +12,18 @@ const User = sequelize.define('User', {
     allowNull: false,
     unique: true
   },
-  password: DataTypes.STRING(255),
-  user_name: DataTypes.STRING(100),
-  phone_number: DataTypes.STRING(20),
-  user_img: DataTypes.STRING(500),
+  password: {
+    type: DataTypes.STRING(255)
+  },
+  user_name: {
+    type: DataTypes.STRING(100)
+  },
+  phone_number: {
+    type: DataTypes.STRING(20)
+  },
+  user_img: {
+    type: DataTypes.STRING(500)
+  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
@@ -24,5 +32,17 @@ const User = sequelize.define('User', {
   tableName: 'user',
   timestamps: false
 });
+
+// Định nghĩa quan hệ
+User.associate = function(models) {
+  User.hasMany(models.Message, { foreignKey: 'sender_id', as: 'sentMessages' });
+  User.hasMany(models.Pet, { foreignKey: 'user_id' });
+  User.hasMany(models.PetPurchased, { foreignKey: 'user_id' });
+  User.hasMany(models.Streak, { foreignKey: 'user_id' });
+  User.hasMany(models.Task, { foreignKey: 'user_id' });
+  User.hasMany(models.TasksCompleted, { foreignKey: 'user_id' });
+  User.hasMany(models.Team, { foreignKey: 'created_by', as: 'createdTeams' });
+  User.hasMany(models.TeamMember, { foreignKey: 'user_id' });
+};
 
 module.exports = User;
