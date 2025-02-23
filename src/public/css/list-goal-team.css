@@ -512,6 +512,16 @@ main {
     --labelOffset: 1rem;
     --arrowClipSize: 1.5rem;
     margin-top: var(--labelOffset);
+    
+  }
+
+  .olcards .action {
+    flex: 3;
+  }
+
+  .olcards .action .col:hover {
+    cursor: pointer;
+    opacity: 0.8;
   }
   
   .olcards li::before {
