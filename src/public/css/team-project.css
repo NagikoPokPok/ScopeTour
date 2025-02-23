@@ -25,32 +25,6 @@ body{
 /* Button list */
 
 
-.button-list ul li {
-  background-color: rgba(255,255,255,0.4);
-  padding: 14px;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-  margin-left: 12px;
-  width: calc(100% / 3);
-  height: 100%;
-  text-align: center;
-  display: flex;
-  align-items: center; 
-  justify-content: center;
-  font-size: 18px;
-  padding: 24px 16px;
-
-  i {
-    color: var(--primary-color);
-    margin-right: 12px;
-  }
-
-  span {
-    color: black;
-  }
-}
-
-
 /* Project list */
   /* MODAL CREATE TEAM */
   .examples {
