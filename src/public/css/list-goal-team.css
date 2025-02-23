@@ -434,18 +434,39 @@ main {
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
   margin-left: 12px;
-  width: 100%;
+  width: calc(100% / 2);
   height: 100%;
   text-align: center;
   display: flex;
-  align-items: center; /* Căn giữa theo chiều dọc */
-  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; 
+  justify-content: center;
+  font-size: 18px;
+  padding: 24px 16px;
+
+  i {
+    color: var(--primary-color);
+    margin-right: 12px;
+  }
+
+  span {
+    color: black;
+  }
 }
 
-.button-list ul li i{
-  color: var(--primary-color);
-  font-size: 18px;
+.button-list ul li:hover{
+  cursor: pointer;
+  background-color: var(--primary-color);
+
+  i {
+    color: white;
+  }
+
+  span {
+    color: white;
+  }
+
 }
+
 
 /* Team List */
 #team {
@@ -462,53 +483,6 @@ main {
   padding: 24px 40px 0;
   font-size: 20px;
 }
-
-#team .team-list {
-  padding: 18px 12px;
-}
-
-#team .team-list .box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 8px ;
-  border-radius: 10px;
-  border: #ccc;
-  border-style: solid;
-  border-width: 0.1px;
-  margin: 12px;
-}
-
-.team-list .box .box-1 {
-  display: flex;
-}
-
-#team .team-list {
-  .box-1 img{
-    width: 50px;
-    height: auto;
-  }
-
-  .box-2 img{
-    width: 20px;
-    height: auto;
-  }
-  
-}
-
-
-/* #team .team-streak {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  background-color: var(--secondary-color);
-  padding: 8px;
-} */
-
-
-
-
 
 
 .olcards,
@@ -561,6 +535,8 @@ main {
     --boxPadding: 0.5em;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: white;
     
     padding: var(--boxPadding) calc(var(--inlinePadding) + var(--arrowClipSize))
       var(--boxPadding) calc(var(--inlinePadding) + var(--labelOffset));
@@ -582,6 +558,11 @@ main {
     width: 70%;
     
   }
+
+  .olcards li .content:hover {
+    opacity: 0.8;
+  }
+
   /* Mặt trước của thẻ content */
   .olcards li .content::before {
     content: "";
