@@ -666,4 +666,18 @@ main {
 
   .modal-body label {
     font-weight: 500;
+    display: flex;
+  }
+
+  .modal-body label .icon-important {
+    font-size: 8px;
+    color: red;
+    height: 100%;
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+
+  .modal-body input:focus {
+    box-shadow: none;
+    border-color: var(--primary-color);
   }
