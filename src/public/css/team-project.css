@@ -50,3 +50,79 @@ body{
   .modal-body label {
     font-weight: 500;
   }
+
+  /* MODAL FILTER TEAM */
+  
+  #modal-filter-team .modal-body .form-check-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    h6 {
+      margin-bottom: 0;
+      margin-left: 12px;
+    }
+  }
+  #modal-filter-team .icon-streak {
+    width: 24px;
+  }
+
+  #modal-filter-team .modal-body .form-check {
+    display: flex;
+    
+    align-items: center;
+
+    .form-check-input {
+      text-align: center;
+      height: 24px;
+      width: 24px;
+      margin-right: 12px;
+      border-color: #ccc;
+    }
+
+    .form-check-label {
+      display: flex;
+      font-weight: 100;
+      background-color: rgba(217, 217, 217, 0.4);
+      border-radius: 10px;
+      width: 90%;
+      height: 32px;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+
+  #modal-filter-team .modal-body .form-check:hover {
+    .form-check-input {
+      cursor: pointer;
+      border-color: var(--primary-color);
+      border-width: 2px;
+    }
+
+    .form-check-label {
+      background-color: var(--primary-color);
+      color:#fff;
+      cursor: pointer;
+    }
+  }
+
+  #modal-filter-team .modal-body .form-check-input:checked + .form-check-label {
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  #modal-filter-team .modal-body .form-check-input:checked {
+    border: none
+  }
+
+
+  .modal-body .container .row .col {
+    padding: 8px;
+  }
+
+  .modal-body .container {
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
