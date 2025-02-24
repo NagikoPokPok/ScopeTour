@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Profile</title>
+    <script src="/src/public/activity/test_profile_activity.js" defer></script> <!-- Thêm file profile.js -->
+    <script defer>
+        function handleChange(event) {
+            if (event.target.id === "image") {
+                const imagePreview = document.getElementById("image_preview");
+                console.log(imagePreview.getAttribute('src'));
+                console.log(typeof imagePreview);
+                
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+
+                }
+            } else {
+                document.getElementById(event.target.id ).textContent = event.target.value;
+            }
+        }
+        
+        function triggerFileInput() {
+            document.getElementById("image").click();
+        }
+    </script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 20px auto; text-align: center; }
+        label { display: block; margin-top: 10px; text-align: left; }
+        input { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
+        a { display: block; margin-top: 10px; color: blue; text-decoration: none; }
+        .image-container { display: flex; justify-content: center; position: relative; cursor: pointer; }
+        #image_preview { display: block; margin: 10px auto; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #ccc; }
+        #image { display: none; }
+    </style>
+</head>
+<body>
+    <h2>Manage Profile</h2>
+    <div class="image-container" onclick="triggerFileInput()">
+        <img id="image_preview" src="" alt="Image Preview">
+    </div>
+    <input type="file" id="image" name="image" accept="image/*" onchange="handleChange(event)">
+    <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" oninput="handleChange(event)">
+
+        <label for="email">Gmail</label>
+        <input type="email" id="email" name="email" oninput="handleChange(event)">
+
+        <button type="button" id="btn_save" onclick="save()">Save</button>
+        <a href="/change-password">Change Password</a>
+    </form>
+</body>
+</html>
