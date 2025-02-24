@@ -4,6 +4,7 @@ const cors = require('cors');
 const sequelize = require('./src/config/database');
 const teamRoutes = require('./src/routes/team_route');
 const path = require('path');
+const registerRoutes = require('./src/routes/register_route')
 
 const app = express();
 const PORT = 3000; // Linh hoạt PORT cho môi trường
@@ -27,7 +28,7 @@ app.use(cors({
 }));
 
 
-
+registerRoutes(app);
 
 // Serve static files từ thư mục "public"
 app.use(express.static(path.join(__dirname, 'public')));
