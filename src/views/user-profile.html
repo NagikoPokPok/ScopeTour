@@ -3,106 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/user-profile.css">
+
     <link rel="stylesheet" href="../public/css/main-style.css">
+    <link rel="stylesheet" href="../public/css/user-profile.css">
+    <link rel="stylesheet" href="../public/css/list-goal-team.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" src="/src/js/list-goal-team-sidebar.js" defer></script>
 
     <title>Document</title>
 </head>
 <body>
-
-<!--Begin: Slider -->
-<nav id="sidebar">
-    <ul class="sidebar-part1">
-      <li>
-        <img class = "logo-img" src="../public/img/introduction/icon.png" alt="Scope Tour"  >
-        <span class="logo">Scope Tour</span>
-        <button onclick=toggleSidebar() id="toggle-btn">
-          <i class="fa-solid fa-angles-left"></i>        
-        </button>
-      </li>
-      <li>
-        <a href="../html/introduction.html">
-            <i class="fa-solid fa-house"></i>          
-            <span>Home</span>
-        </a>
-      </li>
-      <li>
-        <button onclick=toggleSubMenu(this) class="dropdown-btn">
-          <i class="fa-solid fa-list-check"></i>            
-          <span>List goals</span>
-          <i class="fa-solid fa-angle-down"></i>          </button>
-          <ul class="sub-menu">
-            <div>
-              <li>
-                <a href="#">
-                  <i class="fa-solid fa-user"></i>
-                  Personal
-                </a>
-              </li>
-              <li  class="active">
-                <a href="#">
-                  <i class="fa-solid fa-people-group"></i>
-                  Team
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="fa-solid fa-calendar-days"></i>
-                  Calendar
-                </a>
-              </li>
-            </div>
-          </ul>
-      </li>
-      <li>
-        <a href="calendar.html">
-          <i class="fa-solid fa-comment-dots"></i>            <span>Messages</span>
-          </a>
-      </li>
-      <li>
-        <a href="calendar.html">
-            <i class="fa-solid fa-paw"></i>
-            <span>Pet</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-            <i class="fa-solid fa-user-gear"></i>
-            <span>User Profile</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-            <i class="fa-solid fa-bell"></i>
-            <span>Notification</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fa-solid fa-gear"></i>
-            <span>Setting</span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="sidebar-part2">
-      <li>
-        <a href="profile.html">
-          <i class="fa-solid fa-circle-question"></i>
-            <span>Help</span>
-        </a>
-      </li>
-      <li>
-        <a href="profile.html">
-          <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Log out</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!--End: Slider -->
+  <!-- Sidebar -->
+  <custom-sidebar data-active-menu="user-profile"></custom-sidebar>
   <!--Begin: Main Content -->
   <main>
     <!--Begin: Header -->
@@ -154,9 +67,14 @@
             <input type="tel" id="phone" value="0918300595">
         </div>
     </div>
+    </main>
 
 
 <script src="../public/activity/user_profile.js"></script>
+<script src="../js/component.js"></script>
+
+<!-- Our main JS file -->
+<script type="module" src="../public/activity/time.js"></script>
 
 </body>
 </html>
