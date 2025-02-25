@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="../public/img/introduction/icon.png">
   <title>Scope Tour</title>
   <!-- Boostrap -->
-  <link href="/css/main.min.css" rel="stylesheet">
+  <link href="../public/css/main.min.css" rel="stylesheet">
 
   <!-- Main style and font-awesome icon -->
   <link rel="stylesheet" href="../public/css/main-style.css">
@@ -65,7 +65,7 @@
         </div> 
 
         <div class="search-btn">
-          <input  type="email" placeholder="Seach your team name" required="" name="" id="" class="email">
+          <input  type="email" placeholder="Seach your subject name" required="" name="" id="searchSubject" class="email">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
@@ -75,7 +75,7 @@
             <span>Delete</span>
           </li>
           <li data-bs-toggle="modal" 
-            data-bs-target="#modal-filter-team">
+            data-bs-target="#modal-filter-subject">
             <i class="fa-solid fa-filter"></i>
             <span>Filter</span>
           </li>
@@ -88,7 +88,7 @@
     </div>
 
 
-    <!-- MODAL CREATE TEAM itself -->
+    <!-- MODAL CREATE Subject itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
   <div class="modal fade" id="reg-modal" 
     tabindex="-1" 
@@ -106,21 +106,22 @@
               aria-label="Close">
               </button>
           </div>
-          <form action="">
+          <form id="createSubjectForm">
             <div class="modal-body">
-              <label for="modal-team-name" class="form-label my-1">
+              <label for="modal-subject-name" class="form-label my-1">
                 <span>Subject name</span>
                 <div class="icon-important">
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-team-name" required id="" placeholder="Rumble Team">
+              <input type="text" class="form-control mb-3" id="modal-subject-name" required 
+                      placeholder="IT">
 
               <!-- <label for="modal-professional" class="form-label my-1">Professional</label>
               <input type="text" class="form-control mb-3" id="modal-professional" required id="" placeholder="CMU-CS 445 BIS"> -->
 
-              <label for="modal-team-des" class="form-label my-1">Description</label>
-              <input type="text" class="form-control mb-3" id="modal-team-des"  placeholder="CMU-CS 442">
+              <label for="modal-subject-des" class="form-label my-1">Description</label>
+              <input type="text" class="form-control mb-3" id="modal-subject-des"  placeholder="CMU-CS 442">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -134,9 +135,9 @@
 
 
 
-  <!-- MODAL FILTER TEAM itself -->
+  <!-- MODAL FILTER subject itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
-    <div class="modal fade" id="modal-filter-team" 
+    <div class="modal fade" id="modal-filter-subject" 
     tabindex="-1" 
     aria-labelledby="modal-title" 
     aria-hidden="true"
@@ -145,7 +146,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-title">Filter for: All teams</h5>
+            <h5 class="modal-title" id="modal-title">Filter for: All subjects</h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
               data-bs-dismiss="modal" 
@@ -157,7 +158,7 @@
               <!-- Begin: form check number streak -->
               <div class="form-check-number-streak">
                 <div class="form-check-title">
-                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                  <img src="../public/img/list-subject-goal/slider2.png" alt="streak" class="icon-streak">
                   <h6 class="">Number of streaks</h6>
                 </div>
                 <div class="container p-4">
@@ -205,8 +206,8 @@
               <!-- Begin: form check time join -->
               <div class="form-check-time-join">
                 <div class="form-check-title">
-                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
-                  <h6 class="">Time join the team</h6>
+                  <img src="../public/img/list-subject-goal/slider2.png" alt="streak" class="icon-streak">
+                  <h6 class="">Time join the subject</h6>
                 </div>
                 <div class="container p-4">
                   <div class="row row-cols-2">
@@ -253,7 +254,7 @@
               <!-- Begin: form check number member -->
               <div class="form-check-number-streak">
                 <div class="form-check-title">
-                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                  <img src="../public/img/list-subject-goal/slider2.png" alt="streak" class="icon-streak">
                   <h6 class="">Number of members</h6>
                 </div>
                 <div class="container p-4">
@@ -311,19 +312,20 @@
       </div>
     <!-- End: Button List -->
 
-    <!-- Begin: Team List -->
-    <div id="team">
+    <!-- Begin: subject List -->
+
+    <div id="subject">
 
       <h4 class="heading">
         <span>Subjects of</span>
-        <span class="team-name">Rumble Team</span>
+        <span class="subject-name">Rumble subject</span>
       </h4>
 
-      <ol class="olcards">
+      <!-- <ol class="olcards">
         <li style="--cardColor:#E08963">
           <a href="#" class="content">
             <div class="icon">😁</div>
-            <div class="team-des">
+            <div class="subject-des">
               <div class="title">CDIO</div>
               <span class="body text-body-light">CMU CS 447 BIS</span>
             </div>
@@ -347,7 +349,7 @@
         <li style="--cardColor:#5E96AE">
           <a href="" class="content">
             <div class="icon">😁</div>
-            <div class="team-des">
+            <div class="subject-des">
               <div class="title">Software Management</div>
               <span class="body text-body-light">CMU CS 447 BIS</span>
             </div>
@@ -371,7 +373,7 @@
         <li style="--cardColor:#f15f0e">
           <a href="" class="content">
             <div class="icon">😁</div>
-            <div class="team-des">
+            <div class="subject-des">
               <div class="title">Software Measurement</div>
               <span class="body text-body-light">CMU CS 447 BIS</span>
             </div>
@@ -395,7 +397,7 @@
         <li style="--cardColor:#f15f0e">
           <a href="" class="content">
             <div class="icon">😁</div>
-            <div class="team-des">
+            <div class="subject-des">
               <div class="title">Đạo đức công việc</div>
               <span class="body text-body-light">CMU CS 447 BIS</span>
             </div>
@@ -415,11 +417,13 @@
             </div>
           </div>
         </li>
-      </ol>
+      */
+      </ol> -->
 
-      
+      <ol id="SubjectList" class="olcards"></ol>
+
     </div>
-    <!-- End: Team List -->
+    <!-- End: subject List -->
 
   </main>
   <!--End: Main Content -->
@@ -428,6 +432,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   <script src="../js/component.js"></script>
+
+  <script type="module" src="../public/subject.js"></script>
 
 </body>
 </html>

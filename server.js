@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./src/config/database');
 const teamRoutes = require('./src/routes/team_route');
+const subjectRoute = require('./src/routes/subject_route');
 const path = require('path');
 const registerRoutes = require('./src/routes/register_route');
 const profileRoutes = require('./src/routes/profile_route');
@@ -10,23 +11,23 @@ const profileRoutes = require('./src/routes/profile_route');
 const app = express();
 const PORT = 3000; // Linh hoạt PORT cho môi trường
 
-// // Middleware
-// app.use(express.json()); // Thay body-parser bằng built-in middleware
-// app.use(express.urlencoded({ extended: true })); // Hỗ trợ form-encoded data
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     const allowedOrigins = ['http://localhost:3000', 'http://localhost'];
-//     // Allow requests with no origin (like mobile apps or curl requests)
-//     if (!origin) return callback(null, true);
-//     if (allowedOrigins.indexOf(origin) !== -1) {
-//       return callback(null, true);
-//     } else {
-//       return callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   credentials: true
-// }));
+// Middleware
+app.use(express.json()); // Thay body-parser bằng built-in middleware
+app.use(express.urlencoded({ extended: true })); // Hỗ trợ form-encoded data
+app.use(cors({
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:3000', 'http://localhost'];
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
 // Routes
 app.use('/profile', profileRoutes);
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/team', teamRoutes);
+app.use('/api/subject', subjectRoute);
 
 // Test route
 app.get('/api/hello', (req, res) => {
