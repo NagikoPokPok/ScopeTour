@@ -89,8 +89,11 @@ function loadMessages() {
         }
 
         const nameElement = document.createElement("p");
-        nameElement.classList.add("sender-name");
-        nameElement.innerText = msg.sender;
+        if(msg.type !=="sent"){
+            nameElement.classList.add("sender-name");
+            nameElement.innerText = msg.sender;
+        }
+        
 
         const messageElement = document.createElement("div");
         messageElement.classList.add("message", msg.type);
