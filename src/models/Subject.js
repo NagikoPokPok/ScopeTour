@@ -7,12 +7,15 @@ const Subject = sequelize.define('Subject', {
     primaryKey: true,
     autoIncrement: true
   },
-  subject_name: {
+
+  name: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
+  
   description: {
-    type: DataTypes.TEXT
+    type: DataTypes.TEXT,
+    allowNull: true
   },
   created_at: {
     type: DataTypes.DATE,
@@ -23,7 +26,7 @@ const Subject = sequelize.define('Subject', {
   timestamps: false
 });
 
-// Định nghĩa quan hệ
+// Define associations if needed
 Subject.associate = function(models) {
   Subject.belongsTo(models.Team, { foreignKey: 'team_id' });
   Subject.hasMany(models.Task, { foreignKey: 'subject_id' });
