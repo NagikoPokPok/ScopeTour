@@ -135,9 +135,12 @@
 
     <div class="profile-container">
         <h2>Edit profile</h2>
-        <div class="profile-image">
-            <img src="../public/img/login/facebook.png" alt="Profile">
+        <div class="profile-image" onclick="triggerFileInput()">
+            <img src="../public/img/login/facebook.png" alt="Profile" >
+            <input type="file" id="image" name="image" accept="image/*" onchange="handleChange(event)">
+
         </div>
+        
         <div class="input-container">
             <label for="name">Name</label>
             <input type="text" id="name" value="Võ Hùng Cường">
@@ -151,5 +154,9 @@
             <input type="tel" id="phone" value="0918300595">
         </div>
     </div>
+
+
+<script src="../public/activity/user_profile.js"></script>
+
 </body>
 </html>

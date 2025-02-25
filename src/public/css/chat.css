@@ -125,6 +125,7 @@ body {
 .received {
     align-self: flex-start;
     background: var(--background-color);
+    width: fit-content;
 }
 .sender-name {
     font-size: 12px;

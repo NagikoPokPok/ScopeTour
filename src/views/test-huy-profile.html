@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Ảnh</title>
+    <style>
+        .profile-image {
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        /* Ẩn input file */
+        #image {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-image" onclick="triggerFileInput()">
+        <img src="../public/img/login/facebook.png" alt="Profile" width="100">
+        <input type="file" id="image" name="image" accept="image/*" onchange="handleChange(event)">
+    </div>
+
+    <script>
+        function triggerFileInput() {
+            document.getElementById("image").click();
+        }
+
+        function handleChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert("Bạn đã chọn: " + file.name);
+                // Hoặc hiển thị ảnh vừa chọn
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector(".profile-image img").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>
