@@ -137,6 +137,7 @@ body{
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  padding: 0;
 }
 
 #layout-delete-many-items .action-list {
@@ -144,7 +145,7 @@ body{
   font-size: 1.25rem;
   justify-content: center;
   align-items: center;
-
+  height: 80px;
   .select-all input {
     border-color: #ccc;
   }
@@ -185,4 +186,29 @@ body{
 
 #layout-delete-many-items .action-list .form-check-input:checked + .form-check-label {
   color: var(--primary-color);
+}
+
+#layout-delete-many-items .action-list .close-layout {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin-left: 32px;
+  text-align: center;
+  background-color: rgba(217, 217, 217, 0.4);
+  height: 100%;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  i {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 12px;
+  }
+
+  span {
+    margin-left: 8px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 12px;
+  }
 }
