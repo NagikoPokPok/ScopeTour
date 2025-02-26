@@ -51,82 +51,6 @@ body{
     font-weight: 500;
   }
 
-  /* MODAL FILTER TEAM */
-  
-  #modal-filter-team .modal-body .form-check-title {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-
-    h6 {
-      margin-bottom: 0;
-      margin-left: 12px;
-    }
-  }
-  #modal-filter-team .icon-streak {
-    width: 40px;
-  }
-
-  #modal-filter-team .modal-body .form-check {
-    display: flex;
-    
-    align-items: center;
-
-    .form-check-input {
-      text-align: center;
-      height: 24px;
-      width: 24px;
-      margin-right: 12px;
-      border-color: #ccc;
-    }
-
-    .form-check-label {
-      display: flex;
-      font-weight: 100;
-      background-color: rgba(217, 217, 217, 0.4);
-      border-radius: 10px;
-      width: 90%;
-      height: 32px;
-      justify-content: center;
-      align-items: center;
-    }
-
-  }
-
-  #modal-filter-team .modal-body .form-check:hover {
-    .form-check-input {
-      cursor: pointer;
-      border-color: var(--primary-color);
-      border-width: 2px;
-    }
-
-    .form-check-label {
-      background-color: var(--primary-color);
-      color:#fff;
-      cursor: pointer;
-    }
-  }
-
-  #modal-filter-team .modal-body .form-check-input:checked + .form-check-label {
-    background-color: var(--primary-color);
-    color: #fff;
-    cursor: pointer;
-  }
-
-
-  .form-check-input:checked {
-    border: none
-  }
-
-
-  .modal-body .container .row .col {
-    padding: 8px;
-  }
-
-  .modal-body .container {
-    margin-top: 8px;
-    margin-bottom: 24px;
-  }
 
 
 /* LAYOUT DELETE ITEMS */
@@ -136,52 +60,59 @@ body{
   border-radius: 40px;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   padding: 0;
 }
+
 
 #layout-delete-many-items .action-list {
   display: flex;
   font-size: 1.25rem;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 80px;
-  .select-all input {
+}
+
+#layout-delete-many-items .action-list > * {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#layout-delete-many-items .action-list .select-all {
+  input {
     border-color: #ccc;
   }
+}
 
-  .delete-items {
-    margin-left: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    span {
-      margin-left: 8px;
-      background-color: var(--primary-color);
-      padding: 8px 20px;
-      border-radius: 40px;
-      color: #fff;
-    }
+#layout-delete-many-items .action-list .delete-items {
+  margin: auto 24px;
+  span {
+    background-color: var(--primary-color);
+    padding: 8px 20px;
+    border-radius: 40px;
+    color: #fff;
+    
   }
 }
+
 
 #layout-delete-many-items .action-list .delete-items:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 
-#layout-delete-many-items .action-list .select-all:hover {
-  .form-check-input {
-    cursor: pointer;
-    border-color: var(--primary-color);
-    border-width: 2px;
-  }
+#layout-delete-many-items .action-list .select-all:hover .form-check-input {
+  cursor: pointer;
+  border-color: var(--primary-color);
+  border-width: 2px;
+}
 
-  .form-check-label {
-    color: var(--primary-color);
-    cursor: pointer;
-  }
+#layout-delete-many-items .action-list .select-all:hover .form-check-label {
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 #layout-delete-many-items .action-list .form-check-input:checked + .form-check-label {
@@ -189,26 +120,26 @@ body{
 }
 
 #layout-delete-many-items .action-list .close-layout {
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  margin-left: 32px;
-  text-align: center;
   background-color: rgba(217, 217, 217, 0.4);
   height: 100%;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
+  border-radius: 40px;
+}
 
+
+#layout-delete-many-items .action-list .close-layout {
+  
   i {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 12px;
+    padding-left: 24px;
   }
 
   span {
-    margin-left: 8px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 12px;
+    margin-left: 12px;
+    margin-right: 0;
+    padding-right: 24px;
   }
+}
+
+#layout-delete-many-items .action-list .close-layout:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }

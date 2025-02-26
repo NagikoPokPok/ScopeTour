@@ -681,3 +681,12 @@ main {
     box-shadow: none;
     border-color: var(--primary-color);
   }
+
+  .modal-body .container .row .col {
+    padding: 8px;
+  }
+
+  .modal-body .container {
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }

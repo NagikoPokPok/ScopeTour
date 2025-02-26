@@ -12,9 +12,13 @@
   <link rel="stylesheet" href="../public/css/main-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!-- Sidebar -->
+  <!-- Main -->
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
   <link rel="stylesheet" href="../public/css/team-project.css">
+
+  <!-- Modal filter -->
+  <link rel="stylesheet" href="../public/css/components/filter-modal.css">
+
 
   <!-- Multiple emails in input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
@@ -75,7 +79,7 @@
             <span>Delete</span>
           </li>
           <li data-bs-toggle="modal" 
-            data-bs-target="#modal-filter-team">
+            data-bs-target="#modal-filter">
             <i class="fa-solid fa-filter"></i>
             <span>Filter</span>
           </li>
@@ -137,7 +141,7 @@
 
   <!-- MODAL FILTER subject itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
-    <div class="modal fade" id="modal-filter-team" 
+    <div class="modal fade" id="modal-filter" 
     tabindex="-1" 
     aria-labelledby="modal-title" 
     aria-hidden="true"
@@ -316,7 +320,7 @@
      <div id="layout-delete-many-items">
       <div class="container-fluid d-flex mt-4">
           <h5 class="number-item-selected m-0">
-            <span class="number">0</span>
+            <span class="number ms-4">0</span>
             <span class="des">Item selected</span>
           </h5>
           
@@ -348,9 +352,9 @@
 
     <div id="subject">
 
-      <h4 class="heading">
+      <h5 class="heading mt-3">
         <span>Subjects of</span>
-        <span class="subject-name">Rumble subject</span>
+        <span class="team-name">Rumble team</span>
       </h4>
 
       <!-- <ol class="olcards">

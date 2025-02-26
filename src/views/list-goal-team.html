@@ -14,6 +14,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Sidebar -->
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
+  <!-- Modal filter -->
+   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
   <!-- Multiple emails input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
@@ -60,9 +62,190 @@
         </div>
         <ul>
           <li><i class="fa-solid fa-trash-can"></i><span>Delete</span></li>
-          <li><i class="fa-solid fa-filter"></i><span>Filter</span></li>
+          <li data-bs-toggle="modal" 
+            data-bs-target="#modal-filter">
+            <i class="fa-solid fa-filter"></i>
+            <span>Filter</span>
+          </li>
           <li><i class="fa-solid fa-sort"></i><span>Sort</span></li>
         </ul>
+      </div>
+    </div>
+
+
+    <!-- MODAL FILTER subject itself -->
+   <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
+    <div class="modal fade" id="modal-filter" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">Filter for: All subjects</h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <!-- Begin: form check number streak -->
+              <div class="form-check-number-streak">
+                <div class="form-check-title">
+                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                  <h6 class="">Number of streaks</h6>
+                </div>
+                <div class="container p-4">
+                  <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="low-streak">
+                        <label class="form-check-label" for="low-streak">
+                          0 - 10
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="medium-streak">
+                        <label class="form-check-label" for="medium-streak">
+                          11 - 50
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="high-streak">
+                        <label class="form-check-label" for="high-streak">
+                          51 - 100
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="extreme-streak">
+                        <label class="form-check-label" for="extreme-streak">
+                          > 100
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End: form check number streak -->
+              
+              <!-- Begin: form check time join -->
+              <div class="form-check-time-join">
+                <div class="form-check-title">
+                  <img src="../public/img/filter-team/watch.png" alt="streak" class="icon-streak">
+                  <h6 class="">Time join the team</h6>
+                </div>
+                <div class="container p-4">
+                  <div class="row row-cols-2">
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="low-time">
+                        <label class="form-check-label" for="low-time">
+                          Today
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="medium-time">
+                        <label class="form-check-label" for="medium-time">
+                          Yesterday
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="high-time">
+                        <label class="form-check-label" for="high-time">
+                          Last week
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="extreme-time">
+                        <label class="form-check-label" for="extreme-time">
+                          Last month
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End: form check time join -->
+
+              <!-- Begin: form check number member -->
+              <div class="form-check-number-streak">
+                <div class="form-check-title">
+                  <img src="../public/img/filter-team/team-spirit.png" alt="streak" class="icon-streak">
+                  <h6 class="">Number of members</h6>
+                </div>
+                <div class="container p-4">
+                  <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="low-member">
+                        <label class="form-check-label" for="low-member">
+                          0 - 3
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="medium-member">
+                        <label class="form-check-label" for="medium-member">
+                          4 - 7
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="high-member">
+                        <label class="form-check-label" for="high-member">
+                          8 - 12
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="extreme-member">
+                        <label class="form-check-label" for="extreme-member">
+                          > 12
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End: form check number member -->
+              
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Apply filters</button>
+            </div>
+          <!-- </form> -->
+          
+        </div>
       </div>
     </div>
     
