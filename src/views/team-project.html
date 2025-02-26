@@ -73,8 +73,8 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
-        <ul>
-          <li>
+        <ul class="button-list-second">
+          <li onclick=openLayoutDelete()>
             <i class="fa-solid fa-trash-can"></i>
             <span>Delete</span>
           </li>
@@ -317,7 +317,7 @@
 
 
     <!-- LAYOUT DELETE MANY ITEMS -->
-     <div id="layout-delete-many-items">
+     <div class="layout-delete-many-items">
       <div class="container-fluid d-flex mt-4">
           <h5 class="number-item-selected m-0">
             <span class="number ms-4">0</span>
@@ -339,7 +339,7 @@
               <span>Delete</span>          
             </div>
 
-            <div class="close-layout">
+            <div class="close-layout" onclick=closeLayoutDelete()>
               <i class="fa-regular fa-circle-xmark"></i>
               <span>Close</span> 
             </div>
@@ -357,7 +357,7 @@
         <span class="team-name">Rumble team</span>
       </h4>
 
-      <ol class="olcards">
+      <!-- <ol class="olcards">
         <li style="--cardColor:#E08963">
           <a href="#" class="content">
             <div class="icon">😁</div>
@@ -383,9 +383,12 @@
         </li>
 
   
-      </ol>
+      </ol> -->
 
-      <ol id="SubjectList" class="olcards"></ol>
+      <ol id="SubjectList" class="olcards">
+
+
+      </ol>
     </div>
     <!-- End: subject List -->
 
@@ -398,6 +401,9 @@
   <script src="../js/component.js"></script>
   <script type="module" src="../public/activity/time.js"></script>
   <script type="module" src="../public/activity/subject.js"></script>
+
+  <!-- layout delete -->
+   <script src="../js/toggeLayoutDelete.js"></script>
 
 </body>
 </html>
