@@ -174,8 +174,9 @@ body{
   border-radius: 10px;
 }
 
-.sidebar-part1 .sub-menu  li:hover {
+.sidebar-part1 .sub-menu li:hover {
   background-color: var(--background-color);
+  cursor: pointer;
 }
 
 #toggle-btn{
