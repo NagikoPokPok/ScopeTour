@@ -15,6 +15,7 @@
   <!-- Main -->
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
   <link rel="stylesheet" href="../public/css/team-project.css">
+  <link rel="stylesheet" href="../public/css/team-task.css">
 
   <!-- Modal filter -->
   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
@@ -350,39 +351,113 @@
 
     <!-- Begin: subject List -->
 
-    <div id="subject">
+    <div id="task">
 
       <h5 class="heading">
-        <span>Subjects of</span>
-        <span class="team-name">Rumble team</span>
+        <span>Tasks of subject</span>
+        <span class="subject-name">CDIO</span>
       </h4>
 
-      <ol class="olcards">
-        <li style="--cardColor:#E08963">
-          <a href="#" class="content">
-            <div class="icon">😁</div>
-            <div class="subject-des">
-              <div class="title">CDIO</div>
-              <span class="body text-body-light">CMU CS 447 BIS</span>
-            </div>
-          </a>
-          
-          <div class="action container border-0 d-flex justify-content-end align-items-center">
-            <div class="row gap-4">
-              <div class="col fs-5 action-add-member">
-                <i class="fa-solid fa-user-plus text-primary"></i>
-              </div>
-              <div class="col fs-5 action-edit">
-                <i class="fa-solid fa-pen-to-square text-primary"></i>
-              </div>
-              <div class="col fs-5 action-delete">
-                <i class="fa-solid fa-trash-can text-primary"></i>
-              </div>
-            </div>
-          </div>
-        </li>
+      <div class="available-task">
+        <h5>Available Tasks</h5>
+        <div class="list-available-task">
+            <div class="item-available-task container text-center p-0">
+                <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
 
-      </ol>
+                     <div class="col check-task">
+                        <!-- Button check complete task -->
+                        <input class="checkbox-complete-task" type="checkbox" value="">
+
+                        <!-- Task item -->
+                        <div class="task text-start">
+                            <span class="task-title fw-medium">Do assignment on Sakai</span>
+                            <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                        </div>
+                     </div>
+        
+            
+
+                    <!-- Time -->
+                    <div class="col time-of-task">
+                        <span class="status-of-task fw-medium">Overdue</span>
+                        <div class="due-time fw-light">
+                            <span class="open-time text-secondary">17/2/2025</span>
+                            <hr>
+                            <span class="end-time text-secondary">28/2/2025</span>
+                        </div>
+                    </div>
+            
+                    <!-- Action -->
+                    <div class="col text-end d-flex justify-content-end">
+                        <div class="row g-3">
+                            <div class="col fs-5 action-edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="col fs-5 action-delete">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <div class="col fs-5 action-rank">
+                                <i class="fa-solid fa-ranking-star"></i>
+                            </div>
+                            <div class="col fs-5 action-comment">
+                                <i class="fa-regular fa-message"></i> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="item-available-task container text-center p-0">
+                <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+
+                     <div class="col check-task">
+                        <!-- Button check complete task -->
+                        <input class="checkbox-complete-task" type="checkbox" value="">
+
+                        <!-- Task item -->
+                        <div class="task text-start">
+                            <span class="task-title fw-medium">Do assignment on Sakai</span>
+                            <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                        </div>
+                     </div>
+        
+            
+
+                    <!-- Time -->
+                    <div class="col time-of-task">
+                        <span class="status-of-task fw-medium">Overdue</span>
+                        <div class="due-time fw-light">
+                            <span class="open-time text-secondary">17/2/2025</span>
+                            <hr>
+                            <span class="end-time text-secondary">28/2/2025</span>
+                        </div>
+                    </div>
+            
+                    <!-- Action -->
+                    <div class="col text-end d-flex justify-content-end">
+                        <div class="row g-3">
+                            <div class="col fs-5 action-edit">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="col fs-5 action-delete">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <div class="col fs-5 action-rank">
+                                <i class="fa-solid fa-ranking-star"></i>
+                            </div>
+                            <div class="col fs-5 action-comment">
+                                <i class="fa-regular fa-message"></i> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+  
+
 
       <ol id="SubjectList" class="olcards">
 

@@ -481,11 +481,11 @@ main {
   margin-top: 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  padding: 40px;
 }
 
 #team > .heading {
   display: block;
-  padding: 24px 40px 0;
   font-size: 20px;
 }
 
@@ -505,7 +505,7 @@ main {
     --cardsGap: 1rem;
     gap: var(--cardsGap);
     padding-bottom: var(--cardsGap);
-    margin: 24px 40px;
+    margin: 24px 0px;
     /* --cardColor: var(--primary-color); */
   }
   
