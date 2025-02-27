@@ -148,7 +148,19 @@ body{
     font-weight: 500;
   }
 
+  #createTaskForm .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  #createTaskForm .form-check-input {
+    width: 24px;
+    height: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 12px;
+  }
 
 /* LAYOUT DELETE ITEMS */
 
