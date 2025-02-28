@@ -37,7 +37,7 @@
                 subjectList.appendChild(li);
             });
     
-            // Gán sự kiện click cho nút DELETE
+            // Delete Subject event
             document.querySelectorAll(".action-delete").forEach((button) => {
                 button.addEventListener("click", async (event) => {
                     const subjectId = event.currentTarget.getAttribute("data-subject-id");
@@ -48,6 +48,16 @@
                     }
                 });
             });
+
+            // Update Subject event
+            document.querySelectorAll('.action-edit').forEach((button) => {
+                button.addEventListener("click", (event) => {
+                    const subjectId = event.currentTarget.getAttribute("data-subject-id");
+                    const subjectName = event.currentTarget.getAttribute("data-subject-name");
+                    openUpdateSubjectModal(subjectId, subjectName);
+                });
+            });
+            
         } else {
             subjectList.innerHTML = isSearch
                 ? "<li>No subjects match your search</li>"
@@ -189,6 +199,55 @@
         }
     }
 
+    function openUpdateSubjectModal(subjectId, subjectName) {
+        // Set the hidden input with subject ID
+        document.getElementById('update-subject-id').value = subjectId;
+        // Set the subject name input field
+        document.getElementById('update-subject-name').value = subjectName;
+        // Optionally, clear or pre-fill description; here we clear it
+        document.getElementById('update-subject-description').value = "";
+    
+        // Show the update modal
+        const modal = new bootstrap.Modal(document.getElementById('updateSubjectModal'));
+        modal.show();
+    }
+
+    document.getElementById('updateSubjectForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+    
+        const subjectId = document.getElementById('update-subject-id').value;
+        const subjectName = document.getElementById('update-subject-name').value.trim();
+        const description = document.getElementById('update-subject-description').value.trim();
+    
+        if (!subjectId || !subjectName) {
+            alert('Subject ID and name are required!');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://localhost:3000/api/subject/${subjectId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ subjectName, description })
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                fetchAllSubjects(); // Refresh subject list (assuming fetchAllSubjects() exists)
+                const modal = bootstrap.Modal.getInstance(document.getElementById('updateSubjectModal'));
+                modal.hide();
+            } else {
+                alert(result.message || 'Failed to update subject.');
+            }
+        } catch (error) {
+            console.error('Error updating subject:', error);
+            alert('An error occurred while updating the subject.');
+        }
+    });
+    
+
     // Initial load of all Subjects
     fetchAllSubjects();
-    });
+});

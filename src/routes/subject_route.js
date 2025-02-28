@@ -6,5 +6,6 @@ const subjectController = require('../controllers/subject_controller');
 router.post('/', subjectController.createSubject);
 router.get('/', subjectController.fetchSubjects);
 router.delete('/:subjectId', subjectController.deleteSubject);
+router.put('/:subjectId', subjectController.updateSubject);
 
 module.exports = router;
