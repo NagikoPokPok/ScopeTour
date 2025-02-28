@@ -137,6 +137,36 @@
       </div>
   </div>
 
+  <!-- Update Subject Modal -->
+  <div class="modal fade" id="updateSubjectModal" tabindex="-1" aria-labelledby="updateSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateSubjectModalLabel">Update Subject</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="updateSubjectForm">
+          <div class="modal-body">
+              <input type="hidden" id="update-subject-id">
+              <div class="mb-3">
+                  <label for="update-subject-name" class="form-label">Subject Name</label>
+                  <input type="text" class="form-control" id="update-subject-name" required>
+              </div>
+              <div class="mb-3">
+                  <label for="update-subject-description" class="form-label">Description</label>
+                  <textarea class="form-control" id="update-subject-description" rows="3"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Update Subject</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
 
 
   <!-- MODAL FILTER subject itself -->

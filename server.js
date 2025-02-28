@@ -14,17 +14,9 @@ const PORT = 3000; // Your Express server port
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Update your CORS configuration in server.js
 app.use(cors({
-  origin: function (origin, callback) {
-    // Adjust allowed origins as needed for public access or use a more open policy in production with authentication
-    const allowedOrigins = ['http://localhost:3000', 'http://localhost', 'http://172.25.1.249'];
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*',  // This allows access from any origin - we'll add security later
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -65,7 +57,7 @@ const startServer = async () => {
     console.log('Database synced successfully');
     
     // Listen on all interfaces
-    app.listen(PORT, '0.0.0.0', () => {
+    app.listen(PORT, () => {
       console.log(`Server is running on http://<your-public-ip>:${PORT}`);
     });
   } catch (error) {

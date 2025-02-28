@@ -11,8 +11,9 @@ console.log('teamController:', teamController);
 
 // router.post('/upload', upload.single('image'), teamController.uploadImage);
 router.post('/', teamController.createTeam);
-
-// Change GET route path to '/' so that it maps to '/api/team'
 router.get('/', teamController.fetchTeams);
+router.delete('/:teamId', teamController.deleteTeam);
+router.put('/:teamId', teamController.updateTeam);
+
 
 module.exports = router;
