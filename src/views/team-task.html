@@ -409,13 +409,25 @@
                             <div class="task text-start">
                                 <span class="task-title fw-medium">Do assignment on Sakai</span>
                                 <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                                <!-- Addition options of task -->
+                                 <div class="additional-option d-flex align-items-center justify-content-between">
+                                  <div class="option-high-priority mt-1" style="font-size: 14px;">
+                                    <i class="fa-solid fa-flag text-primary"></i>
+                                    <span class="ms-1">High Priority</span>
+                                  </div>
+
+                                  <div class="option-reminder mt-1" style="font-size: 14px;">
+                                    <i class="fa-solid fa-clock text-success"></i>
+                                    <span class="ms-1">13:00 PM</span>
+                                  </div>
+                                 </div>
                             </div>
                          </div>
 
       
                         <!-- Time -->
                         <div class="col time-of-task">
-                            <span class="status-of-task fw-medium">Overdue</span>
+                            <span class="status-of-task fw-medium" data-status="Overdue">Overdue</span>
                             <div class="due-time fw-light">
                                 <span class="open-time text-secondary">17/2/2025</span>
                                 <hr>
@@ -460,7 +472,7 @@
       
                         <!-- Time -->
                         <div class="col time-of-task">
-                            <span class="status-of-task fw-medium">Overdue</span>
+                            <span class="status-of-task fw-medium" data-status="In progress">In progress</span>
                             <div class="due-time fw-light">
                                 <span class="open-time text-secondary">17/2/2025</span>
                                 <hr>
@@ -502,8 +514,7 @@
                     <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
       
                          <div class="col check-task">
-                            <!-- Button check complete task -->
-                            <input class="checkbox-complete-task" type="checkbox" value="">
+                            
       
                             <!-- Task item -->
                             <div class="task text-start">
@@ -515,7 +526,7 @@
       
                         <!-- Time -->
                         <div class="col time-of-task">
-                            <span class="status-of-task fw-medium">Overdue</span>
+                            <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
                             <div class="due-time fw-light">
                                 <span class="open-time text-secondary">17/2/2025</span>
                                 <hr>

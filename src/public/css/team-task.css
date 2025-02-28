@@ -293,3 +293,17 @@ body{
   opacity: 0.8;
   color: green;
 }
+
+
+/* Set color of status of task */
+.status-of-task[data-status="In progress"] {
+  color: var(--success-color);
+}
+
+.status-of-task[data-status="Completed"] {
+  color: var(--blue-color);
+}
+
+.status-of-task[data-status="Overdue"] {
+  color: var(--error-color);
+}
