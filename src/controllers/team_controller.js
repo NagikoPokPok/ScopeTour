@@ -63,5 +63,30 @@ exports.deleteTeam = async (req, res) => {
     }
 };
 
+// Update team function
+exports.updateTeam = async (req, res) => {
+    try {
+        const { teamId } = req.params;
+        const { teamName } = req.body;
+
+        if (!teamId || !teamName) {
+            return res.status(400).json({ message: 'Team ID and name are required' });
+        }
+
+        // Find team
+        const team = await Team.findByPk(teamId);
+        if (!team) {
+            return res.status(404).json({ message: 'Team not found' });
+        }
+
+        // Update team
+        await Team.update({ name: teamName }, { where: { team_id: teamId } });
+
+        return res.status(200).json({ message: 'Team updated successfully' });
+    } catch (error) {
+        console.error('Error updating team:', error);
+        return res.status(500).json({ message: 'Error updating team' });
+    }
+};
 
 module.exports = exports;

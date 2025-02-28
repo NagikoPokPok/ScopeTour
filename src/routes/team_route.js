@@ -13,7 +13,7 @@ console.log('teamController:', teamController);
 router.post('/', teamController.createTeam);
 router.get('/', teamController.fetchTeams);
 router.delete('/:teamId', teamController.deleteTeam);
-
+router.put('/:teamId', teamController.updateTeam);
 
 
 module.exports = router;
