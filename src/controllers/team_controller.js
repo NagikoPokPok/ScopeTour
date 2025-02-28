@@ -42,4 +42,26 @@ exports.fetchTeams = async (req, res) => {
     }
 };
 
+// Delete team function
+exports.deleteTeam = async (req, res) => {
+    try {
+      const { teamId } = req.params;
+  
+      // Kiểm tra xem team có tồn tại không
+      const team = await Team.findByPk(teamId);
+      if (!team) {
+        return res.status(404).json({ message: "Team not found" });
+      }
+  
+      // Xoá team (nếu có ràng buộc quan hệ, có thể cần xoá các thành viên trước)
+      await Team.destroy({ where: { team_id: teamId } });
+  
+      return res.status(200).json({ message: "Team deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting team:", error);
+      return res.status(500).json({ message: "Error deleting team" });
+    }
+};
+
+
 module.exports = exports;

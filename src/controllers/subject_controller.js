@@ -43,4 +43,29 @@ exports.fetchSubjects = async (req, res) => {
   }
 };
 
+exports.deleteSubject = async (req, res) => {
+  try {
+      const { subjectId } = req.params;
+
+      if (!subjectId) {
+          return res.status(400).json({ message: "Invalid subject ID" });
+      }
+
+      // Kiểm tra subject có tồn tại không
+      const subject = await Subject.findByPk(subjectId);
+      if (!subject) {
+          return res.status(404).json({ message: "Subject not found" });
+      }
+
+      // Xóa subject
+      await Subject.destroy({ where: { subject_id: subjectId } });
+
+      return res.status(200).json({ message: "Subject deleted successfully" });
+  } catch (error) {
+      console.error("Error deleting subject:", error);
+      return res.status(500).json({ message: "Error deleting subject" });
+  }
+};
+
+
 module.exports = exports;

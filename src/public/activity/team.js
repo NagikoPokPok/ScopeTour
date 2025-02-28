@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Helper: Render teams in the team list
+    const colors = ['#E08963', '#5E96AE', '#f15f0e', '#A2C139']; // Màu luân phiên
+
+    // Render team
     function renderTeams(teams, isSearch = false) {
         const teamList = document.getElementById('teamList');
-        teamList.innerHTML = ''; // Clear current list
+        teamList.innerHTML = '';
+
         if (teams && teams.length > 0) {
-            teams.forEach(team => {
+            teams.forEach((team, index) => {
                 const li = document.createElement('li');
-                li.style.setProperty('--cardColor', '#E08963');
+                li.style.setProperty('--cardColor', colors[index % colors.length]); // Luân phiên màu sắc
+
                 li.innerHTML = `
                     <a href="#" class="content">
                         <div class="icon">😁</div>
@@ -20,27 +24,43 @@ document.addEventListener('DOMContentLoaded', function () {
                     </a>
                     <div class="action container border-0 d-flex justify-content-end align-items-center">
                         <div class="row gap-4">
-                        <div class="col fs-5 action-edit">
-                            <i class="fa-solid fa-pen-to-square text-primary"></i>
-                        </div>
-                        <div class="col fs-5 action-delete">
-                            <i class="fa-solid fa-trash-can text-primary"></i>
-                        </div>
+                            <div class="col fs-5 action-edit" data-team-id="${team.team_id}" data-team-name="${team.name}">
+                                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                            </div>
+                            <div class="col fs-5 action-delete" data-team-id="${team.team_id}">
+                                <i class="fa-solid fa-trash-can text-danger"></i>
+                            </div>
                         </div>
                     </div>
-                    `;
+                `;
                 teamList.appendChild(li);
             });
+
+            document.querySelectorAll('.action-delete').forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    const teamId = event.currentTarget.getAttribute('data-team-id');
+                    if (confirm("Are you sure you want to delete this team?")) {
+                        await deleteTeam(teamId);
+                    }
+                });
+            });
+/*
+            document.querySelectorAll('.action-edit').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const teamId = event.currentTarget.getAttribute('data-team-id');
+                    const teamName = event.currentTarget.getAttribute('data-team-name');
+                    openUpdateModal(teamId, teamName);
+                });
+            });
+*/
         } else {
-            teamList.innerHTML = isSearch 
-                ? '<li>No teams match your search</li>' 
+            teamList.innerHTML = isSearch
+                ? '<li>No teams match your search</li>'
                 : '<li>No teams available</li>';
         }
     }
 
-    console.log('Team script loaded');
-
-    // Fetch all teams (no search query)
+    // Fetch all team
     async function fetchAllTeams() {
         const teamList = document.getElementById('teamList');
         teamList.innerHTML = '<li>Loading...</li>';
@@ -55,97 +75,70 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Search teams based on query
-    async function searchTeams(searchQuery) {
-        const teamList = document.getElementById('teamList');
-        teamList.innerHTML = '<li>Searching...</li>';
+    // Delete team
+    async function deleteTeam(teamId) {
         try {
-            const url = `http://localhost:3000/api/team?search=${encodeURIComponent(searchQuery.trim())}`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Network response was not ok');
-            const data = await response.json();
-            renderTeams(data.teams, true); // Pass isSearch=true for search-specific messaging
+            const response = await fetch(`http://localhost:3000/api/team/${teamId}`, {
+                method: 'DELETE'
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                fetchAllTeams(); // Làm mới danh sách team sau khi xóa
+            } else {
+                alert(result.message || "Failed to delete team.");
+            }
         } catch (error) {
-            console.error('Error searching teams:', error);
-            teamList.innerHTML = '<li>Error searching teams</li>';
+            console.error('Error deleting team:', error);
+            alert("An error occurred while deleting the team.");
         }
     }
+/*
+    // Open model team
+    function openUpdateModal(teamId, teamName) {
+        document.getElementById('update-team-id').value = teamId;
+        document.getElementById('update-team-name').value = teamName;
 
-    // Debounce helper to limit API calls
-    function debounce(func, delay) {
-        let timeout;
-        return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), delay);
-        };
+        const modal = new bootstrap.Modal(document.getElementById('update-modal'));
+        modal.show();
     }
 
-    // Setup search functionality
-    const searchInput = document.getElementById('searchTeam');
-    if (searchInput) {
-        const debouncedSearch = debounce(query => {
-            const trimmedQuery = query.trim();
-            if (trimmedQuery) {
-                searchTeams(trimmedQuery); // Search when there's a query
+    // Update team function
+    document.getElementById('updateTeamForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const teamId = document.getElementById('update-team-id').value;
+        const teamName = document.getElementById('update-team-name').value.trim();
+
+        if (!teamId || !teamName) {
+            alert('Team ID or name is missing!');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/team/${teamId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ teamName })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+                fetchAllTeams(); // Fentch team after update
+                const modal = bootstrap.Modal.getInstance(document.getElementById('update-modal'));
+                modal.hide();
             } else {
-                fetchAllTeams(); // Fetch all teams only when search is cleared
+                alert(result.message || 'Failed to update team.');
             }
-        }, 300);
-
-        searchInput.addEventListener('input', () => {
-            debouncedSearch(searchInput.value);
-        });
-
-        searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = searchInput.value.trim();
-                if (query) {
-                    searchTeams(query); // Immediate search on Enter
-                } else {
-                    fetchAllTeams(); // Immediate fetch all on Enter when empty
-                }
-            }
-        });
-    }
-
-    // Handle team creation
-    const createTeamForm = document.getElementById('createTeamForm');
-    if (createTeamForm) {
-        createTeamForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const teamName = document.getElementById('modal-team-name').value.trim();
-            if (!teamName) {
-                alert('Team name is required.');
-                return;
-            }
-            try {
-                const response = await fetch('http://localhost:3000/api/team', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ teamName })
-                });
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message);
-                    const currentQuery = searchInput.value.trim();
-                    if (currentQuery) {
-                        searchTeams(currentQuery); // Refresh with current search query
-                    } else {
-                        fetchAllTeams(); // Refresh full list if no search active
-                    }
-                    bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
-                    createTeamForm.reset();
-                } else {
-                    alert(result.message || 'Failed to create team.');
-                }
-            } catch (error) {
-                console.error('Error creating team:', error);
-                alert('An error occurred while creating the team.');
-            }
-        });
-    }
-
-    // Initial load of all teams (only on page load)
+        } catch (error) {
+            console.error('Error updating team:', error);
+            alert('An error occurred while updating the team.');
+        }
+    });
+*/
     fetchAllTeams();
 });
