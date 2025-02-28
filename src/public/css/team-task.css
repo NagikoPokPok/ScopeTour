@@ -79,27 +79,49 @@ body{
 }
 
 .checkbox-complete-task:checked {
-    background-color: var(--blue-color); /* Màu nền khi được chọn */
-    border-color: var(--blue-color);
+  background-color: var(--blue-color);
+  border-color: var(--blue-color);
+  position: relative; /* Cần để ::before hoạt động đúng */
 }
 
 .checkbox-complete-task:checked::before {
-    content: "✔"; /* Dấu tích */
-    font-size: 14px;
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  content: "✔"; 
+  font-size: 14px;
+  color: white; /* Mặc định màu trắng */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
+/* Khi checkbox đã được chọn và hover vào, đổi màu dấu tick */
+.checkbox-complete-task:checked:hover::before {
+  color: var(--blue-color);
+}
+
 
 .item-available-task .task {
     display: flex;
     flex-direction: column;
+    
+    .task-title{
+      font-size: 18px;
+    }
+
+    .task-desc {
+      font-size: 16px;
+    }
 }
 
 .item-available-task .time-of-task {
     
+  .status-of-task {
+    font-size: 18px;
+  }
+
+  .due-time {
+    font-size: 16px;
+  }
 }
 
 .item-available-task .time-of-task .due-time {
@@ -117,10 +139,12 @@ body{
 
 }
 
-.item-available-task .action {
-    
+.item-available-task .action-list div[class*="action-"]:hover i {
+  color: var(--primary-color);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
 }
-
 
 
   /* MODAL CREATE TEAM */

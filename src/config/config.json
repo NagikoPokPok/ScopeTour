@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "login",
+    "username": "cuong",
+    "password": "cuong",
+    "database": "scope_tour",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

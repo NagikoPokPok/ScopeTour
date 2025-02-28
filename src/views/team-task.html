@@ -76,7 +76,7 @@
         </div> 
 
         <div class="search-btn">
-          <input  type="email" placeholder="Seach your subject name" required="" name="" id="searchSubject" class="email">
+          <input  type="email" placeholder="Seach your task name" required="" name="" id="searchSubject" class="email">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
@@ -383,100 +383,170 @@
       </h4>
 
       <div class="available-task">
-        <h5>Available Tasks</h5>
+        
         <div class="list-available-task">
-            <div class="item-available-task container text-center p-0">
-                <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
-
-                     <div class="col check-task">
-                        <!-- Button check complete task -->
-                        <input class="checkbox-complete-task" type="checkbox" value="">
-
-                        <!-- Task item -->
-                        <div class="task text-start">
-                            <span class="task-title fw-medium">Do assignment on Sakai</span>
-                            <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
-                        </div>
-                     </div>
-        
             
+          <!-- Accordion -->
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <!-- Accordion-HEADER -->
+              <h2 class="accordion-header">
+                <button class="accordion-button fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  Available Tasks
+                </button>
+              </h2>
+              <!-- Accordion-BODY -->
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
 
-                    <!-- Time -->
-                    <div class="col time-of-task">
-                        <span class="status-of-task fw-medium">Overdue</span>
-                        <div class="due-time fw-light">
-                            <span class="open-time text-secondary">17/2/2025</span>
-                            <hr>
-                            <span class="end-time text-secondary">28/2/2025</span>
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
                         </div>
                     </div>
-            
-                    <!-- Action -->
-                    <div class="col text-end d-flex justify-content-end">
-                        <div class="row g-3">
-                            <div class="col fs-5 action-edit">
-                                <i class="fa-solid fa-pen-to-square"></i>
+                  </div>       
+                  
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
                             </div>
-                            <div class="col fs-5 action-delete">
-                                <i class="fa-solid fa-trash-can"></i>
+                         </div>
+
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
                             </div>
-                            <div class="col fs-5 action-rank">
-                                <i class="fa-solid fa-ranking-star"></i>
-                            </div>
-                            <div class="col fs-5 action-comment">
-                                <i class="fa-regular fa-message"></i> 
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
                             </div>
                         </div>
                     </div>
+                  </div>     
                 </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                  Submitted Tasks
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
+
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>  
+                </div>
+              </div>
             </div>
             
-
-            <div class="item-available-task container text-center p-0">
-                <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
-
-                     <div class="col check-task">
-                        <!-- Button check complete task -->
-                        <input class="checkbox-complete-task" type="checkbox" value="">
-
-                        <!-- Task item -->
-                        <div class="task text-start">
-                            <span class="task-title fw-medium">Do assignment on Sakai</span>
-                            <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
-                        </div>
-                     </div>
-        
-            
-
-                    <!-- Time -->
-                    <div class="col time-of-task">
-                        <span class="status-of-task fw-medium">Overdue</span>
-                        <div class="due-time fw-light">
-                            <span class="open-time text-secondary">17/2/2025</span>
-                            <hr>
-                            <span class="end-time text-secondary">28/2/2025</span>
-                        </div>
-                    </div>
-            
-                    <!-- Action -->
-                    <div class="col text-end d-flex justify-content-end">
-                        <div class="row g-3">
-                            <div class="col fs-5 action-edit">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </div>
-                            <div class="col fs-5 action-delete">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
-                            <div class="col fs-5 action-rank">
-                                <i class="fa-solid fa-ranking-star"></i>
-                            </div>
-                            <div class="col fs-5 action-comment">
-                                <i class="fa-regular fa-message"></i> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
       </div>
 
