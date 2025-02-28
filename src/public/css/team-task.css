@@ -22,20 +22,130 @@ body{
 
 /* Content */
 
-/* Button list */
+/* Task list */
 
+#task {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin-top: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    padding: 40px;
+  }
 
-/* Subject list */
-
-#subject {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255,255,255,0.4);
-  margin-top: 24px;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-  padding: 40px;
+#task .available-task {
+    margin-top: 24px;
 }
+
+.available-task .list-available-task {
+    
+}
+
+.list-available-task .item-available-task {
+    width: 100%;
+    border: black;
+    border-radius: 0;
+    border-top: 1px solid var(--gray-color); /* Đặt độ dày, kiểu và màu sắc */
+}
+
+
+.item-available-task .check-task {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    
+}
+
+.item-available-task .checkbox-complete-task {
+    aspect-ratio: 1 / 1; /* Giữ tỷ lệ hình vuông */
+    width: 30px; /* Giới hạn kích thước tối đa */
+    appearance: none; /* Ẩn giao diện mặc định */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 2px solid var(--blue-color); /* Viền checkbox */
+    border-width: 3px;
+    border-radius: 50%; /* Bo tròn */
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    margin-right: 20px;
+
+}
+
+.item-available-task .checkbox-complete-task:hover {
+    background-color: rgba(53, 105, 202, 0.2);
+}
+
+.checkbox-complete-task:checked {
+  background-color: var(--blue-color);
+  border-color: var(--blue-color);
+  position: relative; /* Cần để ::before hoạt động đúng */
+}
+
+.checkbox-complete-task:checked::before {
+  content: "✔"; 
+  font-size: 14px;
+  color: white; /* Mặc định màu trắng */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Khi checkbox đã được chọn và hover vào, đổi màu dấu tick */
+.checkbox-complete-task:checked:hover::before {
+  color: var(--blue-color);
+}
+
+
+.item-available-task .task {
+    display: flex;
+    flex-direction: column;
+    
+    .task-title{
+      font-size: 18px;
+    }
+
+    .task-desc {
+      font-size: 16px;
+    }
+}
+
+.item-available-task .time-of-task {
+    
+  .status-of-task {
+    font-size: 18px;
+  }
+
+  .due-time {
+    font-size: 16px;
+  }
+}
+
+.item-available-task .time-of-task .due-time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    hr {
+        width: 10px;
+        height: 1px;
+        margin: 0 8px;
+        background-color: black;
+        font-weight: 300;
+    }
+
+}
+
+.item-available-task .action-list div[class*="action-"]:hover i {
+  color: var(--primary-color);
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
+}
+
 
   /* MODAL CREATE TEAM */
   .examples {
@@ -62,7 +172,19 @@ body{
     font-weight: 500;
   }
 
+  #createTaskForm .form-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  #createTaskForm .form-check-input {
+    width: 24px;
+    height: 24px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 12px;
+  }
 
 /* LAYOUT DELETE ITEMS */
 

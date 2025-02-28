@@ -15,6 +15,7 @@
   <!-- Main -->
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
   <link rel="stylesheet" href="../public/css/team-project.css">
+  <link rel="stylesheet" href="../public/css/team-task.css">
 
   <!-- Modal filter -->
   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
@@ -24,6 +25,12 @@
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
   <script type="text/javascript" src="../js/list-goal-team-sidebar.js" defer></script>
+
+  <!-- Date Time Range Picker -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
   <!--Begin: SideBar -->
@@ -69,7 +76,7 @@
         </div> 
 
         <div class="search-btn">
-          <input  type="email" placeholder="Seach your subject name" required="" name="" id="searchSubject" class="email">
+          <input  type="email" placeholder="Seach your task name" required="" name="" id="searchSubject" class="email">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
@@ -100,37 +107,55 @@
     aria-hidden="true"
     >
     <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-title">Create a subject</h5>
+            <h5 class="modal-title" id="modal-title">Create a task</h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
               data-bs-dismiss="modal" 
               aria-label="Close">
               </button>
           </div>
-          <form id="createSubjectForm">
+          <form id="createTaskForm">
             <div class="modal-body">
-              <label for="modal-subject-name" class="form-label my-1">
-                <span>Subject name</span>
+              <label for="modal-task-name" class="form-label my-1">
+                <span>Task name</span>
                 <div class="icon-important">
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-subject-name" required 
-                      placeholder="IT">
+              <input type="text" class="form-control mb-3" id="modal-task-name" required 
+                      placeholder="Do assignment">
 
-              <!-- <label for="modal-professional" class="form-label my-1">Professional</label>
-              <input type="text" class="form-control mb-3" id="modal-professional" required id="" placeholder="CMU-CS 445 BIS"> -->
+              <label for="modal-task-des" class="form-label my-1">Description</label>
+              <input type="text" class="form-control mb-3" id="modal-task-des"  placeholder="Do it on Sakai">
+              
+              <label for="modal-task-time" class="form-label my-1">Start and End Time</label>
+              <input type="text" name="datetimes" style="width: 100%; height: 40px;" id="modal-task-time" class="form-control mb-3" />
+              
+              <!-- Form-check -->
+               <div class="extra-setting d-flex align-items-center justify-content-between">
+                  <div class="form-check mt-2">
+                  <input class="form-check-input" type="checkbox" value="" id="high-priority">
+                  <label class="form-check-label" for="high-priority">
+                    High Priority
+                  </label>
+                </div>
 
-              <label for="modal-subject-des" class="form-label my-1">Description</label>
-              <input type="text" class="form-control mb-3" id="modal-subject-des"  placeholder="CMU-CS 442">
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="checkbox" value="" id="time-reminder">
+                  <label class="form-check-label" for="time-reminder">
+                    Time Reminder
+                  </label>
+                </div>
+               </div>
+              
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">Create</button>
-            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create</button>
+              </div>
           </form>
           
         </div>
@@ -350,39 +375,183 @@
 
     <!-- Begin: subject List -->
 
-    <div id="subject">
+    <div id="task">
 
       <h5 class="heading">
-        <span>Subjects of</span>
-        <span class="team-name">Rumble team</span>
+        <span>Tasks of subject</span>
+        <span class="subject-name">CDIO</span>
       </h4>
 
-      <ol class="olcards">
-        <li style="--cardColor:#E08963">
-          <a href="#" class="content">
-            <div class="icon">😁</div>
-            <div class="subject-des">
-              <div class="title">CDIO</div>
-              <span class="body text-body-light">CMU CS 447 BIS</span>
-            </div>
-          </a>
-          
-          <div class="action container border-0 d-flex justify-content-end align-items-center">
-            <div class="row gap-4">
-              <div class="col fs-5 action-add-member">
-                <i class="fa-solid fa-user-plus text-primary"></i>
-              </div>
-              <div class="col fs-5 action-edit">
-                <i class="fa-solid fa-pen-to-square text-primary"></i>
-              </div>
-              <div class="col fs-5 action-delete">
-                <i class="fa-solid fa-trash-can text-primary"></i>
-              </div>
-            </div>
-          </div>
-        </li>
+      <div class="available-task">
+        
+        <div class="list-available-task">
+            
+          <!-- Accordion -->
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <!-- Accordion-HEADER -->
+              <h2 class="accordion-header">
+                <button class="accordion-button fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                  Available Tasks
+                </button>
+              </h2>
+              <!-- Accordion-BODY -->
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
 
-      </ol>
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>       
+                  
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
+
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>     
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                  Submitted Tasks
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
+
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium">Overdue</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
+                            <div class="row g-3">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+  
+
 
       <ol id="SubjectList" class="olcards">
 
@@ -403,6 +572,20 @@
 
   <!-- layout delete -->
    <script src="../js/toggeLayoutDelete.js"></script>
+
+   <!-- Date time range piker -->
+   <script>
+    $(function() {
+      $('input[name="datetimes"]').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        locale: {
+          format: 'DD/MM/YYYY hh:mm A'
+        }
+      });
+    });
+    </script>
 
 </body>
 </html>

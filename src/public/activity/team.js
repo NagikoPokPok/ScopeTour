@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const li = document.createElement('li');
                 li.style.setProperty('--cardColor', '#E08963');
                 li.innerHTML = `
-                    <div class="content">
+                    <a href="#" class="content">
                         <div class="icon">😁</div>
                         <div class="team-des">
                             <div class="title">${team.name}</div>
@@ -17,7 +17,18 @@ document.addEventListener('DOMContentLoaded', function () {
                             <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
                             <div class="number-streak"><span>30</span></div>
                         </div>
-                    </div>`;
+                    </a>
+                    <div class="action container border-0 d-flex justify-content-end align-items-center">
+                        <div class="row gap-4">
+                        <div class="col fs-5 action-edit">
+                            <i class="fa-solid fa-pen-to-square text-primary"></i>
+                        </div>
+                        <div class="col fs-5 action-delete">
+                            <i class="fa-solid fa-trash-can text-primary"></i>
+                        </div>
+                        </div>
+                    </div>
+                    `;
                 teamList.appendChild(li);
             });
         } else {
@@ -26,6 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 : '<li>No teams available</li>';
         }
     }
+
+    console.log('Team script loaded');
 
     // Fetch all teams (no search query)
     async function fetchAllTeams() {

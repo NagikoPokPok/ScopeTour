@@ -174,8 +174,9 @@ body{
   border-radius: 10px;
 }
 
-.sidebar-part1 .sub-menu  li:hover {
+.sidebar-part1 .sub-menu li:hover {
   background-color: var(--background-color);
+  cursor: pointer;
 }
 
 #toggle-btn{
@@ -480,11 +481,11 @@ main {
   margin-top: 24px;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  padding: 40px;
 }
 
 #team > .heading {
   display: block;
-  padding: 24px 40px 0;
   font-size: 20px;
 }
 
@@ -504,7 +505,7 @@ main {
     --cardsGap: 1rem;
     gap: var(--cardsGap);
     padding-bottom: var(--cardsGap);
-    margin: 24px 40px;
+    margin: 24px 0px;
     /* --cardColor: var(--primary-color); */
   }
   
@@ -680,4 +681,13 @@ main {
   .modal-body input:focus {
     box-shadow: none;
     border-color: var(--primary-color);
+  }
+
+  .modal-body .container .row .col {
+    padding: 8px;
+  }
+
+  .modal-body .container {
+    margin-top: 8px;
+    margin-bottom: 24px;
   }
