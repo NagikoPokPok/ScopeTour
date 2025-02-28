@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const teamList = document.getElementById('teamList');
         teamList.innerHTML = '<li>Loading...</li>';
         try {
-            const response = await fetch('http://172.25.1.249:3000/api/team');
+            const response = await fetch('http://localhost:3000/api/team');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             renderTeams(data.teams, false);
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const teamList = document.getElementById('teamList');
         teamList.innerHTML = '<li>Searching...</li>';
         try {
-            const url = `http://172.25.1.249:3000/api/team?search=${encodeURIComponent(searchQuery.trim())}`;
+            const url = `http://localhost:3000/api/team?search=${encodeURIComponent(searchQuery.trim())}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             try {
-                const response = await fetch('http://172.25.1.249:3000/api/team', {
+                const response = await fetch('http://localhost:3000/api/team', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ teamName })

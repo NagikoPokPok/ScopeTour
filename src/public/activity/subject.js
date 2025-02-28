@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const SubjectList = document.getElementById('SubjectList');
         SubjectList.innerHTML = '<li>Loading...</li>';
         try {
-            const response = await fetch('http://172.25.1.249:3000/api/subject');
+            const response = await fetch('http://localhost:3000/api/subject');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             renderSubjects(data.Subjects, false);
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const SubjectList = document.getElementById('SubjectList');
         SubjectList.innerHTML = '<li>Searching...</li>';
         try {
-            const url = `http://172.25.1.249:3000/api/Subject?search=${encodeURIComponent(searchQuery.trim())}`;
+            const url = `http://localhost:3000/api/Subject?search=${encodeURIComponent(searchQuery.trim())}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             try {
-                const response = await fetch('http://172.25.1.249:3000/api/subject', {
+                const response = await fetch('http://localhost:3000/api/subject', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ subjectName: SubjectName })
