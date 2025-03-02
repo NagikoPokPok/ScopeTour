@@ -7,15 +7,22 @@
   <title>Scope Tour</title>
   <!-- Bootstrap -->
   <link href="../public/css/main.min.css" rel="stylesheet">
+
   <!-- Main style and font-awesome icon -->
   <link rel="stylesheet" href="../public/css/main-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <!-- Sidebar -->
   <link rel="stylesheet" href="../public/css/list-goal-team.css">
+
   <!-- Modal filter -->
    <link rel="stylesheet" href="../public/css/components/filter-modal.css">
+
+  <!-- Layout delete -->
+   <link rel="stylesheet" href="../public/css/components/layout-delete.css">
+
   <!-- Multiple emails input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
@@ -61,7 +68,10 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <ul>
-          <li><i class="fa-solid fa-trash-can"></i><span>Delete</span></li>
+          <li onclick=openLayoutDelete()>
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Delete</span>
+          </li>
           <li data-bs-toggle="modal" 
             data-bs-target="#modal-filter">
             <i class="fa-solid fa-filter"></i>
@@ -249,7 +259,7 @@
       </div>
     </div>
     
-    <!-- Modal Create Team -->
+    <!-- MODAL CREATE Team -->
     <div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -280,7 +290,7 @@
       </div>
     </div>
 
-    <!-- Update Team Modal -->
+    <!-- MODAL UPDATE Modal -->
     <div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="update-modal-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -302,6 +312,38 @@
         </div>
       </div>
     </div>
+
+
+    <!-- LAYOUT DELETE MANY ITEMS -->
+    <div class="layout-delete-many-items">
+      <div class="container-fluid d-flex mt-4">
+          <h5 class="number-item-selected m-0">
+            <span class="number ms-4">0</span>
+            <span class="des">Item selected</span>
+          </h5>
+          
+          <div class="action-list">
+            <div class="select-all">
+              <div class="form-check mb-0">
+                <input class="form-check-input" type="checkbox" value="" id="select-all">
+                <label class="form-check-label" for="select-all">
+                  Select All
+                </label>
+              </div>
+            </div>
+
+            <div class="delete-items">
+              <!-- <i class="fa-solid fa-trash-can"></i>   -->
+              <span>Delete</span>          
+            </div>
+
+            <div class="close-layout" onclick=closeLayoutDelete()>
+              <i class="fa-regular fa-circle-xmark"></i>
+              <span>Close</span> 
+            </div>
+          </div>
+      </div>
+     </div>
 
     
     <!-- Team List -->
@@ -330,5 +372,9 @@
   <!-- Our main JS file -->
   <script type="module" src="../public/activity/time.js"></script>
   <script type="module" src="../public/activity/team.js"></script>
+
+
+  <!-- layout delete -->
+  <script src="../js/toggeLayoutDelete.js"></script>
 </body>
 </html>
