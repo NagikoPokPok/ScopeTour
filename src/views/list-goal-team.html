@@ -20,6 +20,9 @@
   <!-- Modal filter -->
    <link rel="stylesheet" href="../public/css/components/filter-modal.css">
 
+   <!-- Modal sort -->
+   <link rel="stylesheet" href="../public/css/components/sort-modal.css">
+
   <!-- Layout delete -->
    <link rel="stylesheet" href="../public/css/components/layout-delete.css">
 
@@ -77,13 +80,17 @@
             <i class="fa-solid fa-filter"></i>
             <span>Filter</span>
           </li>
-          <li><i class="fa-solid fa-sort"></i><span>Sort</span></li>
+          <li data-bs-toggle="modal" 
+          data-bs-target="#modal-sort">
+            <i class="fa-solid fa-sort"></i>
+            <span>Sort</span>
+          </li>
         </ul>
       </div>
     </div>
 
 
-    <!-- MODAL FILTER subject itself -->
+    <!-- MODAL FILTER  -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
     <div class="modal fade" id="modal-filter" 
     tabindex="-1" 
@@ -250,8 +257,117 @@
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button onclick=uncheckAllItemModalFilter() type="button" class="btn btn-secondary">Remove</button>
               <button type="submit" class="btn btn-primary">Apply filters</button>
+            </div>
+          <!-- </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL SORT -->
+  <div class="modal fade" id="modal-sort" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">Sort for: All subjects</h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <!-- Begin: form check criteria of sort -->
+              <div class="form-check-number-streak">
+                <div class="form-check-title">
+                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                  <h6 class="">Criteria of sort</h6>
+                </div>
+                <div class="container p-4">
+                  <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="criteria-sort" value="" id="name">
+                        <label class="form-check-label" for="name">
+                          Name
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="criteria-sort" value="" id="streak">
+                        <label class="form-check-label" for="streak">
+                          Streak
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="criteria-sort" value="" id="time-join">
+                          <label class="form-check-label" for="time-join">
+                            Time join
+                          </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="criteria-sort" value="" id="member">
+                          <label class="form-check-label" for="member">
+                            Member
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End: form check criteria of sort -->
+              
+              <!-- Begin: form check type -->
+              <div class="form-check-time-join">
+                <div class="form-check-title">
+                  <img src="../public/img/filter-team/watch.png" alt="streak" class="icon-streak">
+                  <h6 class="">Type of sort</h6>
+                </div>
+                <div class="container p-4">
+                  <div class="row row-cols-2">
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type-sort" value="" id="ascending">
+                        <label class="form-check-label" for="ascending">
+                          Ascending
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type-sort" value="" id="descending">
+                        <label class="form-check-label" for="descending">
+                          Descending
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- End: form check type -->
+
+            </div>
+            <div class="modal-footer">
+              <button onclick=uncheckAllItemModalSort() type="button" class="btn btn-secondary">Remove</button>
+              <button type="submit" class="btn btn-primary">Apply sort</button>
             </div>
           <!-- </form> -->
           
@@ -290,7 +406,7 @@
       </div>
     </div>
 
-    <!-- MODAL UPDATE Modal -->
+    <!-- MODAL UPDATE -->
     <div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="update-modal-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -345,6 +461,8 @@
       </div>
      </div>
 
+  
+
     
     <!-- Team List -->
     <div id="team">
@@ -376,5 +494,29 @@
 
   <!-- layout delete -->
   <script src="../js/toggeLayoutDelete.js"></script>
+
+  <!-- Uncheck all item in modal sort -->
+  <script>
+    function uncheckAllItemModalSort() {
+      // Lấy tất cả các input radio trong modal có id "modal-sort"
+      const radioButtons = document.querySelectorAll('#modal-sort input[type="radio"]');
+
+      // Duyệt qua tất cả và bỏ chọn
+      radioButtons.forEach(radio => {
+          radio.checked = false;
+      });
+    }
+
+    function uncheckAllItemModalFilter() {
+      // Lấy tất cả các input radio trong modal có id "modal-sort"
+      const checkboxButtons = document.querySelectorAll('#modal-filter input[type="checkbox"]');
+
+      // Duyệt qua tất cả và bỏ chọn
+      checkboxButtons.forEach(checkbox => {
+          checkbox.checked = false;
+      });
+    }
+
+  </script>
 </body>
 </html>
