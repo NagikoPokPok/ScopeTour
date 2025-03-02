@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else {
             teamList.innerHTML = isSearch
-                ? '<li>No teams match your search</li>'
-                : '<li>No teams available</li>';
+                ? '<span>No teams match your search</span>'
+                : '<span>No teams available</span>';
         }
     }
 
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch all team
     async function fetchAllTeams() {
         const teamList = document.getElementById('teamList');
-        teamList.innerHTML = '<li>Loading...</li>';
+        teamList.innerHTML = '<span>Loading...</span>';
         try {
             const response = await fetch('http://localhost:3000/api/team');
             if (!response.ok) throw new Error('Network response was not ok');
@@ -66,7 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
             renderTeams(data.teams, false);
         } catch (error) {
             console.error('Error fetching all teams:', error);
-            teamList.innerHTML = '<li>Error loading teams</li>';
+            teamList.innerHTML = `
+            <div class="error-loading d-flex justify-content-center align-items-center flex-column">
+                <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status">
+                <span class="text-status">Error loading</span>
+            </div>
+            `            
+            ;
         }
     }
 
@@ -139,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Search teams based on query
         async function searchTeams(searchQuery) {
             const teamList = document.getElementById('teamList');
-            teamList.innerHTML = '<li>Searching...</li>';
+            teamList.innerHTML = '<span>Searching...</span>';
             try {
                 const url = `http://localhost:3000/api/team?search=${encodeURIComponent(searchQuery.trim())}`;
                 const response = await fetch(url);
@@ -148,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderTeams(data.teams, true); // Pass isSearch=true for search-specific messaging
             } catch (error) {
                 console.error('Error searching teams:', error);
-                teamList.innerHTML = '<li>Error searching teams</li>';
+                teamList.innerHTML = '<span>Error searching teams</span>';
             }
         }
     

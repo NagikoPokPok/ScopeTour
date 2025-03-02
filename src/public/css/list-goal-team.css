@@ -631,6 +631,7 @@ main {
     height: 100% - 24px;
     
   }
+
   #team .olcards li .content .team-streak .icon-streak {
     width: 20px;
     height: auto;
@@ -641,6 +642,17 @@ main {
     font-size: 18px;
     font-weight: 650;
     color: #000;
+  }
+
+  #team .img-status {
+    width: 50%;
+    border-radius: 10px;
+  }
+
+  #team .text-status {
+    font-weight: 500;
+    margin-top: 20px;
+    font-size: 24px;
   }
 
 
