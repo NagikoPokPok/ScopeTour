@@ -34,15 +34,12 @@ body{
     padding: 40px;
   }
 
-#task .available-task {
+#task .list-task {
     margin-top: 24px;
 }
 
-.available-task .list-available-task {
-    
-}
-
-.list-available-task .item-available-task {
+.list-task .item-submitted-task,
+.list-task .item-available-task {
     width: 100%;
     border: black;
     border-radius: 0;
@@ -50,14 +47,14 @@ body{
 }
 
 
-.item-available-task .check-task {
+.list-task .check-task {
     display: flex;
     align-items: center;
     justify-content: start;
     
 }
 
-.item-available-task .checkbox-complete-task {
+.list-task .checkbox-complete-task {
     aspect-ratio: 1 / 1; /* Giữ tỷ lệ hình vuông */
     width: 30px; /* Giới hạn kích thước tối đa */
     appearance: none; /* Ẩn giao diện mặc định */
@@ -74,7 +71,7 @@ body{
 
 }
 
-.item-available-task .checkbox-complete-task:hover {
+.list-task .checkbox-complete-task:hover {
     background-color: rgba(53, 105, 202, 0.2);
 }
 
@@ -100,7 +97,7 @@ body{
 }
 
 
-.item-available-task .task {
+.list-task .task {
     display: flex;
     flex-direction: column;
     
@@ -113,7 +110,7 @@ body{
     }
 }
 
-.item-available-task .time-of-task {
+.list-task .time-of-task {
     
   .status-of-task {
     font-size: 18px;
@@ -124,7 +121,7 @@ body{
   }
 }
 
-.item-available-task .time-of-task .due-time {
+.list-task .time-of-task .due-time {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,7 +136,7 @@ body{
 
 }
 
-.item-available-task .action-list div[class*="action-"]:hover i {
+.list-task .action-list div[class*="action-"]:hover i {
   color: var(--primary-color);
   cursor: pointer;
   transform: scale(1.1);

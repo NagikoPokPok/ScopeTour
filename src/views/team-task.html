@@ -373,7 +373,7 @@
      </div>
     <!-- End: Button List -->
 
-    <!-- Begin: subject List -->
+    <!-- Begin: Task List -->
 
     <div id="task">
 
@@ -382,13 +382,12 @@
         <span class="subject-name">CDIO</span>
       </h4>
 
-      <div class="available-task">
-        
-        <div class="list-available-task">
-            
+      <div class="list-task">
+      
           <!-- Accordion -->
           <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
+            <!-- Available Task -->
+            <div class="accordion-item list-available-task">
               <!-- Accordion-HEADER -->
               <h2 class="accordion-header">
                 <button class="accordion-button fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -502,7 +501,9 @@
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
+
+            <!-- Submitted Task -->
+            <div class="accordion-item list-submitted-task">
               <h2 class="accordion-header">
                 <button class="accordion-button collapsed fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                   Submitted Tasks
@@ -510,12 +511,10 @@
               </h2>
               <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                 <div class="accordion-body">
-                  <div class="item-available-task container text-center p-0">
+                  <div class="item-submitted-task container text-center p-0">
                     <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
       
                          <div class="col check-task">
-                            
-      
                             <!-- Task item -->
                             <div class="task text-start">
                                 <span class="task-title fw-medium">Do assignment on Sakai</span>
@@ -525,21 +524,16 @@
 
       
                         <!-- Time -->
-                        <div class="col time-of-task">
+                        <div class="col time-of-task d-flex flex-column">
                             <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
-                            <div class="due-time fw-light">
-                                <span class="open-time text-secondary">17/2/2025</span>
-                                <hr>
-                                <span class="end-time text-secondary">28/2/2025</span>
-                            </div>
+                            <span class="submitted-time fw-light text-secondary">
+                               17/2/2025 3:00 PM
+                            </span>
                         </div>
                 
                         <!-- Action -->
                         <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
                             <div class="row g-3">
-                                <div class="col fs-5 action-edit">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </div>
                                 <div class="col fs-5 action-delete">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
@@ -558,7 +552,7 @@
             </div>
             
           </div>
-        </div>
+        
       </div>
 
   
@@ -569,7 +563,7 @@
 
       </ol>
     </div>
-    <!-- End: subject List -->
+    <!-- End: Task List -->
 
   </main>
   <!--End: Main Content -->
