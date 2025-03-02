@@ -22,6 +22,9 @@
   <!-- Layout delete -->
   <link rel="stylesheet" href="../public/css/components/layout-delete.css">
 
+  <!-- Modal confirmation -->
+   <link rel="stylesheet" href="../public/css/components/confirmation-modal.css">
+
   <!-- Multiple emails in input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
@@ -401,13 +404,19 @@
           
           <div class="action container border-0 d-flex justify-content-end align-items-center">
             <div class="row gap-4">
-              <div class="col fs-5 action-add-member">
+              <div class="col fs-5 action-add-member"
+              data-bs-toggle="modal" 
+              data-bs-target="#modal-success-action">
                 <i class="fa-solid fa-user-plus text-primary"></i>
               </div>
-              <div class="col fs-5 action-edit">
+              <div class="col fs-5 action-edit"
+              data-bs-toggle="modal" 
+              data-bs-target="#modal-confirmation-edit">
                 <i class="fa-solid fa-pen-to-square text-primary"></i>
               </div>
-              <div class="col fs-5 action-delete">
+              <div class="col fs-5 action-delete" 
+              data-bs-toggle="modal" 
+              data-bs-target="#modal-confirmation-delete">
                 <i class="fa-solid fa-trash-can text-primary"></i>
               </div>
             </div>
@@ -420,6 +429,144 @@
 
 
       </ol>
+
+
+
+
+      <!-- MODAL CONFIRMATION DELETE -->
+      <div class="modal fade" id="modal-confirmation-delete" 
+      tabindex="-1" 
+      aria-labelledby="modal-title" 
+      aria-hidden="true"
+      >
+      <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <i class="fa-solid fa-trash-can type-confirmation-img"></i>
+              <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+                Delete
+                <span class="type-of-object">Team</span>
+              </h5>
+              <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+              <button type="button" class="btn-close" 
+                data-bs-dismiss="modal" 
+                aria-label="Close">
+                </button>
+            </div>
+            <!-- <form action=""> -->
+              <div class="modal-body">
+                <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                  <span>Are you sure want to delete</span>
+                  <span class="object-deleted-name fw-semibold my-0 mx-1">
+                    Rumble
+                  </span>
+                  <span>?</span>
+                </div>
+
+                <div class="warning mt-2">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span class="warning-content ms-1">
+                    By Deleting this
+                    <span class="type-of-object">Team</span>
+                    ,
+                    <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                  </span>
+                </div>
+                
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                <button type="submit" class="btn btn-primary btn-yes">
+                  Yes,
+                  <span class="type-of-action">Delete</span>
+                </button>
+              </div>
+            <!-- </form> -->
+            
+          </div>
+        </div>
+      </div>
+
+       <!-- MODAL CONFIRMATION EDIT -->
+       <div class="modal fade" id="modal-confirmation-edit" 
+       tabindex="-1" 
+       aria-labelledby="modal-title" 
+       aria-hidden="true"
+       >
+       <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+           <div class="modal-content">
+             <div class="modal-header">
+               <i class="fa-solid fa-pen-to-square type-confirmation-img"></i>
+               <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+                 Edit
+                 <span class="type-of-object">Team</span>
+               </h5>
+               <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+               <button type="button" class="btn-close" 
+                 data-bs-dismiss="modal" 
+                 aria-label="Close">
+                 </button>
+             </div>
+             <!-- <form action=""> -->
+               <div class="modal-body">
+                 <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                   <span>Are you sure want to edit</span>
+                   <span class="object-deleted-name fw-semibold my-0 mx-1">
+                     Rumble
+                   </span>
+                   <span>?</span>
+                 </div>
+ 
+                 <div class="warning mt-2">
+                   <i class="fa-solid fa-triangle-exclamation"></i>
+                   <span class="warning-content ms-1">
+                    Make sure your changes are correct before saving, as they may impact team collaboration.
+                   </span>
+                 </div>
+                 
+                 
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                 <button type="submit" class="btn btn-primary btn-yes">
+                   Yes,
+                   <span class="type-of-action">Edit</span>
+                 </button>
+               </div>
+             <!-- </form> -->
+             
+           </div>
+         </div>
+       </div>
+
+
+       <!-- MODAL SUCCESSFUL ACTION -->
+       <div class="modal fade" id="modal-success-action" 
+       tabindex="-1" 
+       aria-labelledby="modal-title" 
+       aria-hidden="true"
+       >
+       <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+           <div class="modal-content">
+             <div class="modal-header d-flex flex-column">
+               <!-- <i class="fa-regular fa-circle-check type-confirmation-img"></i> -->
+               <!-- <iframe src="https://lottie.host/embed/b187c1ea-90fb-4aaf-a964-9d799eb60c22/ML5kHr0sl6.lottie"></iframe> -->
+               <iframe src="https://lottie.host/embed/62c3194f-0151-46bd-b23c-5c94f24e57c3/XiprdXSjfG.lottie"></iframe>
+               <h5 class="modal-title ms-2 fw-bold text-white fs-2" id="modal-title">
+                 Action Successful !
+               </h5>
+               
+             </div>
+             
+             
+           </div>
+         </div>
+       </div>
+
     </div>
     <!-- End: subject List -->
 

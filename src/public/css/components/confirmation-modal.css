@@ -1,0 +1,56 @@
+/* MODAL CONFIRMATION DELETE */
+#modal-confirmation-delete .modal-header .type-confirmation-img {
+    color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--primary-color) 20%, transparent);;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#modal-confirmation-delete .modal-body .warning {
+    color: #BC4C2E;
+}
+
+#modal-confirmation-delete .modal-footer .btn-yes {
+    background-color: var(--primary-color);
+}
+
+#modal-confirmation-delete .modal-footer .btn-yes:hover {
+    opacity: 0.8;
+}
+
+/* MODAL CONFIRMATION EDIT */
+#modal-confirmation-edit .modal-header .type-confirmation-img {
+    color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--primary-color) 20%, transparent);;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#modal-confirmation-edit .modal-body .warning {
+    color: #BC4C2E;
+}
+
+#modal-confirmation-edit .modal-footer .btn-yes {
+    background-color: var(--primary-color);
+}
+
+#modal-confirmation-edit .modal-footer .btn-yes:hover {
+    opacity: 0.8;
+}
+
+/* MODAL ACTION */
+#modal-success-action .modal-content {
+    background-color: transparent;
+    border: none;
+
+    .modal-header {
+        border: none;
+
+        iframe{
+            height: 300px;
+        }
+    }
+}
+
