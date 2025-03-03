@@ -5,8 +5,9 @@ const sequelize = require('./src/config/database');
 const teamRoutes = require('./src/routes/team_route');
 const subjectRoute = require('./src/routes/subject_route');
 const path = require('path');
-const registerRoutes = require('./src/routes/register_route');
-const profileRoutes = require('./src/routes/profile_route');
+const loginRoutes = require("./src/routes/login_route");
+const signupRoutes = require("./src/routes/signup_route");
+// const userProfileRoutes = require("./src/routes/user_profile_route");
 
 const app = express();
 const PORT = 3000; // Your Express server port
@@ -22,8 +23,9 @@ app.use(cors({
 }));
 
 // Routes
-app.use('/profile', profileRoutes);
-registerRoutes(app);
+app.use("/api/login", loginRoutes);
+app.use("/api/signup", signupRoutes);
+// app.use("/api/user-profile", userProfileRoutes);
 
 // Serve static files from "public"
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,10 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/team', teamRoutes);
 app.use('/api/subject', subjectRoute);
 
-// Test route
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from the server!' });
-});
 
 // 404 Handler
 app.use((req, res, next) => {
