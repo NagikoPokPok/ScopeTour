@@ -406,7 +406,8 @@
             <div class="row gap-4">
               <div class="col fs-5 action-add-member"
               data-bs-toggle="modal" 
-              data-bs-target="#modal-success-action">
+              data-bs-target="#modal-success-action"
+              onclick="showModal('Edit Successfully !')">
                 <i class="fa-solid fa-user-plus text-primary"></i>
               </div>
               <div class="col fs-5 action-edit"
@@ -542,30 +543,8 @@
          </div>
        </div>
 
-
-       <!-- MODAL SUCCESSFUL ACTION -->
-       <div class="modal fade" id="modal-success-action" 
-       tabindex="-1" 
-       aria-labelledby="modal-title" 
-       aria-hidden="true"
-       >
-       <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
-         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-           <div class="modal-content">
-             <div class="modal-header d-flex flex-column">
-               <!-- <i class="fa-regular fa-circle-check type-confirmation-img"></i> -->
-               <!-- <iframe src="https://lottie.host/embed/b187c1ea-90fb-4aaf-a964-9d799eb60c22/ML5kHr0sl6.lottie"></iframe> -->
-               <iframe src="https://lottie.host/embed/62c3194f-0151-46bd-b23c-5c94f24e57c3/XiprdXSjfG.lottie"></iframe>
-               <h5 class="modal-title ms-2 fw-bold text-white fs-2" id="modal-title">
-                 Action Successful !
-               </h5>
-               
-             </div>
-             
-             
-           </div>
-         </div>
-       </div>
+       <!-- MODAL STATUS ACTION -->
+       <div id="modal-status-action-container"></div>
 
     </div>
     <!-- End: subject List -->
@@ -582,6 +561,9 @@
 
   <!-- layout delete -->
    <script src="../js/toggeLayoutDelete.js"></script>
+
+    <!-- Modal status of action -->
+    <script src="../js/show-modal-action-success.js"></script>
 
 </body>
 </html>
