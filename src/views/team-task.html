@@ -435,8 +435,8 @@
                         </div>
                 
                         <!-- Action -->
-                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
-                            <div class="row g-3">
+                        <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+                            <div class="row g-4">
                                 <div class="col fs-5 action-edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
@@ -480,8 +480,8 @@
                         </div>
                 
                         <!-- Action -->
-                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
-                            <div class="row g-3">
+                        <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+                            <div class="row g-4">
                                 <div class="col fs-5 action-edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
@@ -532,8 +532,8 @@
                         </div>
                 
                         <!-- Action -->
-                        <div class="action-list col text-end d-flex justify-content-end text-secondary-emphasis">
-                            <div class="row g-3">
+                        <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+                            <div class="row g-4">
                                 <div class="col fs-5 action-delete">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
@@ -553,6 +553,63 @@
             
           </div>
         
+      </div>
+
+
+      <!-- MODAL CONFIRMATION CHECK COMPLETE TASK -->
+      <div class="modal fade" id="modal-confirmation-delete" 
+      tabindex="-1" 
+      aria-labelledby="modal-title" 
+      aria-hidden="true"
+      >
+      <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <i class="fa-solid fa-trash-can type-confirmation-img"></i>
+              <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+                Delete
+                <span class="type-of-object">Team</span>
+              </h5>
+              <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+              <button type="button" class="btn-close" 
+                data-bs-dismiss="modal" 
+                aria-label="Close">
+                </button>
+            </div>
+            <!-- <form action=""> -->
+              <div class="modal-body">
+                <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                  <span>Are you sure want to delete</span>
+                  <span class="object-deleted-name fw-semibold my-0 mx-1">
+                    Rumble
+                  </span>
+                  <span>?</span>
+                </div>
+
+                <div class="warning mt-2">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span class="warning-content ms-1">
+                    By Deleting this
+                    <span class="type-of-object">Team</span>
+                    ,
+                    <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                  </span>
+                </div>
+                
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                <button type="submit" class="btn btn-primary btn-yes">
+                  Yes,
+                  <span class="type-of-action">Delete</span>
+                </button>
+              </div>
+            <!-- </form> -->
+            
+          </div>
+        </div>
       </div>
 
   

@@ -526,7 +526,8 @@ main {
 
   .olcards .action .col:hover {
     cursor: pointer;
-    opacity: 0.8;
+    transform: scale(1.1);
+    transition: all 0.1s ease-in-out;
   }
   
   .olcards li::before {
