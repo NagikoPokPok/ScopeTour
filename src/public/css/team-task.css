@@ -73,21 +73,21 @@ body{
     background-color: rgba(53, 105, 202, 0.2);
 }
 
-.checkbox-complete-task:checked {
+/* .checkbox-complete-task:checked {
   background-color: var(--blue-color);
   border-color: var(--blue-color);
-  position: relative; /* Cần để ::before hoạt động đúng */
-}
+  position: relative; 
+} */
 
-.checkbox-complete-task:checked::before {
+/* .checkbox-complete-task:checked::before {
   content: "✔"; 
   font-size: 14px;
-  color: white; /* Mặc định màu trắng */
+  color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 /* Khi checkbox đã được chọn và hover vào, đổi màu dấu tick */
 .checkbox-complete-task:checked:hover::before {

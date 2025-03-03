@@ -20,6 +20,8 @@
   <!-- Modal filter -->
   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
 
+  <!-- Modal confirmation -->
+  <link rel="stylesheet" href="../public/css/components/confirmation-modal.css">
 
   <!-- Multiple emails in input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
@@ -402,7 +404,7 @@
       
                          <div class="col check-task">
                             <!-- Button check complete task -->
-                            <input class="checkbox-complete-task" type="checkbox" value="">
+                            <input class="checkbox-complete-task" type="checkbox" value="" data-bs-toggle="modal" data-bs-target="#modal-confirmation-check-task">
       
                             <!-- Task item -->
                             <div class="task text-start">
@@ -557,7 +559,7 @@
 
 
       <!-- MODAL CONFIRMATION CHECK COMPLETE TASK -->
-      <div class="modal fade" id="modal-confirmation-delete" 
+      <div class="modal fade" id="modal-confirmation-check-task" 
       tabindex="-1" 
       aria-labelledby="modal-title" 
       aria-hidden="true"
@@ -566,10 +568,10 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <i class="fa-solid fa-trash-can type-confirmation-img"></i>
+              <i class="fa-solid fa-circle-check type-confirmation-img"></i>
               <h5 class="modal-title ms-2 fw-bold" id="modal-title">
-                Delete
-                <span class="type-of-object">Team</span>
+                Complete
+                <span class="type-of-object">Task</span>
               </h5>
               <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
               <button type="button" class="btn-close" 
@@ -580,9 +582,9 @@
             <!-- <form action=""> -->
               <div class="modal-body">
                 <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
-                  <span>Are you sure want to delete</span>
+                  <span>Are you sure want to complete</span>
                   <span class="object-deleted-name fw-semibold my-0 mx-1">
-                    Rumble
+                    this task
                   </span>
                   <span>?</span>
                 </div>
@@ -590,10 +592,10 @@
                 <div class="warning mt-2">
                   <i class="fa-solid fa-triangle-exclamation"></i>
                   <span class="warning-content ms-1">
-                    By Deleting this
-                    <span class="type-of-object">Team</span>
+                    By Completting this
+                    <span class="type-of-object">Task</span>
                     ,
-                    <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                    <span class="waring-desc">the action cannot be undone.</span>
                   </span>
                 </div>
                 
@@ -601,9 +603,9 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                <button type="submit" class="btn btn-primary btn-yes">
+                <button type="submit" class="btn btn-primary btn-yes" data-bs-toggle="modal" data-bs-target="#modal-success-action" onclick="showModal('Your Task Completed!')">
                   Yes,
-                  <span class="type-of-action">Delete</span>
+                  <span class="type-of-action">Complete</span>
                 </button>
               </div>
             <!-- </form> -->
@@ -612,8 +614,9 @@
         </div>
       </div>
 
-  
-
+      
+      <!-- MODAL STATUS ACTION -->
+      <div id="modal-status-action-container"></div>
 
       <ol id="SubjectList" class="olcards">
 
@@ -648,6 +651,12 @@
       });
     });
     </script>
+
+
+
+    <!-- Modal status of action -->
+    <script src="../js/show-modal-action-success.js"></script>
+
 
 </body>
 </html>
