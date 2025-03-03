@@ -301,3 +301,7 @@ body{
 .status-of-task[data-status="Overdue"] {
   color: var(--error-color);
 }
+
+.status-of-task[data-status="Upcoming"] {
+  color: var(--secondary-color);
+}

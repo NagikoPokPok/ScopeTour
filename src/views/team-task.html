@@ -20,6 +20,9 @@
   <!-- Modal filter -->
   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
 
+  <!-- Modal sort -->
+  <link rel="stylesheet" href="../public/css/components/sort-modal.css">
+
   <!-- Modal confirmation -->
   <link rel="stylesheet" href="../public/css/components/confirmation-modal.css">
 
@@ -92,7 +95,8 @@
             <i class="fa-solid fa-filter"></i>
             <span>Filter</span>
           </li>
-          <li>
+          <li data-bs-toggle="modal" 
+          data-bs-target="#modal-sort">
             <i class="fa-solid fa-sort"></i>
             <span>Sort</span>
           </li>
@@ -166,7 +170,7 @@
 
 
 
-  <!-- MODAL FILTER subject itself -->
+  <!-- MODAL FILTER task itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
     <div class="modal fade" id="modal-filter" 
     tabindex="-1" 
@@ -177,7 +181,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-title">Filter for: All subjects</h5>
+            <h5 class="modal-title" id="modal-title">Filter for: All Available tasks</h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
               data-bs-dismiss="modal" 
@@ -186,59 +190,51 @@
           </div>
           <!-- <form action=""> -->
             <div class="modal-body">
-              <!-- Begin: form check number streak -->
-              <div class="form-check-number-streak">
+              <!-- Begin: form check status of task-->
+              <div class="form-check-status-of-task">
                 <div class="form-check-title">
                   <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
-                  <h6 class="">Number of streaks</h6>
+                  <h6 class="">Status of task</h6>
                 </div>
                 <div class="container p-4">
                   <div class="row row-cols-2">
                     <div class="col">
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="low-streak">
-                        <label class="form-check-label" for="low-streak">
-                          0 - 10
+                        <input class="form-check-input" type="checkbox" value="" id="in-progress">
+                        <label class="form-check-label" for="in-progress">
+                          In-progress
                         </label>
                       </div>
                     </div>
 
                     <div class="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="medium-streak">
-                        <label class="form-check-label" for="medium-streak">
-                          11 - 50
+                        <input class="form-check-input" type="checkbox" value="" id="overdue">
+                        <label class="form-check-label" for="overdue">
+                          Overdue
                         </label>
                       </div>
                     </div>
 
                     <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="high-streak">
-                        <label class="form-check-label" for="high-streak">
-                          51 - 100
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="upcoming">
+                        <label class="form-check-label" for="upcoming">
+                          Upcoming
                         </label>
                       </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="extreme-streak">
-                        <label class="form-check-label" for="extreme-streak">
-                          > 100
-                        </label>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
-              <!-- End: form check number streak -->
+              <!-- End: form check status of task-->
               
-              <!-- Begin: form check time join -->
-              <div class="form-check-time-join">
+              <!-- Begin: form check time deadline -->
+              <div class="form-check-time-deadline">
                 <div class="form-check-title">
                   <img src="../public/img/filter-team/watch.png" alt="streak" class="icon-streak">
-                  <h6 class="">Time join the team</h6>
+                  <h6 class="">Deadline of task</h6>
                 </div>
                 <div class="container p-4">
                   <div class="row row-cols-2">
@@ -246,7 +242,7 @@
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="low-time">
                         <label class="form-check-label" for="low-time">
-                          Today
+                          In past
                         </label>
                       </div>
                     </div>
@@ -255,7 +251,7 @@
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="medium-time">
                         <label class="form-check-label" for="medium-time">
-                          Yesterday
+                          Today
                         </label>
                       </div>
                     </div>
@@ -264,7 +260,7 @@
                         <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="high-time">
                         <label class="form-check-label" for="high-time">
-                          Last week
+                          Nex week
                         </label>
                       </div>
                     </div>
@@ -273,67 +269,51 @@
                         <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="extreme-time">
                         <label class="form-check-label" for="extreme-time">
-                          Last month
+                          Next month
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- End: form check time join -->
+              <!-- End: form check time deadline -->
 
-              <!-- Begin: form check number member -->
-              <div class="form-check-number-streak">
+              <!-- Begin: form check additional options -->
+              <div class="form-check-addtional-option">
                 <div class="form-check-title">
                   <img src="../public/img/filter-team/team-spirit.png" alt="streak" class="icon-streak">
-                  <h6 class="">Number of members</h6>
+                  <h6 class="">Addtional Options</h6>
                 </div>
                 <div class="container p-4">
                   <div class="row row-cols-2">
                     <div class="col">
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="low-member">
-                        <label class="form-check-label" for="low-member">
-                          0 - 3
+                        <input class="form-check-input" type="checkbox" value="" id="check-high-priority">
+                        <label class="form-check-label" for="check-high-priority">
+                          High Prioirty
                         </label>
                       </div>
                     </div>
 
                     <div class="col">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="medium-member">
-                        <label class="form-check-label" for="medium-member">
-                          4 - 7
+                        <input class="form-check-input" type="checkbox" value="" id="check-reminder">
+                        <label class="form-check-label" for="check-reminder">
+                          Set Reminder
                         </label>
                       </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="high-member">
-                        <label class="form-check-label" for="high-member">
-                          8 - 12
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="extreme-member">
-                        <label class="form-check-label" for="extreme-member">
-                          > 12
-                        </label>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
-              <!-- End: form check number member -->
+              <!-- End: form check additional options -->
               
               
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button onclick=uncheckAllItemModalFilter() type="button" class="btn btn-secondary">Remove</button>
               <button type="submit" class="btn btn-primary">Apply filters</button>
             </div>
           <!-- </form> -->
@@ -341,6 +321,99 @@
         </div>
       </div>
     </div>
+
+
+  <!-- MODAL SORT -->
+  <div class="modal fade" id="modal-sort" 
+  tabindex="-1" 
+  aria-labelledby="modal-title" 
+  aria-hidden="true"
+  >
+  <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">Sort for: All Available tasks</h5>
+          <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+          <button type="button" class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close">
+            </button>
+        </div>
+        <!-- <form action=""> -->
+          <div class="modal-body">
+            <!-- Begin: form check criteria of sort -->
+            <div class="form-check-criteria-sort">
+              <div class="form-check-title">
+                <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                <h6 class="">Criteria of sort</h6>
+              </div>
+              <div class="container p-4">
+                <div class="row row-cols-2">
+                  <div class="col">
+                      <div class="form-check">
+                      <input class="form-check-input" type="radio" name="criteria-sort" value="" id="name">
+                      <label class="form-check-label" for="name">
+                        Name task
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="criteria-sort" value="" id="deadline">
+                        <label class="form-check-label" for="deadline">
+                          Deadline of task
+                        </label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- End: form check criteria of sort -->
+            
+            <!-- Begin: form check type sort-->
+            <div class="form-check-type-sort">
+              <div class="form-check-title">
+                <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                <h6 class="">Type of sort</h6>
+              </div>
+              <div class="container p-4">
+                <div class="row row-cols-2">
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-sort" value="" id="ascending">
+                      <label class="form-check-label" for="ascending">
+                        Ascending
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="type-sort" value="" id="descending">
+                      <label class="form-check-label" for="descending">
+                        Descending
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- End: form check type -->
+
+          </div>
+          <div class="modal-footer">
+            <button onclick=uncheckAllItemModalSort() type="button" class="btn btn-secondary">Remove</button>
+            <button type="submit" class="btn btn-primary">Apply sort</button>
+          </div>
+        <!-- </form> -->
+        
+      </div>
+    </div>
+  </div>
 
 
     <!-- LAYOUT DELETE MANY ITEMS -->
@@ -499,7 +572,52 @@
                             </div>
                         </div>
                     </div>
-                  </div>     
+                  </div>   
+                  
+                  <div class="item-available-task container text-center p-0">
+                    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      
+                         <div class="col check-task">
+                            <!-- Button check complete task -->
+                            <input class="checkbox-complete-task" type="checkbox" value="">
+      
+                            <!-- Task item -->
+                            <div class="task text-start">
+                                <span class="task-title fw-medium">Do assignment on Sakai</span>
+                                <span class="task-desc fw-light text-secondary">Subject PPL 100 PHI R</span>
+                            </div>
+                         </div>
+
+      
+                        <!-- Time -->
+                        <div class="col time-of-task">
+                            <span class="status-of-task fw-medium" data-status="Upcoming">Upcoming</span>
+                            <div class="due-time fw-light">
+                                <span class="open-time text-secondary">17/2/2025</span>
+                                <hr>
+                                <span class="end-time text-secondary">28/2/2025</span>
+                            </div>
+                        </div>
+                
+                        <!-- Action -->
+                        <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+                            <div class="row g-4">
+                                <div class="col fs-5 action-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div class="col fs-5 action-delete">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="col fs-5 action-rank">
+                                    <i class="fa-solid fa-ranking-star"></i>
+                                </div>
+                                <div class="col fs-5 action-comment">
+                                    <i class="fa-solid fa-message"></i> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div> 
                 </div>
               </div>
             </div>
@@ -656,6 +774,9 @@
 
     <!-- Modal status of action -->
     <script src="../js/show-modal-action-success.js"></script>
+
+    <!-- Uncheck all item in modal -->
+  <script src="../js/uncheck-item-modal.js"></script>
 
 
 </body>
