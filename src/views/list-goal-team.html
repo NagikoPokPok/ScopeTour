@@ -26,6 +26,9 @@
   <!-- Layout delete -->
    <link rel="stylesheet" href="../public/css/components/layout-delete.css">
 
+   <!-- Modal confirmation -->
+   <link rel="stylesheet" href="../public/css/components/confirmation-modal.css">
+
   <!-- Multiple emails input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
@@ -101,7 +104,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-title">Filter for: All subjects</h5>
+            <h5 class="modal-title" id="modal-title">Filter for: All teams</h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
               data-bs-dismiss="modal" 
@@ -267,7 +270,7 @@
     </div>
 
     <!-- MODAL SORT -->
-  <div class="modal fade" id="modal-sort" 
+    <div class="modal fade" id="modal-sort" 
     tabindex="-1" 
     aria-labelledby="modal-title" 
     aria-hidden="true"
@@ -276,7 +279,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modal-title">Sort for: All subjects</h5>
+            <h5 class="modal-title" id="modal-title">Sort for: All teams</h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
               data-bs-dismiss="modal" 
@@ -336,7 +339,7 @@
               <!-- Begin: form check type -->
               <div class="form-check-time-join">
                 <div class="form-check-title">
-                  <img src="../public/img/filter-team/watch.png" alt="streak" class="icon-streak">
+                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
                   <h6 class="">Type of sort</h6>
                 </div>
                 <div class="container p-4">
@@ -468,14 +471,123 @@
     <div id="team">
       <h4 class="heading">List of teams</h4>
       <ol id="teamList" class="olcards">
-        <!-- Teams will be dynamically loaded here -->
-         <div class="error-loading d-flex justify-content-center align-items-center">
-          <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status">
-          <span>Error loading .....</span>
-         </div>
+
+         
          
       </ol>
     </div>
+
+
+
+
+    <!-- MODAL CONFIRMATION DELETE -->
+    <div class="modal fade" id="modal-confirmation-delete" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i class="fa-solid fa-trash-can type-confirmation-img"></i>
+            <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+              Delete
+              <span class="type-of-object">Team</span>
+            </h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                <span>Are you sure want to delete</span>
+                <span class="object-deleted-name fw-semibold my-0 mx-1">
+                  Rumble
+                </span>
+                <span>?</span>
+              </div>
+
+              <div class="warning mt-2">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="warning-content ms-1">
+                  By Deleting this
+                  <span class="type-of-object">Team</span>
+                  ,
+                  <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                </span>
+              </div>
+              
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+              <button type="submit" class="btn btn-primary btn-yes">
+                Yes,
+                <span class="type-of-action">Delete</span>
+              </button>
+            </div>
+          <!-- </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+     <!-- MODAL CONFIRMATION EDIT -->
+     <div class="modal fade" id="modal-confirmation-edit" 
+     tabindex="-1" 
+     aria-labelledby="modal-title" 
+     aria-hidden="true"
+     >
+     <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+         <div class="modal-content">
+           <div class="modal-header">
+             <i class="fa-solid fa-pen-to-square type-confirmation-img"></i>
+             <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+               Edit
+               <span class="type-of-object">Team</span>
+             </h5>
+             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+             <button type="button" class="btn-close" 
+               data-bs-dismiss="modal" 
+               aria-label="Close">
+               </button>
+           </div>
+           <!-- <form action=""> -->
+             <div class="modal-body">
+               <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                 <span>Are you sure want to edit</span>
+                 <span class="object-deleted-name fw-semibold my-0 mx-1">
+                   Rumble
+                 </span>
+                 <span>?</span>
+               </div>
+
+               <div class="warning mt-2">
+                 <i class="fa-solid fa-triangle-exclamation"></i>
+                 <span class="warning-content ms-1">
+                  Make sure your changes are correct before saving, as they may impact team collaboration.
+                 </span>
+               </div>
+               
+               
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+               <button type="submit" class="btn btn-primary btn-yes">
+                 Yes,
+                 <span class="type-of-action">Edit</span>
+               </button>
+             </div>
+           <!-- </form> -->
+           
+         </div>
+       </div>
+     </div>
   </main>
   <!-- End Main Content -->
   
@@ -497,5 +609,8 @@
 
   <!-- Uncheck all item in modal -->
   <script src="../js/uncheck-item-modal.js"></script>
+
+  <!-- Modal status of action -->
+  <script src="../js/show-modal-action-success.js"></script>
 </body>
 </html>
