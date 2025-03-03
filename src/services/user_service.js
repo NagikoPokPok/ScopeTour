@@ -35,10 +35,10 @@ class UserService {
     }
 
     // Tạo người dùng mới
-    static async createUser(userData) {
+    static async createUser(email, name, password) {
         try {
-            userData.password = await bcrypt.hash(userData.password, 10); // Mã hóa mật khẩu
-            return await User.create(userData);
+            password = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
+            return await User.create({email, name, password});
         } catch (error) {
             console.error("Lỗi khi tạo người dùng:", error);
             throw error;
@@ -48,8 +48,7 @@ class UserService {
     // Cập nhật profile cho người dùng
     static async updateProfile(userId, name, image) {
         try {
-            const hashedPassword = await bcrypt.hash(newPassword, 10);
-            const [updated] = await User.update({ password: hashedPassword }, { where: { user_id: userId } });
+            const [updated] = await User.update({ user_name: name, user_image: image}, { where: { user_id: userId } });
             return updated > 0; // Trả về true nếu cập nhật thành công
         } catch (error) {
             console.error("Lỗi khi cập nhật mật khẩu:", error);
