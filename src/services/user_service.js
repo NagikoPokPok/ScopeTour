@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 class UserService {
     // Lấy thông tin người dùng bằng Email
@@ -53,6 +54,35 @@ class UserService {
         } catch (error) {
             console.error("Lỗi khi cập nhật mật khẩu:", error);
             throw error;
+        }
+    }
+
+    // Lưu OTP tạm thời
+    static async saveOTP(email, otp) {
+        try {
+            const user = await User.findOne({ where: { email } });
+            if (user) {
+                user.otp = otp;
+                user.otp_expiry = new Date(Date.now() + 5 * 60 * 1000); // OTP hết hạn sau 5 phút
+                await user.save();
+            } else {
+                console.error("Email không tồn tại!");
+            }
+        } catch (error) {
+            console.error("Lỗi khi lưu OTP:", error);
+        }
+    }
+
+    // Xác thực OTP
+    static async verifyOTP(email, otp) {
+        try {
+            const user = await User.findOne({ where: { email } });
+            if (!user || user.otp !== otp) return false;
+            if (new Date() > user.otp_expiry) return false; // OTP hết hạn
+            return true;
+        } catch (error) {
+            console.error("Lỗi khi xác thực OTP:", error);
+            return false;
         }
     }
 }

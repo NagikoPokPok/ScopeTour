@@ -7,6 +7,8 @@ const subjectRoute = require('./src/routes/subject_route');
 const path = require('path');
 const loginRoutes = require("./src/routes/login_route");
 const signupRoutes = require("./src/routes/signup_route");
+const invitationRoutes = require("./src/routes/invitation_route");
+// const { log } = require('console');
 // const userProfileRoutes = require("./src/routes/user_profile_route");
 
 const app = express();
@@ -34,6 +36,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/team', teamRoutes);
 app.use('/api/subject', subjectRoute);
 
+// //Email invention
+app.use("/api/invitation", invitationRoutes);
+// app.post("/api/sendInvitation", async (req, res) => {
+//   console.log("📩 API /api/sendInvitation được gọi");
+//   console.log("📧 Email nhận:", req.body);
+//   const { email } = req.body;
+//   if (!email) return res.status(400).json({ error: "Email is required" });
+
+//   const inviteLink = `https://localhost/join?email=${encodeURIComponent(email)}`;
+//   console.log('invenLink: '+inviteLink);
+
+//   try {
+//       await sendInvitationEmail(email, `http://localhost:5500/src/views/login.html`);
+//       res.json({ message: "Invitation sent successfully" });
+//   } catch (error) {
+//       res.status(500).json({ error: "Failed to send invitation" });
+//   }
+// });
+
 
 // 404 Handler
 app.use((req, res, next) => {
@@ -45,6 +66,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });
+
+
 
 // Sync Database & Start Server
 const startServer = async () => {
