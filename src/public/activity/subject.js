@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Fetch all Subjects (no search query)
+    // Fetch all Subjects
     async function fetchAllSubjects() {
         const SubjectList = document.getElementById("SubjectList");
         SubjectList.innerHTML = "<li>Loading...</li>";
