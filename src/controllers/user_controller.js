@@ -7,7 +7,7 @@ class UserController {
         console.log("Dữ liệu nhận được:", req.body);
         try {
             if(req.body.email === 'cuong2432004@gmail.com' && req.body.password === '123') return res.json({ success: true, user: { email: req.body.email, name: "Test User" } });
-            const user = await UserService.getUserByEmail(req.params.email);
+            const user = await UserService.getUserByEmail(req.body.email);
             if (!user) {
                 return res.status(404).json({ success: false, message: "Người dùng không tồn tại!" });
             }

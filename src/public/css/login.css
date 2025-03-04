@@ -16,6 +16,18 @@
     --error-color: #f44336;
     --background-color: #FFE1CC;
 }
+
+
+.error {
+    color: red;
+    font-size: 12px;
+    display: block;  /* Hiển thị lỗi theo dòng mới */
+    text-align: left;
+    margin-left: 25px;
+    margin-bottom: 8px;
+}
+
+
 body{
     background-color: var(--background-color);
     display: flex;
@@ -88,7 +100,7 @@ body{
     font-size: 14px;
     outline: none;
     margin-top: 32px;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
 }
 
 .form-password{
