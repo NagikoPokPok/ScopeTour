@@ -1,6 +1,7 @@
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const colors = ["#E08963", "#5E96AE", "#f15f0e", "#A2C139"];
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const teamId = urlParams.get('teamId');
     // Function to render subjects dynamically
     function renderSubjects(subjects, isSearch = false) {
         const subjectList = document.getElementById("SubjectList");
@@ -28,7 +29,7 @@
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
                             <div class="col fs-5 action-delete" data-subject-id="${subject.subject_id}">
-                                <i class="fa-solid fa-trash-can text-danger"></i>
+                                <i class="fa-solid fa-trash-can text-primary"></i>
                             </div>
                         </div>
                     </div>
@@ -64,22 +65,26 @@
                 : "<li>No subjects available</li>";
         }
     }
-    
 
-    // Fetch all Subjects (no search query)
+    // Fetch all Subjects
     async function fetchAllSubjects() {
         const SubjectList = document.getElementById("SubjectList");
         SubjectList.innerHTML = "<li>Loading...</li>";
         try {
-        const response = await fetch("http://localhost:3000/api/subject");
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
-        renderSubjects(data.Subjects, false);
+          let url = "http://localhost:3000/api/subject";
+          if (teamId) {
+            url += `?teamId=${teamId}`;
+          }
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Network response was not ok");
+          const data = await response.json();
+          renderSubjects(data.Subjects, false);
         } catch (error) {
-        console.error("Error fetching all Subjects:", error);
-        SubjectList.innerHTML = "<li>Error loading Subjects</li>";
+          console.error("Error fetching all Subjects:", error);
+          SubjectList.innerHTML = "<li>Error loading Subjects</li>";
         }
-    }
+      }
+      
 
     // Search Subjects based on query
     async function searchSubjects(searchQuery) {
@@ -137,26 +142,39 @@
         });
     }
 
-    // Handle Subject creation
+    const params = new URLSearchParams(window.location.search);
+    const currentTeamId = params.get('teamId');
+    // Create subject
     const createSubjectForm = document.getElementById("createSubjectForm");
     if (createSubjectForm) {
-        createSubjectForm.addEventListener("submit", async (event) => {
+      createSubjectForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const SubjectName = document
-            .getElementById("modal-subject-name")
-            .value.trim();
-        if (!SubjectName) {
-            alert("Subject name is required.");
-            return;
+  
+        const subjectName = document.getElementById("modal-subject-name").value.trim();
+        const subjectDesc = document.getElementById("modal-subject-des").value.trim();
+  
+        if (!subjectName) {
+          alert("Subject name is required.");
+          return;
         }
+        if (!currentTeamId) {
+          alert("No team ID found in the URL! Cannot create subject for a specific team.");
+          return;
+        }
+  
         try {
-            const response = await fetch("http://localhost:3000/api/subject", {
+          const response = await fetch("http://localhost:3000/api/subject", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ subjectName: SubjectName }),
-            });
-            const result = await response.json();
-            if (response.ok) {
+            body: JSON.stringify({
+              subjectName,
+              description: subjectDesc,
+              teamId: currentTeamId
+            })
+          });
+  
+          const result = await response.json();
+          if (response.ok) {
             alert(result.message);
             const currentQuery = searchInput.value.trim();
             if (currentQuery) {
@@ -168,14 +186,14 @@
                 document.getElementById("reg-modal")
             ).hide();
             createSubjectForm.reset();
-            } else {
+          } else {
             alert(result.message || "Failed to create Subject.");
-            }
+          }
         } catch (error) {
-            console.error("Error creating Subject:", error);
-            alert("An error occurred while creating the Subject.");
+          console.error("Error creating Subject:", error);
+          alert("An error occurred while creating the Subject.");
         }
-        });
+      });
     }
 
     async function deleteSubject(subjectId) {

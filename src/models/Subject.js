@@ -7,15 +7,17 @@ const Subject = sequelize.define('Subject', {
     primaryKey: true,
     autoIncrement: true
   },
-
   name: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  
   description: {
     type: DataTypes.TEXT,
     allowNull: true
+  },
+  team_id: {                     // Add this field
+    type: DataTypes.INTEGER,
+    allowNull: false             // Change to true if subjects can be created without a team
   },
   created_at: {
     type: DataTypes.DATE,
