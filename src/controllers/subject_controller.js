@@ -1,16 +1,20 @@
 const { Op } = require('sequelize');
 const Subject = require('../models/Subject');
 
-// Create a new subject (only requires a name)
 exports.createSubject = async (req, res) => {
   try {
-    const { subjectName, description } = req.body;
+    const { subjectName, description, teamId } = req.body; // Receive teamId from request
     if (!subjectName) {
       return res.status(400).json({ message: 'Subject name is required' });
     }
+    if (!teamId) {
+      return res.status(400).json({ message: 'Team ID is required' });
+    }
+    // Create the new subject including team_id
     const newSubject = await Subject.create({ 
       name: subjectName,
-      description: description || null 
+      description: description || null,
+      team_id: teamId
     });
     return res.status(201).json({
       message: 'Subject created successfully!',
@@ -26,22 +30,28 @@ exports.createSubject = async (req, res) => {
 exports.fetchSubjects = async (req, res) => {
   try {
     const searchQuery = req.query.search || '';
-    let subjects;
-    if (searchQuery.trim()) {
-      subjects = await Subject.findAll({
-        where: {
-          name: { [Op.like]: `%${searchQuery.trim()}%` }
-        }
-      });
-    } else {
-      subjects = await Subject.findAll();
+    const teamId = req.query.teamId; // Retrieve teamId from query parameters
+    let whereClause = {};
+
+    // If a teamId is provided, filter by that team
+    if (teamId) {
+      whereClause.team_id = teamId;
     }
+
+    // If a search query is provided, add a filter on the subject name
+    if (searchQuery.trim()) {
+      whereClause.name = { [Op.like]: `%${searchQuery.trim()}%` };
+    }
+
+    const subjects = await Subject.findAll({ where: whereClause });
     return res.status(200).json({ Subjects: subjects });
   } catch (error) {
     console.error('Error fetching subjects:', error);
     return res.status(500).json({ message: 'Error fetching Subjects' });
   }
 };
+
+
 
 exports.deleteSubject = async (req, res) => {
   try {
