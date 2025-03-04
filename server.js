@@ -9,7 +9,7 @@ const loginRoutes = require("./src/routes/login_route");
 const signupRoutes = require("./src/routes/signup_route");
 const invitationRoutes = require("./src/routes/invitation_route");
 // const { log } = require('console');
-// const userProfileRoutes = require("./src/routes/user_profile_route");
+const userProfileRoutes = require("./src/routes/user_profile_route");
 
 const app = express();
 const PORT = 3000; // Your Express server port
@@ -27,7 +27,7 @@ app.use(cors({
 // Routes
 app.use("/api/login", loginRoutes);
 app.use("/api/signup", signupRoutes);
-// app.use("/api/user-profile", userProfileRoutes);
+app.use("/api/user-profile", userProfileRoutes);
 
 // Serve static files from "public"
 app.use(express.static(path.join(__dirname, 'public')));
