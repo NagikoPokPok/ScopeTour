@@ -26,6 +26,9 @@
   <!-- Modal confirmation -->
   <link rel="stylesheet" href="../public/css/components/confirmation-modal.css">
 
+  <!-- Layout delete -->
+  <link rel="stylesheet" href="../public/css/components/layout-delete.css">
+
   <!-- Multiple emails in input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
@@ -451,14 +454,12 @@
     <!-- Begin: Task List -->
 
     <div id="task">
-
       <h5 class="heading">
         <span>Tasks of subject</span>
         <span class="subject-name">CDIO</span>
       </h4>
 
       <div class="list-task">
-      
           <!-- Accordion -->
           <div class="accordion" id="accordionPanelsStayOpenExample">
             <!-- Available Task -->
@@ -512,16 +513,22 @@
                         <!-- Action -->
                         <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
                             <div class="row g-4">
-                                <div class="col fs-5 action-edit">
+                                <div class="col fs-5 action-edit" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modal-confirmation-edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </div>
-                                <div class="col fs-5 action-delete">
+                                <div class="col fs-5 action-delete"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modal-confirmation-delete">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </div>
-                                <div class="col fs-5 action-rank">
-                                    <i class="fa-solid fa-ranking-star"></i>
+                                <div class="col fs-5 action-rank" onclick="window.location.href='../views/ranking-user.html'">
+                                  <i class="fa-solid fa-ranking-star"></i>
                                 </div>
-                                <div class="col fs-5 action-comment">
+                                <div class="col fs-5 action-comment" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#modal-comment-task">
                                     <i class="fa-solid fa-message"></i> 
                                 </div>
                             </div>
@@ -675,73 +682,287 @@
         
       </div>
 
-
-      <!-- MODAL CONFIRMATION CHECK COMPLETE TASK -->
-      <div class="modal fade" id="modal-confirmation-check-task" 
-      tabindex="-1" 
-      aria-labelledby="modal-title" 
-      aria-hidden="true"
-      >
-      <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <i class="fa-solid fa-circle-check type-confirmation-img"></i>
-              <h5 class="modal-title ms-2 fw-bold" id="modal-title">
-                Complete
-                <span class="type-of-object">Task</span>
-              </h5>
-              <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
-              <button type="button" class="btn-close" 
-                data-bs-dismiss="modal" 
-                aria-label="Close">
-                </button>
-            </div>
-            <!-- <form action=""> -->
-              <div class="modal-body">
-                <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
-                  <span>Are you sure want to complete</span>
-                  <span class="object-deleted-name fw-semibold my-0 mx-1">
-                    this task
-                  </span>
-                  <span>?</span>
-                </div>
-
-                <div class="warning mt-2">
-                  <i class="fa-solid fa-triangle-exclamation"></i>
-                  <span class="warning-content ms-1">
-                    By Completting this
-                    <span class="type-of-object">Task</span>
-                    ,
-                    <span class="waring-desc">the action cannot be undone.</span>
-                  </span>
-                </div>
-                
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                <button type="submit" class="btn btn-primary btn-yes" data-bs-toggle="modal" data-bs-target="#modal-success-action" onclick="showModal('Your Task Completed!')">
-                  Yes,
-                  <span class="type-of-action">Complete</span>
-                </button>
-              </div>
-            <!-- </form> -->
-            
-          </div>
-        </div>
-      </div>
-
-      
-      <!-- MODAL STATUS ACTION -->
-      <div id="modal-status-action-container"></div>
-
       <ol id="SubjectList" class="olcards">
 
 
       </ol>
     </div>
     <!-- End: Task List -->
+
+
+    <!-- MODAL CONFIRMATION CHECK COMPLETE TASK -->
+    <div class="modal fade" id="modal-confirmation-check-task" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i class="fa-solid fa-circle-check type-confirmation-img"></i>
+            <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+              Complete
+              <span class="type-of-object">Task</span>
+            </h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                <span>Are you sure want to complete</span>
+                <span class="object-deleted-name fw-semibold my-0 mx-1">
+                  this task
+                </span>
+                <span>?</span>
+              </div>
+
+              <div class="warning mt-2">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="warning-content ms-1">
+                  By Completting this
+                  <span class="type-of-object">Task</span>
+                  ,
+                  <span class="waring-desc">the action cannot be undone.</span>
+                </span>
+              </div>
+              
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+              <button type="submit" class="btn btn-primary btn-yes" data-bs-toggle="modal" data-bs-target="#modal-success-action" onclick="showModal('Your Task Completed!')">
+                Yes,
+                <span class="type-of-action">Complete</span>
+              </button>
+            </div>
+          <!-- </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- MODAL STATUS ACTION -->
+    <div id="modal-status-action-container"></div>
+
+    <!-- MODAL COMMENT TASK -->
+    <div class="modal fade" id="modal-comment-task" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+          
+            <h5 class="modal-title ms-2 d-flex align-items-start justify-content-end flex-column" id="modal-title">
+              <span class="task-title">Do assignment on Sakai</span>
+              <span class="task-desc fw-light text-secondary fs-6">Subject PPL PHI 100 R</span>
+            </h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <div class="comment-task">
+                <!-- Accordion -->
+                <div class="accordion" id="accordion-comment-task">
+                  <!-- Available Task -->
+                  <div class="accordion-item list-available-task">
+                    <!-- Accordion-HEADER -->
+                    <h2 class="accordion-header">
+                      <button class="accordion-button fs-5 text-primary fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-body-comment-task" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Comment
+                      </button>
+                    </h2>
+                    <!-- Accordion-BODY -->
+                    <div id="accordion-body-comment-task" class="accordion-collapse collapse show">
+                      <div class="accordion-body list-comment-task">
+                        <div class="item-comment-task container p-0 border-0">
+                          <div class="comment-content w-100 d-flex flex-column align-items-start justify-content-center my-3">
+                            <div class="comment-header d-flex align-items-center justify-content-center py-0">
+                                <span class="letter-of-name" style="--letter-color: var(--success-color);">H</span>
+                                <span class="name-member fw-semibold">Trần Quang Hiếu</span>
+                                <span class="time-text fw-light text-secondary">9:00 A.M</span>
+                            </div>
+                              
+                            <div class="comment-body">
+                                <p class="mt-0 ms-5">hello mọi người</p>
+                            </div>
+                          </div>
+                        </div> 
+                        
+                        
+                        <div class="item-comment-task container p-0 border-0">
+                          <div class="comment-content w-100 d-flex flex-column align-items-start justify-content-center my-3">
+                            <div class="comment-header d-flex align-items-center justify-content-center py-0">
+                                <span class="letter-of-name" style="--letter-color: var(--blue-color);">H</span>
+                                <span class="name-member fw-semibold">Huỳnh Đức Huy</span>
+                                <span class="time-text fw-light text-secondary">9:05 A.M</span>
+                            </div>
+                              
+                            <div class="comment-body">
+                                <p class="mt-0 ms-5">Xin Chào các bạn!</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+              
+              
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="comment-box">
+                  <textarea placeholder="Comment..."></textarea>
+                  <div class="comment-actions">
+                      <div class="icons">
+                          <i class="fa-solid fa-paperclip"></i>
+                          <i class="fa-solid fa-microphone"></i>
+                      </div>
+                      <div class="buttons">
+                          <button class="delete-comment-task btn btn-secondary">Delete</button>
+                          <button class="comment btn btn-primary ms-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+              <button type="submit" class="btn btn-primary btn-yes" data-bs-toggle="modal" data-bs-target="#modal-success-action" onclick="showModal('Your Task Completed!')">
+                Yes,
+                <span class="type-of-action">Complete</span>
+              </button> -->
+            </div>
+          <!-- </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL CONFIRMATION DELETE -->
+    <div class="modal fade" id="modal-confirmation-delete" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true"
+    >
+    <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <i class="fa-solid fa-trash-can type-confirmation-img"></i>
+            <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+              Delete
+              <span class="type-of-object">Subject</span>
+            </h5>
+            <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+            <button type="button" class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="Close">
+              </button>
+          </div>
+          <!-- <form action=""> -->
+            <div class="modal-body">
+              <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                <span>Are you sure want to delete</span>
+                <span class="object-deleted-name fw-semibold my-0 mx-1">
+                  CDIO
+                </span>
+                <span>?</span>
+              </div>
+
+              <div class="warning mt-2">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="warning-content ms-1">
+                  By Deleting this
+                  <span class="type-of-object">Subject</span>
+                  ,
+                  <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                </span>
+              </div>
+              
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+              <button type="submit" class="btn btn-primary btn-yes">
+                Yes,
+                <span class="type-of-action">Delete</span>
+              </button>
+            </div>
+          <!-- </form> -->
+          
+        </div>
+      </div>
+    </div>
+
+     <!-- MODAL CONFIRMATION EDIT -->
+     <div class="modal fade" id="modal-confirmation-edit" 
+     tabindex="-1" 
+     aria-labelledby="modal-title" 
+     aria-hidden="true"
+     >
+     <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+         <div class="modal-content">
+           <div class="modal-header">
+             <i class="fa-solid fa-pen-to-square type-confirmation-img"></i>
+             <h5 class="modal-title ms-2 fw-bold" id="modal-title">
+               Edit
+               <span class="type-of-object">Subject</span>
+             </h5>
+             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+             <button type="button" class="btn-close" 
+               data-bs-dismiss="modal" 
+               aria-label="Close">
+               </button>
+           </div>
+           <!-- <form action=""> -->
+             <div class="modal-body">
+               <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+                 <span>Are you sure want to edit</span>
+                 <span class="object-deleted-name fw-semibold my-0 mx-1">
+                   CDIO
+                 </span>
+                 <span>?</span>
+               </div>
+
+               <div class="warning mt-2">
+                 <i class="fa-solid fa-triangle-exclamation"></i>
+                 <span class="warning-content ms-1">
+                  Make sure your changes are correct before saving, as they may impact team collaboration.
+                 </span>
+               </div>
+               
+               
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+               <button type="submit" class="btn btn-primary btn-yes">
+                 Yes,
+                 <span class="type-of-action">Edit</span>
+               </button>
+             </div>
+           <!-- </form> -->
+           
+         </div>
+       </div>
+     </div>
+    
 
   </main>
   <!--End: Main Content -->
@@ -768,6 +989,15 @@
         }
       });
     });
+    </script>
+
+
+    <!-- Delete comment task -->
+    <script>
+        document.querySelector('.delete-comment-task').addEventListener('click', function() {
+          document.querySelector('.comment-box textarea').value = ''; // Xóa nội dung
+        });
+
     </script>
 
 
