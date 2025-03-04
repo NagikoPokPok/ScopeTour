@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 li.style.setProperty("--cardColor", colors[index % colors.length]); // Luân phiên màu sắc
     
                 li.innerHTML = `
-                    <a href="#" class="content">
+                    <a href="team-task.html?teamId=${subject.team_id}&subjectId=${subject.subject_id}" class="content">
                         <div class="icon">😁</div>
                         <div class="subject-des">
                             <div class="title">${subject.name}</div>
