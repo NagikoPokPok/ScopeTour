@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               <i class="fa-solid fa-pen-to-square text-primary"></i>
                           </div>
                           <div class="col fs-5 action-delete" data-team-id="${team.team_id}">
-                              <i class="fa-solid fa-trash-can text-danger"></i>
+                              <i class="fa-solid fa-trash-can text-primary"></i>
                           </div>
                       </div>
                   </div>
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
           });
       }
 
-      const createTeamForm = document.getElementById('createTeamForm');
+    const createTeamForm = document.getElementById('createTeamForm');
     if (createTeamForm) {
         createTeamForm.addEventListener('submit', async (event) => {
             event.preventDefault();

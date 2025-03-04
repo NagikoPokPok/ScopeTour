@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
                             <div class="col fs-5 action-delete" data-subject-id="${subject.subject_id}">
-                                <i class="fa-solid fa-trash-can text-danger"></i>
+                                <i class="fa-solid fa-trash-can text-primary"></i>
                             </div>
                         </div>
                     </div>
