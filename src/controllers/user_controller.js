@@ -1,4 +1,5 @@
 const UserService = require("../services/user_service");
+const { sendOTPEmail, generateOTP } = require("../services/email_service");
 
 class UserController {
     // API lấy thông tin người dùng
@@ -72,6 +73,28 @@ class UserController {
         } catch (error) {
             res.status(500).json({ success: false, message: "Lỗi server!" });
         }
+    }
+    // Gửi OTP
+    static async sendOTP(req, res) {
+        const { email } = req.body;
+        if (!email) return res.status(400).json({ error: "Email is required" });
+
+        const otp = generateOTP();
+        await UserService.saveOTP(email, otp);
+        await sendOTPEmail(email, otp);
+
+        res.json({ success: true, message: "OTP sent successfully" });
+    }
+
+    // Xác thực OTP
+    static async verifyOTP(req, res) {
+        const { email, otp } = req.body;
+        if (!email || !otp) return res.status(400).json({ error: "Email and OTP are required" });
+
+        const isValid = await UserService.verifyOTP(email, otp);
+        if (!isValid) return res.status(400).json({ error: "Invalid or expired OTP" });
+
+        res.json({ success: true, message: "OTP verified successfully" });
     }
 }
 
