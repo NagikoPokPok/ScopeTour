@@ -29,6 +29,17 @@ body{
     width: 100vw;
 }
 
+.error {
+    color: red;
+    font-size: 14px;
+    display: none;  /* Hiển thị lỗi theo dòng mới */
+    margin-top: 4px; /* Khoảng cách từ ô nhập */
+    margin-bottom: 8px; /* Để không bị dính vào ô tiếp theo */
+    width: 100%;
+    text-align: left;
+}
+
+
 
 .first-login{
     display: flex;
@@ -110,6 +121,7 @@ body{
 
 .form-email{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: calc(100% - 32px);
 }
@@ -127,6 +139,7 @@ body{
 
 .form-password{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: calc(100% - 32px);
 }
@@ -144,6 +157,7 @@ body{
 
 .form-password-confirm{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: calc(100% - 32px);
 }
