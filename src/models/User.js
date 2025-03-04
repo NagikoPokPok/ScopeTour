@@ -27,6 +27,15 @@ const User = sequelize.define('User', {
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
+  },
+  //OTP verify
+  otp: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  otp_expiry: {
+    type: DataTypes.DATE,
+    allowNull: true
   }
 }, {
   tableName: 'user',

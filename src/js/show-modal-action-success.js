@@ -1,6 +1,6 @@
 
       // Tải modal.html vào modal-container
-      fetch("./component/modal-status-action.html")
+      fetch("./component/modal-status-action-success.html")
         .then(response => response.text())
         .then(html => {
           document.getElementById("modal-status-action-container").innerHTML = html;

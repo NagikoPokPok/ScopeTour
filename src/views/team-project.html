@@ -19,6 +19,9 @@
   <!-- Modal filter -->
   <link rel="stylesheet" href="../public/css/components/filter-modal.css">
 
+  <!-- Modal sort -->
+  <link rel="stylesheet" href="../public/css/components/sort-modal.css">
+
   <!-- Layout delete -->
   <link rel="stylesheet" href="../public/css/components/layout-delete.css">
 
@@ -88,7 +91,8 @@
             <i class="fa-solid fa-filter"></i>
             <span>Filter</span>
           </li>
-          <li>
+          <li data-bs-toggle="modal" 
+          data-bs-target="#modal-sort">
             <i class="fa-solid fa-sort"></i>
             <span>Sort</span>
           </li>
@@ -142,7 +146,7 @@
       </div>
   </div>
 
-  <!-- Update Subject Modal -->
+  <!-- MODAL UPDATE SUBJECT -->
   <div class="modal fade" id="updateSubjectModal" tabindex="-1" aria-labelledby="updateSubjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -171,9 +175,6 @@
     </div>
   </div>
 
-
-
-
   <!-- MODAL FILTER subject itself -->
    <!-- fade: hiệu ứng chuyển đổi mở dần khi modal xuất hiện hoặc biến mất -->
     <div class="modal fade" id="modal-filter" 
@@ -194,59 +195,12 @@
           </div>
           <!-- <form action=""> -->
             <div class="modal-body">
-              <!-- Begin: form check number streak -->
-              <div class="form-check-number-streak">
-                <div class="form-check-title">
-                  <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
-                  <h6 class="">Number of streaks</h6>
-                </div>
-                <div class="container p-4">
-                  <div class="row row-cols-2">
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="low-streak">
-                        <label class="form-check-label" for="low-streak">
-                          0 - 10
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="medium-streak">
-                        <label class="form-check-label" for="medium-streak">
-                          11 - 50
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="high-streak">
-                        <label class="form-check-label" for="high-streak">
-                          51 - 100
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="extreme-streak">
-                        <label class="form-check-label" for="extreme-streak">
-                          > 100
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End: form check number streak -->
-              
-              <!-- Begin: form check time join -->
+             
+              <!-- Begin: form check time create -->
               <div class="form-check-time-join">
                 <div class="form-check-title">
                   <img src="../public/img/filter-team/watch.png" alt="streak" class="icon-streak">
-                  <h6 class="">Time join the team</h6>
+                  <h6 class="">Time create the subject</h6>
                 </div>
                 <div class="container p-4">
                   <div class="row row-cols-2">
@@ -290,58 +244,10 @@
               </div>
               <!-- End: form check time join -->
 
-              <!-- Begin: form check number member -->
-              <div class="form-check-number-streak">
-                <div class="form-check-title">
-                  <img src="../public/img/filter-team/team-spirit.png" alt="streak" class="icon-streak">
-                  <h6 class="">Number of members</h6>
-                </div>
-                <div class="container p-4">
-                  <div class="row row-cols-2">
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="low-member">
-                        <label class="form-check-label" for="low-member">
-                          0 - 3
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="medium-member">
-                        <label class="form-check-label" for="medium-member">
-                          4 - 7
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="high-member">
-                        <label class="form-check-label" for="high-member">
-                          8 - 12
-                        </label>
-                      </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="extreme-member">
-                        <label class="form-check-label" for="extreme-member">
-                          > 12
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End: form check number member -->
-              
-              
+                                
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button onclick=uncheckAllItemModalFilter() type="button" class="btn btn-secondary">Remove</button>
               <button type="submit" class="btn btn-primary">Apply filters</button>
             </div>
           <!-- </form> -->
@@ -349,6 +255,98 @@
         </div>
       </div>
     </div>
+
+   <!-- MODAL SORT -->
+   <div class="modal fade" id="modal-sort" 
+   tabindex="-1" 
+   aria-labelledby="modal-title" 
+   aria-hidden="true"
+   >
+   <!-- modal-dialog-centered: modal sẽ nằm giữa khung hình, còn mặc định là nằm phía trên -->
+     <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="modal-title">Sort for: All subjects</h5>
+           <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
+           <button type="button" class="btn-close" 
+             data-bs-dismiss="modal" 
+             aria-label="Close">
+             </button>
+         </div>
+         <!-- <form action=""> -->
+           <div class="modal-body">
+             <!-- Begin: form check criteria of sort -->
+             <div class="form-check-criteria-sort">
+               <div class="form-check-title">
+                 <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                 <h6 class="">Criteria of sort</h6>
+               </div>
+               <div class="container p-4">
+                 <div class="row row-cols-2">
+                   <div class="col">
+                       <div class="form-check">
+                       <input class="form-check-input" type="radio" name="criteria-sort" value="" id="name">
+                       <label class="form-check-label" for="name">
+                         Name
+                       </label>
+                     </div>
+                   </div>
+
+                   <div class="col">
+                       <div class="form-check">
+                         <input class="form-check-input" type="radio" name="criteria-sort" value="" id="time-join">
+                         <label class="form-check-label" for="time-join">
+                           Time create
+                         </label>
+                     </div>
+                   </div>
+
+                 </div>
+               </div>
+             </div>
+             <!-- End: form check criteria of sort -->
+             
+             <!-- Begin: form check type -->
+             <div class="form-check-type-sort">
+               <div class="form-check-title">
+                 <img src="../public/img/list-team-goal/slider2.png" alt="streak" class="icon-streak">
+                 <h6 class="">Type of sort</h6>
+               </div>
+               <div class="container p-4">
+                 <div class="row row-cols-2">
+                   <div class="col">
+                     <div class="form-check">
+                       <input class="form-check-input" type="radio" name="type-sort" value="" id="ascending">
+                       <label class="form-check-label" for="ascending">
+                         Ascending
+                       </label>
+                     </div>
+                   </div>
+
+                   <div class="col">
+                     <div class="form-check">
+                       <input class="form-check-input" type="radio" name="type-sort" value="" id="descending">
+                       <label class="form-check-label" for="descending">
+                         Descending
+                       </label>
+                     </div>
+                   </div>
+
+                 </div>
+               </div>
+             </div>
+             <!-- End: form check type -->
+
+           </div>
+           <div class="modal-footer">
+             <button onclick=uncheckAllItemModalSort() type="button" class="btn btn-secondary">Remove</button>
+             <button type="submit" class="btn btn-primary">Apply sort</button>
+           </div>
+         <!-- </form> -->
+         
+       </div>
+     </div>
+   </div>
 
 
     <!-- LAYOUT DELETE MANY ITEMS -->
@@ -404,10 +402,7 @@
           
           <div class="action container border-0 d-flex justify-content-end align-items-center">
             <div class="row gap-4">
-              <div class="col fs-5 action-add-member"
-              data-bs-toggle="modal" 
-              data-bs-target="#modal-success-action"
-              onclick="showModal('Edit Successfully !')">
+              <div class="col fs-5 action-add-member">
                 <i class="fa-solid fa-user-plus text-primary"></i>
               </div>
               <div class="col fs-5 action-edit"
@@ -447,7 +442,7 @@
               <i class="fa-solid fa-trash-can type-confirmation-img"></i>
               <h5 class="modal-title ms-2 fw-bold" id="modal-title">
                 Delete
-                <span class="type-of-object">Team</span>
+                <span class="type-of-object">Subject</span>
               </h5>
               <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
               <button type="button" class="btn-close" 
@@ -460,7 +455,7 @@
                 <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
                   <span>Are you sure want to delete</span>
                   <span class="object-deleted-name fw-semibold my-0 mx-1">
-                    Rumble
+                    CDIO
                   </span>
                   <span>?</span>
                 </div>
@@ -469,7 +464,7 @@
                   <i class="fa-solid fa-triangle-exclamation"></i>
                   <span class="warning-content ms-1">
                     By Deleting this
-                    <span class="type-of-object">Team</span>
+                    <span class="type-of-object">Subject</span>
                     ,
                     <span class="waring-desc">all the data about subject and task will also be deleted.</span>
                   </span>
@@ -503,7 +498,7 @@
                <i class="fa-solid fa-pen-to-square type-confirmation-img"></i>
                <h5 class="modal-title ms-2 fw-bold" id="modal-title">
                  Edit
-                 <span class="type-of-object">Team</span>
+                 <span class="type-of-object">Subject</span>
                </h5>
                <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
                <button type="button" class="btn-close" 
@@ -516,7 +511,7 @@
                  <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
                    <span>Are you sure want to edit</span>
                    <span class="object-deleted-name fw-semibold my-0 mx-1">
-                     Rumble
+                     CDIO
                    </span>
                    <span>?</span>
                  </div>
@@ -564,6 +559,9 @@
 
     <!-- Modal status of action -->
     <script src="../js/show-modal-action-success.js"></script>
+
+    <!-- Uncheck all item in modal -->
+  <script src="../js/uncheck-item-modal.js"></script>
 
 </body>
 </html>

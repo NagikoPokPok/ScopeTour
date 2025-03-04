@@ -1,7 +1,7 @@
 /* MODAL CONFIRMATION DELETE */
 div[id*="modal-confirmation-"] .modal-header .type-confirmation-img {
     color: var(--primary-color);
-    background-color: color-mix(in srgb, var(--primary-color) 20%, transparent);;
+    background-color: color-mix(in srgb, var(--primary-color) 20%, transparent);
     padding: 12px 16px;
     border-radius: 10px;
     font-size: 20px;
@@ -40,7 +40,7 @@ div[id*="modal-confirmation-"] .modal-footer .btn-yes:hover {
     opacity: 0.8;
 } */
 
-/* MODAL ACTION */
+/* MODAL ACTION SUCCESS/FAIL */
 #modal-success-action .modal-content {
     background-color: white;
     border: none;

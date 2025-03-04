@@ -1,4 +1,3 @@
-
 *{
   margin: 0;
   padding: 0;
@@ -180,113 +179,96 @@ body{
     margin-right: 12px;
   }
 
-/* LAYOUT DELETE ITEMS */
 
-.layout-delete-many-items {
-  height: 0;
-  opacity: 0;
-  transform: translateX(100%);
-  overflow: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease;
+  /* MODAL COMMENT TASK */
+#modal-comment-task .comment-box {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
 }
 
-.layout-delete-many-items.show {
-  height: 170px;
-  opacity: 1;
-  transform: translateX(0);
+#modal-comment-task textarea {
+    width: 100%;
+    height: 64px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    padding: 8px;
 }
 
-.layout-delete-many-items .container-fluid {
-  background-color: #fff;
-  padding: 16px 32px;
-  border-radius: 40px;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-  padding: 0;
-  display: flex;
-
+#modal-comment-task .comment-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
 }
 
-.layout-delete-many-items .action-list {
-  display: flex;
-  font-size: 1.25rem;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
+#modal-comment-task .icons i {
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    color: gray;
 }
 
-.layout-delete-many-items .action-list > * {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
+#modal-comment-task .buttons {
+    display: flex;
+    align-items: center;
 }
 
-.layout-delete-many-items .action-list .select-all {
-  input {
-    border-color: #ccc;
-  }
-}
-
-.layout-delete-many-items .action-list .delete-items {
-  margin: auto 24px;
-  span {
-    background-color: var(--primary-color);
-    padding: 8px 20px;
-    border-radius: 40px;
-    color: #fff;
+#modal-comment-task .delete-comment-task {
     
-  }
+    color: white;
+    cursor: pointer;
 }
 
+/* .comment {
+    background: #ff7f50;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+} */
 
-.layout-delete-many-items .action-list .delete-items:hover {
-  cursor: pointer;
-  opacity: 0.8;
+#modal-comment-task .comment:hover {
+    opacity: 0.8;;
 }
 
-.layout-delete-many-items .action-list .select-all:hover .form-check-input {
-  cursor: pointer;
-  border-color: var(--primary-color);
-  border-width: 2px;
+#accordion-body-comment-task .comment-header > * {
+  margin-right: 12px;
 }
 
-.layout-delete-many-items .action-list .select-all:hover .form-check-label {
-  color: var(--primary-color);
-  cursor: pointer;
-}
-
-.layout-delete-many-items .action-list .form-check-input:checked + .form-check-label {
-  color: var(--primary-color);
-}
-
-.layout-delete-many-items .action-list .close-layout {
-  background-color: rgba(217, 217, 217, 0.4);
-  height: 100%;
-  border-radius: 40px;
-}
-
-
-.layout-delete-many-items .action-list .close-layout {
+#accordion-body-comment-task .comment-header .letter-of-name {
   
-  i {
-    padding-left: 24px;
-  }
-
-  span {
-    margin-left: 12px;
-    margin-right: 0;
-    padding-right: 24px;
-  }
+  background-color: color-mix(in srgb, var(--letter-color) 20%, transparent);
+  width: 30px;  /* Đảm bảo chiều rộng */
+  height: 30px; /* Đảm bảo chiều cao */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold; /* Nếu có chữ bên trong */
+  font-size: 16px;
+  color: black; /* Màu chữ */
+  border: 2px solid var(--letter-color);
+  
 }
 
-.layout-delete-many-items .action-list .close-layout:hover {
-  cursor: pointer;
-  opacity: 0.8;
-  color: green;
+#accordion-body-comment-task .comment-header .name-member {
+  font-size: 18px;
+  
 }
+
+
+
+/* Ac */
 
 
 /* Set color of status of task */
@@ -300,4 +282,8 @@ body{
 
 .status-of-task[data-status="Overdue"] {
   color: var(--error-color);
+}
+
+.status-of-task[data-status="Upcoming"] {
+  color: var(--secondary-color);
 }
