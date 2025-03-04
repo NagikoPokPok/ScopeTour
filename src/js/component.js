@@ -51,8 +51,8 @@ class Sidebar extends HTMLElement {
                     <span>Messages</span>
                     </a>
                 </li>
-                <li data-id="calendar">
-                    <a href="calendar.html">
+                <li data-id="pet">
+                    <a href="select-pet.html">
                         <i class="fa-solid fa-paw"></i>
                         <span>Pet</span>
                     </a>
