@@ -127,14 +127,16 @@
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-subject-name" required 
-                      placeholder="IT">
+              <input type="text" class="form-control" id="modal-subject-name" required 
+                      placeholder="IT" maxlength="50">
+              <small id="char-count-subject-name" class="text-muted mb-3 d-block">0/50 characters</small>
 
               <!-- <label for="modal-professional" class="form-label my-1">Professional</label>
               <input type="text" class="form-control mb-3" id="modal-professional" required id="" placeholder="CMU-CS 445 BIS"> -->
 
               <label for="modal-subject-des" class="form-label my-1">Description</label>
-              <input type="text" class="form-control mb-3" id="modal-subject-des"  placeholder="CMU-CS 442">
+              <input type="text" class="form-control" id="modal-subject-des"  placeholder="CMU-CS 442" maxlength="100">
+              <small id="char-count-subject-des" class="text-muted mb-3 d-block">0/100 characters</small>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -159,11 +161,13 @@
               <input type="hidden" id="update-subject-id">
               <div class="mb-3">
                   <label for="update-subject-name" class="form-label">Subject Name</label>
-                  <input type="text" class="form-control" id="update-subject-name" required>
+                  <input type="text" class="form-control" id="update-subject-name" required maxlength="50">
+                  <small id="char-count-subject-name-update" class="text-muted mb-3 d-block">0/50 characters</small>
               </div>
               <div class="mb-3">
                   <label for="update-subject-description" class="form-label">Description</label>
-                  <textarea class="form-control" id="update-subject-description" rows="3"></textarea>
+                  <input type="text" class="form-control" id="update-subject-description" rows="3" maxlength="100"></input>
+                  <small id="char-count-subject-des-update" class="text-muted mb-3 d-block">0/100 characters</small>
               </div>
           </div>
           <div class="modal-footer">
@@ -536,6 +540,18 @@
 
     <!-- Uncheck all item in modal -->
   <script src="../js/uncheck-item-modal.js"></script>
+
+  <!-- Count character -->
+    <script src="../js/countCharacter.js"></script>
+    <script>
+      // Gọi hàm cho từng input cần theo dõi
+      document.addEventListener("DOMContentLoaded", function () {
+          addCharacterCounter("modal-subject-name", "char-count-subject-name");
+          addCharacterCounter("modal-subject-des", "char-count-subject-des");
+          addCharacterCounter("update-subject-name", "char-count-subject-name-update");
+          addCharacterCounter("update-subject-description", "char-count-subject-des-update");
+      });
+    </script>
 
 </body>
 </html>

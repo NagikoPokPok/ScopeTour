@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="col fs-5 action-add-member">
                                 <i class="fa-solid fa-user-plus text-primary"></i>
                             </div>
-                            <div class="col fs-5 action-edit" data-subject-id="${subject.subject_id}" data-subject-name="${subject.name}">
+                            <div class="col fs-5 action-edit" data-subject-id="${subject.subject_id}" data-subject-name="${subject.name}" data-subject-description="${subject.description}">
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
                             <div class="col fs-5 action-delete" data-subject-id="${subject.subject_id}" data-subject-name="${subject.name}">
@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.addEventListener("click", async (event) => {
                     const subjectId = event.currentTarget.getAttribute("data-subject-id");
                     const subjectName = event.currentTarget.getAttribute("data-subject-name");
+                    
                     // Open modal confirmation delete before deleting
                     openModalConfirmationDelete(subjectId, subjectName);
                     
@@ -54,7 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.addEventListener("click", (event) => {
                     const subjectId = event.currentTarget.getAttribute("data-subject-id");
                     const subjectName = event.currentTarget.getAttribute("data-subject-name");
-                    openUpdateSubjectModal(subjectId, subjectName);
+                    const subjectDescription = event.currentTarget.getAttribute("data-subject-description");
+                    openUpdateSubjectModal(subjectId, subjectName, subjectDescription);
                 });
             });
             
@@ -198,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ============== BEGIN: DELETE SUBJECT ACTION ==============
     // Hiển thị modal xác nhận xóa
-    function openModalConfirmationDelete(subjectId, subjectName) {
+    function openModalConfirmationDelete(subjectId, subjectName, subjectDescription) {
         document.getElementById('subject-name-delete').innerText = subjectName;
         const modalElement = document.getElementById('modal-confirmation-delete');
         const modal = new bootstrap.Modal(modalElement);
@@ -238,13 +240,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // ============== BEGIN: UPDATE SUBJECT ACTION ==============
-    function openUpdateSubjectModal(subjectId, subjectName) {
-        // Set the hidden input with subject ID
+    function openUpdateSubjectModal(subjectId, subjectName, subjectDescription) {
         document.getElementById('update-subject-id').value = subjectId;
-        // Set the subject name input field
         document.getElementById('update-subject-name').value = subjectName;
-        // Optionally, clear or pre-fill description; here we clear it
-        document.getElementById('update-subject-description').value = "";
+        if (subjectDescription == "null" || subjectDescription === undefined) {
+            subjectDescription = "";
+        }
+        document.getElementById('update-subject-description').value = subjectDescription; 
+
+
+        document.getElementById('char-count-subject-name-update').innerText = `${subjectName.length}/50 characters`;
+        document.getElementById('char-count-subject-des-update').innerText = `${subjectDescription.length}/100 characters`;
     
         // Show the update modal
         const modalElement = document.getElementById('updateSubjectModal');

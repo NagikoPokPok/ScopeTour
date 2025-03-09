@@ -153,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function openUpdateModal(teamId, teamName) {
         document.getElementById('update-team-id').value = teamId;
         document.getElementById('update-team-name').value = teamName;
+
+        document.getElementById('char-count-team-update').innerText = `${teamName.length}/50 characters`;
     
         const modalElement = document.getElementById('update-modal');
         const modal = new bootstrap.Modal(modalElement);
