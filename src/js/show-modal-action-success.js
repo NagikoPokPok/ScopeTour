@@ -13,16 +13,26 @@
         });
     
       // Hàm hiển thị modal với tiêu đề tùy chỉnh
-      function showModal(title = "Default Title") {
-        setTimeout(() => {
-          const modalTitleElement = document.querySelector("#modal-success-action .modal-title");
-          if (modalTitleElement) {
+      function showModalActionSuccess(title = "Default Title") {
+        const modalElement = document.getElementById("modal-success-action");
+        const modalTitleElement = modalElement.querySelector(".modal-title");
+    
+        if (modalTitleElement) {
             modalTitleElement.innerText = title;
-            modalTitleElement.style.visibility = "visible"; // Hiển thị lại tiêu đề sau khi cập nhật
-            new bootstrap.Modal(document.getElementById("modal-success-action")).show();
-          } else {
+            modalTitleElement.style.visibility = "visible"; // Đảm bảo tiêu đề hiển thị
+        } else {
             console.error("Không tìm thấy phần tử modal-title!");
-          }
-        }, 300); // Đợi modal tải hoàn tất trước khi thay đổi tiêu đề
-      }
+            return;
+        }
+    
+        // Tạo instance của modal Bootstrap
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    
+        // Tự động đóng modal sau 3 giây
+        setTimeout(() => {
+            modalInstance.hide();
+        }, 1500);
+    }
+    
     

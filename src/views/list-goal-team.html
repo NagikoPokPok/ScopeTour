@@ -505,7 +505,7 @@
               aria-label="Close">
               </button>
           </div>
-          <!-- <form action=""> -->
+          <!-- <form id="confirmationDeleteForm"> -->
             <div class="modal-body">
               <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
                 <span>Are you sure want to delete</span>
@@ -529,7 +529,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-              <button type="submit" class="btn btn-primary btn-yes">
+              <button  class="btn btn-primary btn-yes" id="btn-confirm-delete">
                 Yes,
                 <span class="type-of-action">Delete</span>
               </button>
@@ -592,6 +592,9 @@
          </div>
        </div>
      </div>
+
+     <!-- MODAL STATUS ACTION -->
+    <div id="modal-status-action-container"></div>
   </main>
   <!-- End Main Content -->
   
@@ -606,9 +609,12 @@
 
   
   <script src="../js/component.js"></script>
+
   <!-- Our main JS file -->
   <script type="module" src="../public/activity/time.js"></script>
-  <script type="module" src="../public/activity/team.js"></script>
+
+  <!-- handle logic of team -->
+  <script type="module" src="../public/activity/team-2.js"></script>
 
 
   <!-- layout delete -->
