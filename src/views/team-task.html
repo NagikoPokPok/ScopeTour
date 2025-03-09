@@ -134,11 +134,13 @@
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-task-name" required 
-                      placeholder="Do assignment">
+              <input type="text" class="form-control mb-1" id="modal-task-name" required 
+                      placeholder="Do assignment" maxlength="50">
+              <small id="char-count-task-name" class="text-muted mb-3 d-block">0/50 characters</small>
 
               <label for="modal-task-des" class="form-label my-1">Description</label>
-              <input type="text" class="form-control mb-3" id="modal-task-des"  placeholder="Do it on Sakai">
+              <input type="text" class="form-control mb-1" id="modal-task-des"  placeholder="Do it on Sakai" maxlength="100">
+              <small id="char-count-task-des" class="text-muted mb-3 d-block">0/100 characters</small>
               
               <label for="modal-task-time" class="form-label my-1">Start and End Time</label>
               <input type="text" name="datetimes" style="width: 100%; height: 40px;" id="modal-task-time" class="form-control mb-3" />
@@ -972,7 +974,9 @@
 
   <script src="../js/component.js"></script>
   <script type="module" src="../public/activity/time.js"></script>
-  <script type="module" src="../public/activity/subject.js"></script>
+
+  <!-- Handle logic of task -->
+  <script type="module" src="../public/activity/task.js"></script>
 
   <!-- layout delete -->
    <script src="../js/toggeLayoutDelete.js"></script>
@@ -1007,6 +1011,18 @@
 
     <!-- Uncheck all item in modal -->
   <script src="../js/uncheck-item-modal.js"></script>
+
+   <!-- Count character -->
+   <script src="../js/countCharacter.js"></script>
+   <script>
+     // Gọi hàm cho từng input cần theo dõi
+     document.addEventListener("DOMContentLoaded", function () {
+         addCharacterCounter("modal-task-name", "char-count-task-name");
+         addCharacterCounter("modal-task-des", "char-count-task-des");
+         addCharacterCounter("update-task-name", "char-count-task-name-update");
+         addCharacterCounter("update-task-description", "char-count-task-des-update");
+     });
+   </script>
 
 
 </body>
