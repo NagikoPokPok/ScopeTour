@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
   
     // Delete team
+    
     async function deleteTeam(teamId) {
         try {
             const response = await fetch(`http://localhost:3000/api/team/${teamId}`, {
@@ -153,11 +154,31 @@ document.addEventListener('DOMContentLoaded', function () {
   
         const modal = new bootstrap.Modal(document.getElementById('update-modal'));
         modal.show();
+
+        const updateTeamForm = document.getElementById('updateTeamForm');
+        updateTeamForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            modal.hide(); // Ẩn modal cập nhật
+            openModalConfirmationUpdate();
+        });
     }
-  
-    async function updateTeam(event) {
-        event.preventDefault();
-  
+
+    function openModalConfirmationUpdate() {
+        const modalElement = document.getElementById('modal-confirmation-edit');
+        const modal = new bootstrap.Modal(modalElement);
+
+        modal.show();
+
+        // Lấy nút xác nhận cập nhật
+        const confirmButton = document.getElementById('btn-confirm-edit');
+        confirmButton.onclick = () => {
+            updateTeam();
+            modal.hide();
+        };
+    }
+
+    async function updateTeam() {
+
         const teamId = document.getElementById('update-team-id').value;
         const teamName = document.getElementById('update-team-name').value.trim();
   
@@ -178,20 +199,19 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
   
             if (response.ok) {
-                alert(result.message);
+                openModalSuccessAction(result.message);
                 fetchAllTeams(); // Refresh team list after update
-                const modal = bootstrap.Modal.getInstance(document.getElementById('update-modal'));
-                modal.hide();
             } else {
-                alert(result.message || 'Failed to update team.');
+                openModalFailAction('Failed to update team.');
             }
         } catch (error) {
             console.error('Error updating team:', error);
-            alert('An error occurred while updating the team.');
+            openModalFailAction('An error occurred while updating the team.');
         }
     }
   
-    document.getElementById('updateTeamForm').addEventListener('submit', updateTeam);
+  
+    
     // ============== END: UPDATE TEAM ACTION ==============
   
         // Search teams based on query
