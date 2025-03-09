@@ -153,14 +153,21 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="updateSubjectModalLabel">Update Subject</h5>
+          <h5 class="modal-title" id="updateSubjectModalLabel">
+            Update Subject
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="updateSubjectForm">
           <div class="modal-body">
               <input type="hidden" id="update-subject-id">
               <div class="mb-3">
-                  <label for="update-subject-name" class="form-label">Subject Name</label>
+                  <label for="update-subject-name" class="form-label">
+                    <span>Subject name</span>
+                    <div class="icon-important">
+                      <i class="fa-solid fa-asterisk"></i>
+                    </div>
+                  </label>
                   <input type="text" class="form-control" id="update-subject-name" required maxlength="50">
                   <small id="char-count-subject-name-update" class="text-muted mb-3 d-block">0/50 characters</small>
               </div>
