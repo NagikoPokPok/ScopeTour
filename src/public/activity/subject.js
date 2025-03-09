@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="icon">😁</div>
                         <div class="subject-des">
                             <div class="title">${subject.name}</div>
-                            <span class="body text-body-light">${subject.description || "No description available"}</span>
+                            <span class="body text-body-light">${subject.description}</span>
                         </div>
                     </a>
                     <div class="action container border-0 d-flex justify-content-end align-items-center">
@@ -34,10 +34,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>
                 `;
+
+                // Ẩn thẻ <span> nếu subject.description là null hoặc rỗng
+                const descriptionSpan = li.querySelector(".body.text-body-light");
+                if (!subject.description || subject.description.trim() === "null") {
+                    descriptionSpan.style.display = "none";
+                }
     
                 subjectList.appendChild(li);
             });
-    
+
             // Delete Subject event
             document.querySelectorAll(".action-delete").forEach((button) => {
                 button.addEventListener("click", async (event) => {
