@@ -396,8 +396,9 @@
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-team-name" required 
-                     placeholder="Rumble Team" maxlength="20">
+              <input type="text" class="form-control mb-1" id="modal-team-name" required 
+                     placeholder="Rumble Team" maxlength="50">
+              <small id="char-count-team" class="text-muted mb-3 d-block">0/50 characters</small>
 
               <!-- Invite member -->
               <label class="form-label my-1">Invite team member</label>
@@ -424,8 +425,14 @@
           <form id="updateTeamForm">
             <div class="modal-body">
               <input type="hidden" id="update-team-id">
-              <label for="update-team-name" class="form-label">Team Name</label>
-              <input type="text" class="form-control" id="update-team-name" required>
+              <label for="update-team-name" class="form-label">
+                <span>Team name</span>
+                <div class="icon-important">
+                  <i class="fa-solid fa-asterisk"></i>
+                </div>
+              </label>
+              <input type="text" class="form-control" id="update-team-name" required maxlength="50">
+              <small id="char-count-team-update" class="text-muted mb-3 d-block">0/50 characters</small>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -631,5 +638,18 @@
 
   <!-- Logic close modal, ensure remove class .modal-backdrop
    <script src="../js/closeModal.js"></script> -->
+
+
+   <!-- Count character -->
+    <script src="../js/countCharacter.js"></script>
+    <script>
+      // Gọi hàm cho từng input cần theo dõi
+      document.addEventListener("DOMContentLoaded", function () {
+          addCharacterCounter("modal-team-name", "char-count-team");
+          addCharacterCounter("update-team-name", "char-count-team-update");
+      });
+    </script>
+
+
 </body>
 </html>
