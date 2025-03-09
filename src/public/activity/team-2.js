@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="col fs-5 action-edit" data-team-id="${team.team_id}" data-team-name="${team.name}">
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
-                            <div class="col fs-5 action-delete" data-team-id="${team.team_id}">
+                            <div class="col fs-5 action-delete" data-team-id="${team.team_id}" data-team-name="${team.name}">
                                 <i class="fa-solid fa-trash-can text-primary"></i>
                             </div>
                         </div>
@@ -42,14 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.action-delete').forEach(button => {
                 button.addEventListener('click', async (event) => {
                     const teamId = event.currentTarget.getAttribute('data-team-id');
+                    const teamName = event.currentTarget.getAttribute('data-team-name');
+
+                    console.log(teamName);
 
                     // Open modal confirmation delete before deleting
-                    openModalConfirmationDelete(teamId);
-
-
-                    // if (confirm("Are you sure you want to delete this team?")) {
-                    //     await deleteTeam(teamId);
-                    // }
+                    openModalConfirmationDelete(teamId, teamName);
                 });
             });
         } else {
@@ -86,7 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // ============== BEGIN: DELETE TEAM ACTION ==============
     // Hiển thị modal xác nhận xóa
     // Cách 1: Thêm id cho nút button, đồng thời xoá form bao trùm cả modal-body và modal-footer
-    function openModalConfirmationDelete(teamId) {
+    function openModalConfirmationDelete(teamId, teamName) {
+        
+        // Hiện tên nhóm
+        // Dùng innerText hoặc textContent
+        document.getElementById('team-name-delete').innerText = teamName;
         const modalElement = document.getElementById('modal-confirmation-delete');
         const modal = new bootstrap.Modal(modalElement);
         modal.show();
@@ -151,31 +153,39 @@ document.addEventListener('DOMContentLoaded', function () {
     function openUpdateModal(teamId, teamName) {
         document.getElementById('update-team-id').value = teamId;
         document.getElementById('update-team-name').value = teamName;
-  
-        const modal = new bootstrap.Modal(document.getElementById('update-modal'));
+    
+        const modalElement = document.getElementById('update-modal');
+        const modal = new bootstrap.Modal(modalElement);
         modal.show();
-
+    
         const updateTeamForm = document.getElementById('updateTeamForm');
-        updateTeamForm.addEventListener('submit', function (event) {
+        
+        updateTeamForm.onsubmit = function (event) {
             event.preventDefault();
+            
+            // Đợi modal cập nhật đóng hoàn toàn rồi mới mở modal xác nhận
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                openModalConfirmationUpdate(teamName);
+            }, { once: true });
+    
             modal.hide(); // Ẩn modal cập nhật
-            openModalConfirmationUpdate();
-        });
+        };
     }
-
-    function openModalConfirmationUpdate() {
+    
+    function openModalConfirmationUpdate(teamName) {
+        document.getElementById('team-name-edit').innerText = teamName; 
         const modalElement = document.getElementById('modal-confirmation-edit');
         const modal = new bootstrap.Modal(modalElement);
-
+    
         modal.show();
-
-        // Lấy nút xác nhận cập nhật
+    
         const confirmButton = document.getElementById('btn-confirm-edit');
         confirmButton.onclick = () => {
             updateTeam();
             modal.hide();
         };
     }
+    
 
     async function updateTeam() {
 
@@ -285,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   });
                   const result = await response.json();
                   if (response.ok) {
-                      alert(result.message);
+                      openModalSuccessAction("Create team successfully!");
                       const currentQuery = searchInput.value.trim();
                       if (currentQuery) {
                           searchTeams(currentQuery); // Refresh with current search query
@@ -295,11 +305,11 @@ document.addEventListener('DOMContentLoaded', function () {
                       bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
                       createTeamForm.reset();
                   } else {
-                      alert(result.message || 'Failed to create team.');
+                     openModalFailAction("Failed to create team.");
                   }
               } catch (error) {
                   console.error('Error creating team:', error);
-                  alert('An error occurred while creating the team.');
+                  openModalFailAction("An error occurred while creating the team.");
               }
           });
       }

@@ -13,16 +13,35 @@
         });
     
       // Hàm hiển thị modal với tiêu đề tùy chỉnh
-      function showModalFailAction(title = "Default Title") {
-        setTimeout(() => {
-          const modalTitleElement = document.querySelector("#modal-fail-action .modal-title");
-          if (modalTitleElement) {
-            modalTitleElement.innerText = title;
-            modalTitleElement.style.visibility = "visible"; // Hiển thị lại tiêu đề sau khi cập nhật
-            new bootstrap.Modal(document.getElementById("modal-fail-action")).show();
-          } else {
-            console.error("Không tìm thấy phần tử modal-title!");
-          }
-        }, 300); // Đợi modal tải hoàn tất trước khi thay đổi tiêu đề
-      }
+      function showModalActionFail(title = "Default Title") {
+        const modalElement = document.getElementById("modal-fail-action");
+        const modalTitleElement = modalElement.querySelector(".modal-title");
     
+        if (modalTitleElement) {
+            modalTitleElement.innerText = title;
+            modalTitleElement.style.visibility = "visible"; // Đảm bảo tiêu đề hiển thị
+        } else {
+            console.error("Không tìm thấy phần tử modal-title!");
+            return;
+        }
+    
+        // Tạo instance của modal Bootstrap
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    
+        // Tự động đóng modal sau 3 giây
+        setTimeout(() => {
+          modalInstance.hide();
+          
+          // Xóa backdrop nếu nó vẫn tồn tại
+          const backdrops = document.querySelectorAll(".modal-backdrop");
+          backdrops.forEach(backdrop => backdrop.remove());
+      
+          // Khắc phục trường hợp body vẫn bị class `modal-open`
+          document.body.classList.remove("modal-open");
+          document.body.style.overflow = "auto"; // Nếu cần
+      }, 1500);
+      
+      }
+
+      

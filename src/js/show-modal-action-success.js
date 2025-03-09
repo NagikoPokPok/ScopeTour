@@ -29,10 +29,19 @@
         const modalInstance = new bootstrap.Modal(modalElement);
         modalInstance.show();
     
-        // Tự động đóng modal sau 3 giây
+        // Tự động đóng modal sau 1.5 giây
         setTimeout(() => {
-            modalInstance.hide();
-        }, 1500);
+          modalInstance.hide();
+          
+          // Xóa backdrop nếu nó vẫn tồn tại
+          const backdrops = document.querySelectorAll(".modal-backdrop");
+          backdrops.forEach(backdrop => backdrop.remove());
+      
+          // Khắc phục trường hợp body vẫn bị class `modal-open`
+          document.body.classList.remove("modal-open");
+          document.body.style.overflow = "auto"; // Nếu cần
+      }, 1500);
+      
     }
     
     
