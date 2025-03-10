@@ -4,6 +4,7 @@ const cors = require('cors');
 const sequelize = require('./src/config/database');
 const teamRoutes = require('./src/routes/team_route');
 const subjectRoute = require('./src/routes/subject_route');
+const taskRoutes = require('./src/routes/task_route');
 const path = require('path');
 const loginRoutes = require("./src/routes/login_route");
 const signupRoutes = require("./src/routes/signup_route");
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // API Routes
 app.use('/api/team', teamRoutes);
 app.use('/api/subject', subjectRoute);
+app.use('/api/task', taskRoutes)
 
 // //Email invention
 app.use("/api/invitation", invitationRoutes);
