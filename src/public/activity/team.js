@@ -280,44 +280,52 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
   
-      const createTeamForm = document.getElementById('createTeamForm');
-      if (createTeamForm) {
-          createTeamForm.addEventListener('submit', async (event) => {
-              event.preventDefault();
-              const teamName = document.getElementById('modal-team-name').value.trim();
-              if (!teamName) {
-                  alert('Team name is required.');
-                  return;
-              }
-              try {
-                  const response = await fetch('http://localhost:3000/api/team', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ teamName })
-                  });
-                  const result = await response.json();
-                  if (response.ok) {
-                      openModalSuccessAction("Create team successfully!");
-                      const currentQuery = searchInput.value.trim();
-                      if (currentQuery) {
-                          searchTeams(currentQuery); // Refresh with current search query
-                      } else {
-                          fetchAllTeams(); // Refresh full list if no search active
-                      }
-                      bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
-                      createTeamForm.reset();
-                  } else {
-                     openModalFailAction("Failed to create team.");
-                  }
-              } catch (error) {
-                  console.error('Error creating team:', error);
-                  openModalFailAction("An error occurred while creating the team.");
-              }
-          });
-      }
+        const createTeamForm = document.getElementById('createTeamForm');
+        if (createTeamForm) {
+            createTeamForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const teamName = document.getElementById('modal-team-name').value.trim();
+                
+                if (!teamName) {
+                    alert('Team name is required.');
+                    return;
+                }
+        
+                try {
+                    const response = await fetch('http://localhost:3000/api/team', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ teamName })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        const teamId = result.teamId; // Get the team ID from response
+                        console.log('New team created with ID:', teamId); // Log the team ID
+                        
+                        openModalSuccessAction("Create team successfully!");
+                        const currentQuery = searchInput.value.trim();
+                        if (currentQuery) {
+                            searchTeams(currentQuery);
+                        } else {
+                            fetchAllTeams();
+                        }
+                        
+                        bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
+                        createTeamForm.reset();
+                    } else {
+                        openModalFailAction("Failed to create team.");
+                    }
+                } catch (error) {
+                    console.error('Error creating team:', error);
+                    openModalFailAction("An error occurred while creating the team.");
+                }
+            });
+        }
   
     fetchAllTeams();
-  });
+});
 
 
 
