@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sendBtn.addEventListener("click", function () {
         const email = emailInput.value.trim();
+        var emails = [email, "huynhduchuy47@gmail.com", "vohungcuong@dtu.edu.vn"]
 
         if (!email) {
             messageElement.style.color = "red";
@@ -12,14 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        console.log("Email:", email);
+        console.log("Email:", emails);
 
         fetch("http://localhost:3000/api/invitation", { // 🔥 Đảm bảo đường dẫn API đúng
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email })
+            body: JSON.stringify({ emails })
         })
         .then(response => response.json())
         .then(data => {

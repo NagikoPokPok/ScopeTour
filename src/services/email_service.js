@@ -13,16 +13,26 @@ const sendInvitationEmail = async (recipientEmail, inviteLink) => {
 
         let mailOptions = {
             from: '"Your Website" <cuong2432004@gmail.com>',
-            to: recipientEmail,
-            subject: "You're Invited!",
+            to: recipientEmails,
+            subject: "You're Invited to Join Our Group on Scope Tour! 🚀",
             html: `
-                <h2>Hello!</h2>
-                <p>You have been invited to join our website. Click the button below to join:</p>
-                <a href="${inviteLink}" style="display:inline-block; padding:10px 20px; color:white; background-color:blue; text-decoration:none; border-radius:5px;">
+                <h2>Hi there!</h2>
+                <p>You have been invited to join our group on <strong>Scope Tour</strong> – the ultimate platform for planning and sharing amazing trips.</p>
+                <p>By joining the group, you can:</p>
+                <ul>
+                    <li>Plan your travels efficiently with your team.</li>
+                    <li>Share locations, itineraries, and experiences.</li>
+                    <li>Connect with friends and explore new adventures together.</li>
+                </ul>
+                <p>Click the button below to accept the invitation and start your journey:</p>
+                <a href="${inviteLink}" style="display:inline-block; padding:12px 24px; color:white; background-color:#007BFF; text-decoration:none; border-radius:5px; font-weight:bold;">
                     Join Now
                 </a>
-                <p>If the button doesn't work, copy and paste this link into your browser:</p>
-                <p>${inviteLink}</p>
+                <p>If the button above doesn’t work, copy and paste this link into your browser:</p>
+                <p><a href="${inviteLink}">${inviteLink}</a></p>
+                <br>
+                <p>See you in the group! 🚀</p>
+                <p><strong>Scope Tour Team</strong></p>
             `,
         };
 
