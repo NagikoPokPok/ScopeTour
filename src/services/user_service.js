@@ -133,6 +133,21 @@ class UserService {
             return false;
         }
     }
+
+    // 📌 Hàm lấy lời mời từ token
+    static async getInviteByToken(email, token) {
+        try {
+            return await InviteToken.findOne({ where: { email, token } });
+        } catch (error) {
+            console.error("❌ Error getting invite by token:", error);
+            return null;
+        }
+    }
+
+    // 📌 Hàm thêm user vào team
+    static async addUserToTeam(user_id, team_id) {
+        return 1;
+    }
 }
 
 module.exports = UserService;

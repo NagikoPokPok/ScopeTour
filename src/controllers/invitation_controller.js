@@ -128,7 +128,7 @@ class InvitationController {
             await UserService.deleteInviteToken(email);
 
             // 📌 Chuyển hướng đến trang nhóm
-            res.json({ success: true, redirectUrl: `/team-dashboard?team_id=${team_id}` });
+            res.json({ success: true, redirectUrl: `http://localhost:5500//src/views/team-project.html?team_id=${team_id}` });
         } catch (error) {
             console.error("Error completing join:", error);
             res.status(500).json({ success: false, message: "Failed to complete joining group" });
