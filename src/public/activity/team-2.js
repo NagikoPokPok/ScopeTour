@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     </a>
                     <div class="action container border-0 d-flex justify-content-end align-items-center">
                         <div class="row gap-4">
+                            <div class="col fs-5 action-invite-member" data-team-id="${team.team_id}" data-team-name="${team.name}">
+                                <i class="fa-solid fa-user-plus text-primary"></i>
+                            </div>
                             <div class="col fs-5 action-edit" data-team-id="${team.team_id}" data-team-name="${team.name}">
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
@@ -29,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
                 teamList.appendChild(li);
+            });
+
+            document.querySelectorAll('.action-invite-member').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const teamId = event.currentTarget.getAttribute('data-team-id');
+                    const teamName = event.currentTarget.getAttribute('data-team-name');
+                    openInviteMemberModal(teamId, teamName);
+                });
             });
   
             document.querySelectorAll('.action-edit').forEach(button => {
@@ -55,6 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 ? '<span>No teams match your search</span>'
                 : '<span>No teams available</span>';
         }
+    }
+
+    // OPEN MODAL INVITE MEMBER
+    function openInviteMemberModal(teamId, teamName) {
+        // document.getElementById('invite-team-id').value = teamId;
+        // document.getElementById('invite-team-name').innerText = teamName;
+        const modalElement = document.getElementById('modal-invite-member');
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
     }
   
   

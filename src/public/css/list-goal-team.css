@@ -676,6 +676,11 @@ main {
     width: 100%;
   }
 
+  #sample2 {
+    display: block;
+    width: 100%;
+  }
+
   .modal-footer .btn-primary {
     color: #fff;
   }

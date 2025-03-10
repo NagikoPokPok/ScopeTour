@@ -22,9 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     </a>
                     <div class="action container border-0 d-flex justify-content-end align-items-center">
                         <div class="row gap-4">
-                            <div class="col fs-5 action-add-member">
-                                <i class="fa-solid fa-user-plus text-primary"></i>
-                            </div>
                             <div class="col fs-5 action-edit" data-subject-id="${subject.subject_id}" data-subject-name="${subject.name}" data-subject-description="${subject.description}">
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
