@@ -288,6 +288,8 @@ document.getElementById('createTaskForm').addEventListener('submit', async funct
     await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
     openModalSuccessAction("Create task successfully!");
     bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
+    const createTaskForm = document.getElementById('createTaskForm');
+    createTaskForm.reset();
   } catch (error) {
     console.error('Error creating task:', error);
     alert(`Failed to create task: ${error.message}`);
