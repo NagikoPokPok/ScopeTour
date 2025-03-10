@@ -64,9 +64,14 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             
         } else {
-            subjectList.innerHTML = isSearch
-                ? "<span>No subjects match your search</span>"
-                : "<span>No subjects available</span>";
+            subjectList.innerHTML = `
+                <div id="lottie-container"></div>
+            `;
+
+            setTimeout(() => {
+                const topic = isSearch ? "not-found" : "not-available";
+                loadLottieAnimation("lottie-container", topic);
+            }, 0);
         }
     }
 
@@ -85,7 +90,13 @@ document.addEventListener("DOMContentLoaded", function () {
           renderSubjects(data.Subjects, false);
         } catch (error) {
           console.error("Error fetching all Subjects:", error);
-          SubjectList.innerHTML = "<li>Error loading Subjects</li>";
+            SubjectList.innerHTML = `
+            <div id="lottie-container"></div>
+            `            
+            ;
+            setTimeout(() => {
+                loadLottieAnimation("lottie-container", "error-loading");
+            }, 0);
         }
       }
       
@@ -104,7 +115,13 @@ document.addEventListener("DOMContentLoaded", function () {
         renderSubjects(data.Subjects, true); // Pass isSearch=true for search-specific messaging
         } catch (error) {
         console.error("Error searching Subjects:", error);
-        SubjectList.innerHTML = "<li>Error searching Subjects</li>";
+        SubjectList.innerHTML = `
+            <div id="lottie-container"></div>
+            `            
+            ;
+            setTimeout(() => {
+                loadLottieAnimation("lottie-container", "error-loading");
+            }, 0);
         }
     }
 

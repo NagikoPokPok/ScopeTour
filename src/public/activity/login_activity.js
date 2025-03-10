@@ -71,6 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
     
             if (data.success) {
+                // Store user data including ID
+                localStorage.setItem('userId', data.user.user_id);
+                localStorage.setItem('userEmail', data.user.email);
+                localStorage.setItem('userName', data.user.name);
+                
                 if (token && team_id) {
                     await completeJoin(email, token, team_id);
                 } else {

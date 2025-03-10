@@ -6,12 +6,29 @@ class UserController {
     static async getUser(req, res) {
         console.log("Dữ liệu nhận được:", req.body);
         try {
-            if(req.body.email === 'cuong2432004@gmail.com' && req.body.password === '123') return res.json({ success: true, user: { email: req.body.email, name: "Test User" } });
+            if(req.body.email === 'cuong2432004@gmail.com' && req.body.password === '123') {
+                // Return user ID in the response
+                return res.json({ 
+                    success: true, 
+                    user: { 
+                        user_id: 1, // Add the user ID
+                        email: req.body.email, 
+                        name: "Test User" 
+                    } 
+                });
+            }
             const user = await UserService.getUserByEmail(req.body.email);
             if (!user) {
                 return res.status(404).json({ success: false, message: "Người dùng không tồn tại!" });
             }
-            res.json({ success: true, user });
+            res.json({ 
+                success: true, 
+                user: {
+                    user_id: user.user_id,
+                    email: user.email,
+                    name: user.name
+                }
+            });
         } catch (error) {
             res.status(500).json({ success: false, message: "Lỗi server!" });
         }

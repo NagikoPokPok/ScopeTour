@@ -98,12 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error fetching all teams:', error);
             teamList.innerHTML = `
-            <div id="status-of-list" class="d-flex justify-content-center align-items-center flex-column">
-                <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status-list">
-                <span class="text-status-list">Error loading</span>
-            </div>
+            <div id="lottie-container"></div>
             `            
             ;
+            setTimeout(() => {
+                loadLottieAnimation("lottie-container", "error-loading");
+            }, 0);
         }
     }
 
@@ -264,7 +264,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderTeams(data.teams, true); // Pass isSearch=true for search-specific messaging
             } catch (error) {
                 console.error('Error searching teams:', error);
-                teamList.innerHTML = '<span>Error searching teams</span>';
+                teamList.innerHTML = `
+            <div id="lottie-container"></div>
+            `            
+            ;
+            setTimeout(() => {
+                loadLottieAnimation("lottie-container", "error-loading");
+            }, 0);
             }
         }
     

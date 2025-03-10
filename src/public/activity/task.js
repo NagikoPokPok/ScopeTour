@@ -286,6 +286,7 @@ document.getElementById('createTaskForm').addEventListener('submit', async funct
     }
     
     await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+    openModalSuccessAction("Create task successfully!");
     bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
   } catch (error) {
     console.error('Error creating task:', error);
@@ -337,10 +338,10 @@ document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListen
         await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
         
         bootstrap.Modal.getInstance(document.getElementById('modal-confirmation-check-task')).hide();
-        showModalActionSuccess('Task completed successfully!');
+        openModalSuccessAction('Task completed successfully!');
     } catch (error) {
         console.error('Error completing task:', error);
-        alert(error.message);
+        openModalFailAction('Failed to complete task');
     }
 });
 
@@ -389,16 +390,16 @@ document.addEventListener('click', function (e) {
                 await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
                 modal.hide();
                 
-                showModalActionSuccess('Task deleted successfully!');
+                openModalSuccessAction('Task deleted successfully!');
             } catch (error) {
                 console.error('Error deleting task:', error);
-                alert(error.message);
+                openModalFailAction('Failed to delete task');
             }
         };
     }
 });
 
-// Update task handler
+// UPDATE task handler
 document.addEventListener('click', async function (e) {
   if (e.target.classList.contains('action-edit') || e.target.closest('.action-edit')) {
       const taskElement = e.target.closest('.action-edit');
@@ -434,8 +435,23 @@ document.addEventListener('click', async function (e) {
           document.getElementById('update-time-reminder').checked = !!task.reminder_time;
 
           // Show update modal
-          const updateModal = new bootstrap.Modal(document.getElementById('update-task-modal'));
-          updateModal.show();
+          const modalElement = document.getElementById('update-task-modal');
+          const modal = new bootstrap.Modal(modalElement);
+          modal.show();
+
+          // Handle update form submission
+          const updateTaskForm = document.getElementById('updateTaskForm');
+        
+          updateTaskForm.onsubmit = function (event) {
+              event.preventDefault();
+              
+              // Đợi modal cập nhật đóng hoàn toàn rồi mới mở modal xác nhận
+              modalElement.addEventListener('hidden.bs.modal', function () {
+                  openModalConfirmationUpdate();
+              }, { once: true });
+      
+              modal.hide(); // Ẩn modal cập nhật
+          };
       } catch (error) {
           console.error('Error fetching task details:', error);
           alert('Failed to load task details. Please try again.');
@@ -443,10 +459,21 @@ document.addEventListener('click', async function (e) {
   }
 });
 
-// Handle update form submission
-document.getElementById('updateTaskForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
+function openModalConfirmationUpdate() {
+  // document.getElementById('team-name-edit').innerText = teamName; 
+  const modalElement = document.getElementById('modal-confirmation-edit');
+  const modal = new bootstrap.Modal(modalElement);
+
+  modal.show();
+
+  const confirmButton = document.getElementById('btn-confirm-edit');
+  confirmButton.onclick = () => {
+      updateTask();
+      modal.hide();
+  };
+}
+
+async function updateTask() {
   const taskId = document.getElementById('update-task-id').value;
   const dateTimeRange = document.querySelector('input[name="update-datetimes"]').value;
   
@@ -491,7 +518,57 @@ document.getElementById('updateTaskForm').addEventListener('submit', async funct
       console.error('Error updating task:', error);
       alert(error.message || 'Failed to update task');
   }
-});
+}
+
+// Handle update form submission
+// document.getElementById('updateTaskForm').addEventListener('submit', async function(e) {
+//   e.preventDefault();
+  
+//   const taskId = document.getElementById('update-task-id').value;
+//   const dateTimeRange = document.querySelector('input[name="update-datetimes"]').value;
+  
+//   let startDate = null;
+//   let dueDate = null;
+  
+//   if (dateTimeRange && dateTimeRange.includes(' - ')) {
+//       const [startDateStr, endDateStr] = dateTimeRange.split(' - ');
+//       startDate = parseDateTimeToISO(startDateStr);
+//       dueDate = parseDateTimeToISO(endDateStr);
+//   }
+  
+//   const taskData = {
+//       title: document.getElementById('update-task-name').value,
+//       description: document.getElementById('update-task-description').value,
+//       start_date: startDate,
+//       due_date: dueDate,
+//       high_priority: document.getElementById('update-high-priority').checked,
+//       reminder_time: document.getElementById('update-time-reminder').checked ? new Date().toISOString() : null
+//   };
+
+//   try {
+//       const response = await fetch(`${API_BASE_URL}/${taskId}`, {
+//           method: 'PUT',
+//           headers: { 'Content-Type': 'application/json' },
+//           body: JSON.stringify(taskData)
+//       });
+
+//       if (!response.ok) {
+//           const errorData = await response.json();
+//           throw new Error(errorData.error || 'Failed to update task');
+//       }
+
+//       // Refresh task list
+//       const urlParams = new URLSearchParams(window.location.search);
+//       await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+      
+//       // Hide modal and show success message
+//       bootstrap.Modal.getInstance(document.getElementById('update-task-modal')).hide();
+//       showModalActionSuccess('Task updated successfully!');
+//   } catch (error) {
+//       console.error('Error updating task:', error);
+//       alert(error.message || 'Failed to update task');
+//   }
+// });
 
 
 // Initial fetch on page load
@@ -499,4 +576,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
 });
+
+// SHOW MODAL ACTION FAIL OR SUCCESS
+function openModalSuccessAction(message) {
+  showModalActionSuccess(message);
+}
+
+function openModalFailAction(message) {
+  showModalActionFail(message);
+}
 
