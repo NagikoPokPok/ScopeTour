@@ -32,6 +32,7 @@
   <!-- Multiple emails input -->
   <link rel="stylesheet" href="../public/css/multiple-emails-input/email.css">
   <link rel="stylesheet" href="../public/css/multiple-emails-input/examples.css">
+
   <script type="text/javascript" src="../js/list-goal-team-sidebar.js" defer></script>
 </head>
 <body>
@@ -396,8 +397,9 @@
                   <i class="fa-solid fa-asterisk"></i>
                 </div>
               </label>
-              <input type="text" class="form-control mb-3" id="modal-team-name" required 
-                     placeholder="Rumble Team" maxlength="20">
+              <input type="text" class="form-control mb-1" id="modal-team-name" required 
+                     placeholder="Rumble Team" maxlength="50">
+              <small id="char-count-team" class="text-muted mb-3 d-block">0/50 characters</small>
 
               <!-- Invite member -->
               <label class="form-label my-1">Invite team member</label>
@@ -407,6 +409,32 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary" id="btn-create-team">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+     <!-- MODAL INVITE MEMBER -->
+     <div class="modal fade" id="modal-invite-member" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">
+              Invite members to team
+              <span class="team-name-invite">Rumble</span>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+          </div>
+          <form id="inviteMemberForm">
+            <div class="modal-body">
+              <!-- Invite member -->
+              <div id="sample2"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary" id="btn-invite-member">Invite</button>
             </div>
           </form>
         </div>
@@ -424,12 +452,18 @@
           <form id="updateTeamForm">
             <div class="modal-body">
               <input type="hidden" id="update-team-id">
-              <label for="update-team-name" class="form-label">Team Name</label>
-              <input type="text" class="form-control" id="update-team-name" required>
+              <label for="update-team-name" class="form-label">
+                <span>Team name</span>
+                <div class="icon-important">
+                  <i class="fa-solid fa-asterisk"></i>
+                </div>
+              </label>
+              <input type="text" class="form-control" id="update-team-name" required maxlength="50">
+              <small id="char-count-team-update" class="text-muted mb-3 d-block">0/50 characters</small>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">Update</button>
+              <button type="submit" class="btn btn-primary" id="btn-update">Update</button>
             </div>
           </form>
         </div>
@@ -505,14 +539,14 @@
               aria-label="Close">
               </button>
           </div>
-          <!-- <form action=""> -->
+          <!-- <form id="confirmationDeleteForm"> -->
             <div class="modal-body">
-              <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
-                <span>Are you sure want to delete</span>
-                <span class="object-deleted-name fw-semibold my-0 mx-1">
+              <div class="question-confirmation fs-5 fw-medium">
+                  <span >Are you sure want to delete</span>
+                  <span class="object-deleted-name fw-semibold my-0" id="team-name-delete">
                   Rumble
-                </span>
-                <span>?</span>
+                  </span>
+                  <span>?</span>
               </div>
 
               <div class="warning mt-2">
@@ -529,7 +563,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-              <button type="submit" class="btn btn-primary btn-yes">
+              <button  class="btn btn-primary btn-yes" id="btn-confirm-delete">
                 Yes,
                 <span class="type-of-action">Delete</span>
               </button>
@@ -563,9 +597,9 @@
            </div>
            <!-- <form action=""> -->
              <div class="modal-body">
-               <div class="question-confirmation d-flex align-items-center fs-5 fw-medium">
+               <div class="question-confirmation fs-5 fw-medium">
                  <span>Are you sure want to edit</span>
-                 <span class="object-deleted-name fw-semibold my-0 mx-1">
+                 <span class="object-deleted-name fw-semibold my-0" id="team-name-edit">
                    Rumble
                  </span>
                  <span>?</span>
@@ -582,7 +616,7 @@
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-               <button type="submit" class="btn btn-primary btn-yes">
+               <button type="button" class="btn btn-primary btn-yes" id="btn-confirm-edit">
                  Yes,
                  <span class="type-of-action">Edit</span>
                </button>
@@ -592,6 +626,9 @@
          </div>
        </div>
      </div>
+
+     <!-- MODAL STATUS ACTION -->
+    <div id="modal-status-action-container"></div>
   </main>
   <!-- End Main Content -->
   
@@ -606,8 +643,11 @@
 
   
   <script src="../js/component.js"></script>
+
   <!-- Our main JS file -->
   <script type="module" src="../public/activity/time.js"></script>
+
+  <!-- handle logic of team -->
   <script type="module" src="../public/activity/team.js"></script>
 
 
@@ -622,5 +662,21 @@
 
   <!-- Get Email -->
    <script src="../js/getMail.js"></script>
+
+  <!-- Logic close modal, ensure remove class .modal-backdrop
+   <script src="../js/closeModal.js"></script> -->
+
+
+   <!-- Count character -->
+    <script src="../js/countCharacter.js"></script>
+    <script>
+      // Gọi hàm cho từng input cần theo dõi
+      document.addEventListener("DOMContentLoaded", function () {
+          addCharacterCounter("modal-team-name", "char-count-team");
+          addCharacterCounter("update-team-name", "char-count-team-update");
+      });
+    </script>
+
+
 </body>
 </html>

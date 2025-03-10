@@ -1,0 +1,366 @@
+// Base URL for the API endpoints
+const API_BASE_URL = 'http://localhost:3000/api/task';
+
+// Utility function to format dates (e.g., DD/MM/YYYY)
+function formatDate(dateObj) {
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const year = dateObj.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+// Utility function to format time (e.g., HH:MM AM/PM)
+function formatTime(dateObj) {
+  let hours = dateObj.getHours();
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12;
+  return `${hours}:${minutes} ${ampm}`;
+}
+
+// Parse DD/MM/YYYY HH:MM AM/PM format to ISO date string
+function parseDateTimeToISO(dateTimeStr) {
+  if (!dateTimeStr) return null;
+  
+  // Extract date and time parts
+  const [datePart, timePart, ampm] = dateTimeStr.trim().split(' ');
+  if (!datePart || !timePart || !ampm) return null;
+  
+  // Parse date DD/MM/YYYY
+  const [day, month, year] = datePart.split('/');
+  
+  // Parse time HH:MM
+  let [hours, minutes] = timePart.split(':');
+  
+  // Convert to 24-hour format
+  if (ampm.toUpperCase() === 'PM' && hours !== '12') {
+    hours = String(parseInt(hours) + 12);
+  } else if (ampm.toUpperCase() === 'AM' && hours === '12') {
+    hours = '00';
+  }
+  
+  // Create ISO date string (YYYY-MM-DDTHH:MM:00)
+  return `${year}-${month}-${day}T${hours.padStart(2, '0')}:${minutes}:00`;
+}
+
+async function fetchTasks(subjectId, teamId, search = '') {
+    try {
+      console.log('Fetching tasks with:', { subjectId, teamId, search });
+  
+      if (!subjectId || !teamId) {
+        throw new Error('subjectId and teamId are required');
+      }
+  
+      // Fetch both active and completed tasks
+      const [tasksResponse, completedTasksResponse] = await Promise.all([
+        // Fetch active tasks
+        fetch(`${API_BASE_URL}?${new URLSearchParams({
+          subjectId,
+          teamId,
+          search: search || ''
+        })}`),
+        // Fetch completed tasks
+        fetch(`${API_BASE_URL}/completed?${new URLSearchParams({
+          subjectId,
+          teamId,
+          search: search || ''
+        })}`)
+      ]);
+  
+      if (!tasksResponse.ok || !completedTasksResponse.ok) {
+        throw new Error('Failed to fetch tasks');
+      }
+  
+      const [activeTasks, completedTasks] = await Promise.all([
+        tasksResponse.json(),
+        completedTasksResponse.json()
+      ]);
+  
+      // Combine active and completed tasks
+      const allTasks = [
+        ...(activeTasks.tasks || []),
+        ...(completedTasks.tasks || []).map(task => ({
+          ...task,
+          status: 'completed'
+        }))
+      ];
+  
+      console.log('All tasks:', allTasks);
+      renderTasks(allTasks);
+    } catch (error) {
+      console.error('Error fetching tasks:', error.message);
+      alert('Failed to fetch tasks. Check the console for details.');
+    }
+  }
+
+// Render tasks into Available and Submitted sections
+function renderTasks(tasks) {
+    const availableTasksContainer = document.querySelector('#panelsStayOpen-collapseOne .accordion-body');
+    const submittedTasksContainer = document.querySelector('#panelsStayOpen-collapseTwo .accordion-body');
+  
+    availableTasksContainer.innerHTML = '';
+    submittedTasksContainer.innerHTML = '';
+  
+    if (!tasks) return;
+  
+    tasks.forEach(task => {
+        const taskElement = createTaskElement(task);
+        // Check if task is completed
+        if (task.status === 'completed' || task.completed_date) {
+            submittedTasksContainer.appendChild(taskElement);
+        } else {
+            availableTasksContainer.appendChild(taskElement);
+        }
+    });
+
+    // Show/hide "No tasks" message
+    if (availableTasksContainer.children.length === 0) {
+        availableTasksContainer.innerHTML = '<div class="text-center text-muted">No available tasks</div>';
+    }
+    if (submittedTasksContainer.children.length === 0) {
+        submittedTasksContainer.innerHTML = '<div class="text-center text-muted">No completed tasks</div>';
+    }
+}
+
+function createTaskElement(task) {
+    const container = document.createElement('div');
+    const isCompleted = task.status === 'completed' || task.completed_date;
+    
+    container.className = isCompleted ? 'item-submitted-task container text-center p-0' : 'item-available-task container text-center p-0';
+    
+    // Store the correct ID based on task type
+    container.dataset.taskId = isCompleted ? task.id : task.task_id;
+
+    let statusHTML = '';
+    if (isCompleted) {
+        const completedDate = new Date(task.completed_date || task.completed_at);
+        statusHTML = `
+            <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
+            <span class="submitted-time fw-light text-secondary">${formatDate(completedDate)} ${formatTime(completedDate)}</span>
+        `;
+    } else {
+        const today = new Date();
+        const dueDate = new Date(task.due_date);
+        const startDate = new Date(task.start_date || task.created_at);
+        let status = 'Upcoming';
+        if (dueDate < today) status = 'Overdue';
+        else if (startDate <= today && today <= dueDate) status = 'In progress';
+        statusHTML = `<span class="status-of-task fw-medium" data-status="${status}">${status}</span>`;
+    }
+
+    container.innerHTML = `
+        <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+            <div class="col check-task">
+                ${!isCompleted ? `
+                    <input class="checkbox-complete-task" type="checkbox" data-task-id="${task.task_id}" data-bs-toggle="modal" data-bs-target="#modal-confirmation-check-task">
+                ` : ''}
+                <div class="task text-start">
+                    <span class="task-title fw-medium">${task.title}</span>
+                    <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
+                </div>
+            </div>
+            <div class="col time-of-task">
+                ${statusHTML}
+            </div>
+            <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+                <div class="row g-4">
+                    ${!isCompleted ? `
+                        <div class="col fs-5 action-edit" data-task-id="${task.task_id}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                    ` : ''}
+                    <div class="col fs-5 action-delete">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                    <div class="col fs-5 action-rank">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </div>
+                    <div class="col fs-5 action-comment">
+                        <i class="fa-solid fa-message"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    return container;
+}
+
+// Create a new task
+document.getElementById('createTaskForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // Get date range values
+  const dateTimeRange = formData.get('datetimes');
+  let startDate = null;
+  let dueDate = null;
+  
+  if (dateTimeRange && dateTimeRange.includes(' - ')) {
+    const [startDateStr, endDateStr] = dateTimeRange.split(' - ');
+    startDate = parseDateTimeToISO(startDateStr);
+    dueDate = parseDateTimeToISO(endDateStr);
+  }
+  
+  const taskData = {
+    title: document.getElementById('modal-task-name').value, 
+    description: document.getElementById('modal-task-des').value,
+    start_date: startDate,
+    due_date: dueDate,
+    subject_id: urlParams.get('subjectId') || 'CDIO',
+    team_id: urlParams.get('teamId'),
+    user_id: 1, // Placeholder; replace with actual user ID logic
+    high_priority: document.getElementById('high-priority').checked,
+    reminder_time: document.getElementById('time-reminder').checked ? new Date().toISOString() : null
+  };
+
+  console.log('Task data being sent:', taskData);
+
+  try {
+    const response = await fetch(API_BASE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(taskData)
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      console.error('API error response:', errorData);
+      throw new Error(`Failed to create task: ${response.status} ${response.statusText}`);
+    }
+    
+    await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+    bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
+  } catch (error) {
+    console.error('Error creating task:', error);
+    alert(`Failed to create task: ${error.message}`);
+  }
+});
+
+// Search tasks
+document.addEventListener('DOMContentLoaded', function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const subjectId = urlParams.get('subjectId');
+  const teamId = urlParams.get('teamId');
+  console.log('URL Params:', { subjectId, teamId });
+  fetchTasks(subjectId, teamId);
+});
+
+// Search tasks
+document.getElementById('searchSubject').addEventListener('input', function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const subjectId = urlParams.get('subjectId');
+  const teamId = urlParams.get('teamId');
+  console.log('Search Params:', { subjectId, teamId, search: this.value });
+  fetchTasks(subjectId, teamId, this.value);
+});
+
+// Update task (basic setup; edit modal population not fully implemented)
+document.addEventListener('click', async function (e) {
+  if (e.target.classList.contains('action-edit') || e.target.closest('.action-edit')) {
+    const taskId = e.target.closest('.action-edit').getAttribute('data-task-id');
+    try {
+      const response = await fetch(`${API_BASE_URL}/${taskId}`);
+      if (!response.ok) throw new Error('Failed to fetch task details');
+      const task = await response.json();
+      // Populate edit modal here (not fully implemented due to missing modal structure)
+      console.log('Edit task:', task); // Placeholder for edit modal logic
+    } catch (error) {
+      console.error('Error fetching task details:', error);
+    }
+  }
+});
+
+// Mark task as completed (moves task to TaskCompleted)
+document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListener('click', async function () {
+    const checkedBox = document.querySelector('.checkbox-complete-task:checked');
+    if (!checkedBox) return;
+
+    const taskId = checkedBox.getAttribute('data-task-id');
+    const taskElement = checkedBox.closest('.item-available-task');
+    
+    try {
+        // Move task to completed (this will handle both tables)
+        const response = await fetch(`${API_BASE_URL}/complete/${taskId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => null);
+            throw new Error(errorData?.error || 'Failed to complete task');
+        }
+
+        // Refresh task lists
+        const urlParams = new URLSearchParams(window.location.search);
+        await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+        
+        bootstrap.Modal.getInstance(document.getElementById('modal-confirmation-check-task')).hide();
+        showModalActionSuccess('Task completed successfully!');
+    } catch (error) {
+        console.error('Error completing task:', error);
+        alert(error.message);
+    }
+});
+
+// Delete task (handles both active and completed tasks)
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('action-delete') || e.target.closest('.action-delete')) {
+        const taskElement = e.target.closest('[data-task-id]');
+        if (!taskElement) return;
+
+        // Check if task is in completed section
+        const isCompleted = taskElement.closest('#panelsStayOpen-collapseTwo') !== null;
+        const taskId = taskElement.dataset.taskId;
+        
+        console.log('Deleting task:', { taskId, isCompleted });
+
+        const confirmModal = document.getElementById('modal-confirmation-delete');
+        const yesButton = confirmModal.querySelector('.btn-yes');
+        
+        yesButton.dataset.taskId = taskId;
+        yesButton.dataset.isCompleted = isCompleted;
+        
+        const modal = new bootstrap.Modal(confirmModal);
+        modal.show();
+
+        yesButton.onclick = async function () {
+            try {
+                // Use different endpoints based on which table the task is in
+                const endpoint = this.dataset.isCompleted === 'true' 
+                    ? `${API_BASE_URL}/completed/${this.dataset.taskId}`  // Delete from TaskCompleted
+                    : `${API_BASE_URL}/${this.dataset.taskId}`;          // Delete from Task
+
+                console.log('Delete endpoint:', endpoint);
+
+                const response = await fetch(endpoint, { 
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => null);
+                    throw new Error(errorData?.error || 'Failed to delete task');
+                }
+
+                // Refresh task lists
+                const urlParams = new URLSearchParams(window.location.search);
+                await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+                modal.hide();
+                
+                showModalActionSuccess('Task deleted successfully!');
+            } catch (error) {
+                console.error('Error deleting task:', error);
+                alert(error.message);
+            }
+        };
+    }
+});
+
+
+// Initial fetch on page load
+document.addEventListener('DOMContentLoaded', function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+});

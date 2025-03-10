@@ -676,6 +676,11 @@ main {
     width: 100%;
   }
 
+  #sample2 {
+    display: block;
+    width: 100%;
+  }
+
   .modal-footer .btn-primary {
     color: #fff;
   }
@@ -690,6 +695,7 @@ main {
     color: red;
     height: 100%;
     margin-left: 4px;
+    margin-right: 4px;
     margin-top: 4px;
   }
 
