@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     </a>
                     <div class="action container border-0 d-flex justify-content-end align-items-center">
                         <div class="row gap-4">
+                            <div class="col fs-5 action-invite-member" data-team-id="${team.team_id}" data-team-name="${team.name}">
+                                <i class="fa-solid fa-user-plus text-primary"></i>
+                            </div>
                             <div class="col fs-5 action-edit" data-team-id="${team.team_id}" data-team-name="${team.name}">
                                 <i class="fa-solid fa-pen-to-square text-primary"></i>
                             </div>
@@ -29,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
                 teamList.appendChild(li);
+            });
+
+            document.querySelectorAll('.action-invite-member').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const teamId = event.currentTarget.getAttribute('data-team-id');
+                    const teamName = event.currentTarget.getAttribute('data-team-name');
+                    openInviteMemberModal(teamId, teamName);
+                });
             });
   
             document.querySelectorAll('.action-edit').forEach(button => {
@@ -51,10 +62,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         } else {
-            teamList.innerHTML = isSearch
-                ? '<span>No teams match your search</span>'
-                : '<span>No teams available</span>';
+            teamList.innerHTML = `
+                <div id="lottie-container"></div>
+            `;
+
+            setTimeout(() => {
+                const topic = isSearch ? "not-found" : "not-available";
+                loadLottieAnimation("lottie-container", topic);
+            }, 0);
         }
+    }
+
+    // OPEN MODAL INVITE MEMBER
+    function openInviteMemberModal(teamId, teamName) {
+        // document.getElementById('invite-team-id').value = teamId;
+        // document.getElementById('invite-team-name').innerText = teamName;
+        const modalElement = document.getElementById('modal-invite-member');
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
     }
   
   
@@ -72,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error fetching all teams:', error);
             teamList.innerHTML = `
-            <div class="error-loading d-flex justify-content-center align-items-center flex-column">
-                <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status">
-                <span class="text-status">Error loading</span>
-            </div>
+            <div id="lottie-container"></div>
             `            
             ;
+            setTimeout(() => {
+                loadLottieAnimation("lottie-container", "error-loading");
+            }, 0);
         }
     }
 
@@ -238,7 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 renderTeams(data.teams, true); // Pass isSearch=true for search-specific messaging
             } catch (error) {
                 console.error('Error searching teams:', error);
-                teamList.innerHTML = '<span>Error searching teams</span>';
+                teamList.innerHTML = `
+                <div id="lottie-container"></div>
+                `            
+                ;
+                setTimeout(() => {
+                    loadLottieAnimation("lottie-container", "error-loading");
+                }, 0);
             }
         }
     
