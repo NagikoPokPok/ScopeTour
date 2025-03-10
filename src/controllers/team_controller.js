@@ -10,6 +10,7 @@ exports.createTeam = async (req, res) => {
         const newTeam = await Team.create({ name: teamName });
         return res.status(201).json({
             message: 'Team created successfully!',
+            teamId: newTeam.team_id,  // Make sure to return the team ID
             data: newTeam
         });
     } catch (error) {
