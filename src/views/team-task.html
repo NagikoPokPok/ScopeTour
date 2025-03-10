@@ -966,6 +966,66 @@
        </div>
      </div>
     
+     <!-- MODAL UPDATE TASK -->
+    <div class="modal fade" id="update-task-modal" 
+    tabindex="-1" 
+    aria-labelledby="modal-title" 
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Update task</h5>
+                <button type="button" class="btn-close" 
+                    data-bs-dismiss="modal" 
+                    aria-label="Close"></button>
+            </div>
+            <form id="updateTaskForm">
+                <div class="modal-body">
+                    <input type="hidden" id="update-task-id">
+                    
+                    <label for="update-task-name" class="form-label my-1">
+                        <span>Task name</span>
+                        <div class="icon-important">
+                            <i class="fa-solid fa-asterisk"></i>
+                        </div>
+                    </label>
+                    <input type="text" class="form-control mb-1" id="update-task-name" required 
+                            placeholder="Do assignment" maxlength="50">
+                    <small id="char-count-task-name-update" class="text-muted mb-3 d-block">0/50 characters</small>
+
+                    <label for="update-task-description" class="form-label my-1">Description</label>
+                    <input type="text" class="form-control mb-1" id="update-task-description" 
+                          placeholder="Do it on Sakai" maxlength="100">
+                    <small id="char-count-task-des-update" class="text-muted mb-3 d-block">0/100 characters</small>
+                    
+                    <label for="update-task-time" class="form-label my-1">Start and End Time</label>
+                    <input type="text" name="update-datetimes" style="width: 100%; height: 40px;" 
+                          id="update-task-time" class="form-control mb-3" readonly />
+                    
+                    <div class="extra-setting d-flex align-items-center justify-content-between">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="update-high-priority">
+                            <label class="form-check-label" for="update-high-priority">
+                                High Priority
+                            </label>
+                        </div>
+
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="update-time-reminder">
+                            <label class="form-check-label" for="update-time-reminder">
+                                Time Reminder
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
 
   </main>
   <!--End: Main Content -->
@@ -985,16 +1045,27 @@
    <!-- Date time range piker -->
    <script>
     $(function() {
-      $('input[name="datetimes"]').daterangepicker({
-        timePicker: true,
-        startDate: moment().startOf('hour'),
-        endDate: moment().startOf('hour').add(32, 'hour'),
-        locale: {
-          format: 'DD/MM/YYYY hh:mm A'
-        }
-      });
+        // Create form initialization
+        $('input[name="datetimes"]').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'DD/MM/YYYY hh:mm A'
+            }
+        });
+
+        // Update form initialization
+        $('input[name="update-datetimes"]').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'DD/MM/YYYY hh:mm A'
+            }
+        });
     });
-    </script>
+  </script>
 
 
     <!-- Delete comment task -->

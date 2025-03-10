@@ -123,67 +123,121 @@ function renderTasks(tasks) {
 }
 
 function createTaskElement(task) {
-    const container = document.createElement('div');
-    const isCompleted = task.status === 'completed' || task.completed_date;
-    
-    container.className = isCompleted ? 'item-submitted-task container text-center p-0' : 'item-available-task container text-center p-0';
-    
-    // Store the correct ID based on task type
-    container.dataset.taskId = isCompleted ? task.id : task.task_id;
+  const container = document.createElement('div');
+  const isCompleted = task.status === 'completed' || task.completed_date;
+  
+  container.className = isCompleted ? 'item-submitted-task container text-center p-0' : 'item-available-task container text-center p-0';
+  
+  container.dataset.taskId = isCompleted ? task.id : task.task_id;
 
-    let statusHTML = '';
-    if (isCompleted) {
-        const completedDate = new Date(task.completed_date || task.completed_at);
-        statusHTML = `
-            <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
-            <span class="submitted-time fw-light text-secondary">${formatDate(completedDate)} ${formatTime(completedDate)}</span>
-        `;
-    } else {
-        const today = new Date();
-        const dueDate = new Date(task.due_date);
-        const startDate = new Date(task.start_date || task.created_at);
-        let status = 'Upcoming';
-        if (dueDate < today) status = 'Overdue';
-        else if (startDate <= today && today <= dueDate) status = 'In progress';
-        statusHTML = `<span class="status-of-task fw-medium" data-status="${status}">${status}</span>`;
+  const today = new Date();
+  const dueDate = new Date(task.due_date);
+  const startDate = new Date(task.start_date || task.created_at);
+  let status = 'Upcoming';
+  let canComplete = false;
+
+  if (isCompleted) {
+    status = 'Completed';
+  } else {
+    if (dueDate < today) {
+      status = 'Overdue';
+      canComplete = true;
+    } else if (startDate <= today && today <= dueDate) {
+      status = 'In progress';
+      canComplete = true;
     }
+  }
 
-    container.innerHTML = `
-        <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
-            <div class="col check-task">
-                ${!isCompleted ? `
-                    <input class="checkbox-complete-task" type="checkbox" data-task-id="${task.task_id}" data-bs-toggle="modal" data-bs-target="#modal-confirmation-check-task">
-                ` : ''}
-                <div class="task text-start">
-                    <span class="task-title fw-medium">${task.title}</span>
-                    <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
-                </div>
-            </div>
-            <div class="col time-of-task">
-                ${statusHTML}
-            </div>
-            <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
-                <div class="row g-4">
-                    ${!isCompleted ? `
-                        <div class="col fs-5 action-edit" data-task-id="${task.task_id}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                    ` : ''}
-                    <div class="col fs-5 action-delete">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
-                    <div class="col fs-5 action-rank">
-                        <i class="fa-solid fa-ranking-star"></i>
-                    </div>
-                    <div class="col fs-5 action-comment">
-                        <i class="fa-solid fa-message"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+  let statusHTML = '';
+  if (isCompleted) {
+    const completedDate = new Date(task.completed_date || task.completed_at);
+    statusHTML = `
+      <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
+      <span class="submitted-time fw-light text-secondary">${formatDate(completedDate)} ${formatTime(completedDate)}</span>
     `;
+  } else {
+    statusHTML = `
+      <span class="status-of-task fw-medium" data-status="${status}">${status}</span>
+      <div class="due-time fw-light">
+        <span class="open-time text-secondary">${formatDate(startDate)}</span>
+        <hr>
+        <span class="end-time text-secondary">${formatDate(dueDate)}</span>
+      </div>
+    `;
+  }
 
-    return container;
+  container.innerHTML = `
+    <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
+      <div class="col check-task">
+        ${!isCompleted ? `
+          <div class="d-flex align-items-start">
+            ${canComplete ? `
+              <input class="checkbox-complete-task" type="checkbox" 
+                data-task-id="${task.task_id}" 
+                data-bs-toggle="modal" 
+                data-bs-target="#modal-confirmation-check-task">
+            ` : '<div style="width: 24px;"></div>'}
+            
+            <div class="task text-start ms-3">
+              <span class="task-title fw-medium">${task.title}</span>
+              <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
+              ${!canComplete ? `
+                <div class="text-warning small">
+                  Task not yet started
+                </div>
+              ` : ''}
+              ${task.high_priority || task.reminder_time ? `
+                <div class="additional-option d-flex align-items-center justify-content-between mt-1">
+                  ${task.high_priority ? `
+                    <div class="option-high-priority" style="font-size: 14px;">
+                      <i class="fa-solid fa-flag text-primary"></i>
+                      <span class="ms-1">High Priority</span>
+                    </div>
+                  ` : ''}
+                  ${task.reminder_time ? `
+                    <div class="option-reminder" style="font-size: 14px;">
+                      <i class="fa-solid fa-clock text-success"></i>
+                      <span class="ms-1">${formatTime(new Date(task.reminder_time))}</span>
+                    </div>
+                  ` : ''}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        ` : `
+          <div class="task text-start">
+            <span class="task-title fw-medium">${task.title}</span>
+            <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
+          </div>
+        `}
+      </div>
+
+      <div class="col time-of-task">
+        ${statusHTML}
+      </div>
+
+      <div class="action-list col text-end d-flex justify-content-end align-items-center text-primary">
+        <div class="row g-4">
+          ${!isCompleted ? `
+            <div class="col fs-5 action-edit" data-task-id="${task.task_id}">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+          ` : ''}
+          <div class="col fs-5 action-delete">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
+          <div class="col fs-5 action-rank">
+            <i class="fa-solid fa-ranking-star"></i>
+          </div>
+          <div class="col fs-5 action-comment">
+            <i class="fa-solid fa-message"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  return container;
 }
 
 // Create a new task
@@ -256,21 +310,6 @@ document.getElementById('searchSubject').addEventListener('input', function () {
   fetchTasks(subjectId, teamId, this.value);
 });
 
-// Update task (basic setup; edit modal population not fully implemented)
-document.addEventListener('click', async function (e) {
-  if (e.target.classList.contains('action-edit') || e.target.closest('.action-edit')) {
-    const taskId = e.target.closest('.action-edit').getAttribute('data-task-id');
-    try {
-      const response = await fetch(`${API_BASE_URL}/${taskId}`);
-      if (!response.ok) throw new Error('Failed to fetch task details');
-      const task = await response.json();
-      // Populate edit modal here (not fully implemented due to missing modal structure)
-      console.log('Edit task:', task); // Placeholder for edit modal logic
-    } catch (error) {
-      console.error('Error fetching task details:', error);
-    }
-  }
-});
 
 // Mark task as completed (moves task to TaskCompleted)
 document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListener('click', async function () {
@@ -358,9 +397,105 @@ document.addEventListener('click', function (e) {
     }
 });
 
+// Update task handler
+document.addEventListener('click', async function (e) {
+  if (e.target.classList.contains('action-edit') || e.target.closest('.action-edit')) {
+      const taskElement = e.target.closest('.action-edit');
+      const taskId = taskElement.getAttribute('data-task-id');
+      
+      try {
+          const response = await fetch(`${API_BASE_URL}/${taskId}`);
+          if (!response.ok) throw new Error('Failed to fetch task details');
+          
+          const task = await response.json();
+          
+          // Populate update form
+          document.getElementById('update-task-id').value = task.task_id;
+          document.getElementById('update-task-name').value = task.title;
+          document.getElementById('update-task-description').value = task.description || '';
+          
+          // Set date range
+          const startDate = task.start_date ? moment(task.start_date) : moment();
+          const endDate = task.due_date ? moment(task.due_date) : moment().add(32, 'hour');
+          
+          // Initialize daterangepicker for update form
+          $('input[name="update-datetimes"]').daterangepicker({
+              timePicker: true,
+              startDate: startDate,
+              endDate: endDate,
+              locale: {
+                  format: 'DD/MM/YYYY hh:mm A'
+              }
+          });
+
+          // Set checkboxes
+          document.getElementById('update-high-priority').checked = task.high_priority;
+          document.getElementById('update-time-reminder').checked = !!task.reminder_time;
+
+          // Show update modal
+          const updateModal = new bootstrap.Modal(document.getElementById('update-task-modal'));
+          updateModal.show();
+      } catch (error) {
+          console.error('Error fetching task details:', error);
+          alert('Failed to load task details. Please try again.');
+      }
+  }
+});
+
+// Handle update form submission
+document.getElementById('updateTaskForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const taskId = document.getElementById('update-task-id').value;
+  const dateTimeRange = document.querySelector('input[name="update-datetimes"]').value;
+  
+  let startDate = null;
+  let dueDate = null;
+  
+  if (dateTimeRange && dateTimeRange.includes(' - ')) {
+      const [startDateStr, endDateStr] = dateTimeRange.split(' - ');
+      startDate = parseDateTimeToISO(startDateStr);
+      dueDate = parseDateTimeToISO(endDateStr);
+  }
+  
+  const taskData = {
+      title: document.getElementById('update-task-name').value,
+      description: document.getElementById('update-task-description').value,
+      start_date: startDate,
+      due_date: dueDate,
+      high_priority: document.getElementById('update-high-priority').checked,
+      reminder_time: document.getElementById('update-time-reminder').checked ? new Date().toISOString() : null
+  };
+
+  try {
+      const response = await fetch(`${API_BASE_URL}/${taskId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(taskData)
+      });
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to update task');
+      }
+
+      // Refresh task list
+      const urlParams = new URLSearchParams(window.location.search);
+      await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+      
+      // Hide modal and show success message
+      bootstrap.Modal.getInstance(document.getElementById('update-task-modal')).hide();
+      showModalActionSuccess('Task updated successfully!');
+  } catch (error) {
+      console.error('Error updating task:', error);
+      alert(error.message || 'Failed to update task');
+  }
+});
+
 
 // Initial fetch on page load
 document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
 });
+
