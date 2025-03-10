@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const InviteToken = require("../models/InviteToken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
@@ -36,10 +37,10 @@ class UserService {
     }
 
     // Tạo người dùng mới
-    static async createUser(email, name, password) {
+    static async createUser(email, user_name, password) {
         try {
             password = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
-            return await User.create({email, name, password});
+            return await User.create({email, user_name, password});
         } catch (error) {
             console.error("Lỗi khi tạo người dùng:", error);
             throw error;
@@ -87,9 +88,9 @@ class UserService {
     }
 
     // 📌 Lưu token vào database
-    static async saveInviteToken(email, token) {
+    static async saveInviteToken(email, token, team_id) {
         try {
-            await InviteToken.create({ email, token, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) }); // Hết hạn sau 24h
+            await InviteToken.create({ email, token, team_id, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) }); // Hết hạn sau 24h
         } catch (error) {
             console.error("Error saving invite token:", error);
         }
