@@ -23,10 +23,4 @@ const TeamMember = sequelize.define('TeamMember', {
   timestamps: false
 });
 
-// Định nghĩa quan hệ
-TeamMember.associate = function(models) {
-  TeamMember.belongsTo(models.Team, { foreignKey: 'team_id' });
-  TeamMember.belongsTo(models.User, { foreignKey: 'user_id' });
-};
-
 module.exports = TeamMember;

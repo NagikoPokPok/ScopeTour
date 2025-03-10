@@ -2,6 +2,9 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./src/config/database');
+// Import associations before routes
+require('./src/models/TUTM_association');
+
 const teamRoutes = require('./src/routes/team_route');
 const subjectRoute = require('./src/routes/subject_route');
 const taskRoutes = require('./src/routes/task_route');
@@ -9,7 +12,6 @@ const path = require('path');
 const loginRoutes = require("./src/routes/login_route");
 const signupRoutes = require("./src/routes/signup_route");
 const invitationRoutes = require("./src/routes/invitation_route");
-// const { log } = require('console');
 const userProfileRoutes = require("./src/routes/user_profile_route");
 
 const app = express();
