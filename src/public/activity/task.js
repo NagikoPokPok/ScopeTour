@@ -160,8 +160,10 @@ function createTaskElement(task) {
   if (isCompleted) {
     const completedDate = new Date(task.completed_date || task.completed_at);
     statusHTML = `
-      <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
-      <span class="submitted-time fw-light text-secondary">${formatDate(completedDate)} ${formatTime(completedDate)}</span>
+      <div class="col time-of-task d-flex flex-column">
+        <span class="status-of-task fw-medium" data-status="Completed">Completed</span>
+        <span class="submitted-time fw-light text-secondary">${formatDate(completedDate)} ${formatTime(completedDate)}</span>
+      </div>
     `;
   } else {
     statusHTML = `
@@ -354,7 +356,8 @@ document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListen
         // Refresh task lists
         const urlParams = new URLSearchParams(window.location.search);
         await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
-        
+
+
         bootstrap.Modal.getInstance(document.getElementById('modal-confirmation-check-task')).hide();
         openModalSuccessAction('Task completed successfully!');
     } catch (error) {
@@ -362,6 +365,8 @@ document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListen
         openModalFailAction('Failed to complete task');
     }
 });
+
+
 
 // Delete task (handles both active and completed tasks)
 document.addEventListener('click', function (e) {
