@@ -1,0 +1,15 @@
+#status-of-list {
+    margin-top: 32px;
+    margin-bottom: auto;
+  }
+
+  .text-status-list {
+    font-weight: 500;
+    margin-top: 32px;
+    font-size: 24px;
+  }
+
+  dotlottie-player {
+    width: 500px; 
+    height: 300px;
+  }

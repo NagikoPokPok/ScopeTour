@@ -62,9 +62,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         } else {
-            teamList.innerHTML = isSearch
-                ? '<span>No teams match your search</span>'
-                : '<span>No teams available</span>';
+            teamList.innerHTML = `
+                <div id="lottie-container"></div>
+            `;
+
+            setTimeout(() => {
+                const topic = isSearch ? "not-found" : "not-available";
+                loadLottieAnimation("lottie-container", topic);
+            }, 0);
+        
         }
     }
 
@@ -92,9 +98,9 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (error) {
             console.error('Error fetching all teams:', error);
             teamList.innerHTML = `
-            <div class="error-loading d-flex justify-content-center align-items-center flex-column">
-                <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status">
-                <span class="text-status">Error loading</span>
+            <div id="status-of-list" class="d-flex justify-content-center align-items-center flex-column">
+                <img src="../public/img/main-img/error-loading.png" alt="error" class="img-status-list">
+                <span class="text-status-list">Error loading</span>
             </div>
             `            
             ;
