@@ -77,7 +77,7 @@
       <div class=" button-list">
         <div class="create-btn">
           <button data-bs-toggle="modal" 
-          data-bs-target="#reg-modal">
+          data-bs-target="#reg-modal" onclick="resetDateTime()">
             <i class="fa-solid fa-circle-plus"></i>
             <span>Create</span>
           </button>
@@ -1065,6 +1065,28 @@
             }
         });
     });
+  </script>
+
+  <script>
+        function resetDateTime() {
+          console.log('Reset datetime');
+          let datetimeInput = $('input[name="datetimes"]');
+
+          // Reset giá trị hiển thị
+          datetimeInput.val('');
+
+          // Khởi tạo lại DateRangePicker với giá trị mặc định
+          datetimeInput.daterangepicker({
+              timePicker: true,
+              startDate: moment().startOf('hour'),
+              endDate: moment().startOf('hour').add(32, 'hour'),
+              locale: {
+                  format: 'DD/MM/YYYY hh:mm A'
+              }
+          });
+      }
+
+
   </script>
 
 

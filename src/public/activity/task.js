@@ -357,9 +357,12 @@ document.querySelector('#modal-confirmation-check-task .btn-yes').addEventListen
         const urlParams = new URLSearchParams(window.location.search);
         await fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
 
-
-        bootstrap.Modal.getInstance(document.getElementById('modal-confirmation-check-task')).hide();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modal-confirmation-check-task'));
+        modal.hide();
+  
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
         openModalSuccessAction('Task completed successfully!');
+
     } catch (error) {
         console.error('Error completing task:', error);
         openModalFailAction('Failed to complete task');
