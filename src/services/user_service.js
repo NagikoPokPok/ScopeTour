@@ -52,7 +52,7 @@ class UserService {
             const [updated] = await User.update({ user_name: name, user_image: image}, { where: { user_id: userId } });
             return updated > 0; // Trả về true nếu cập nhật thành công
         } catch (error) {
-            console.error("Lỗi khi cập nhật mật khẩu:", error);
+            console.error("Lỗi khi cập nhật hồ sơ:", error);
             throw error;
         }
     }

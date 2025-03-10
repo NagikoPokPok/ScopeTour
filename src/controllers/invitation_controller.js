@@ -6,37 +6,53 @@ class InvitationController {
     static async sendInvitation(req, res) {
         console.log("📩 API /api/sendInvitation được gọi");
         console.log(req.body);
-        const { email } = req.body;
+        const { emails } = req.body;
 
-        if (!email) {
+        if (!emails || !Array.isArray(emails) || emails.length === 0) {
             return res.status(400).json({ success: false , message: "Email is required" });
         }
-
+        
         try {
-            // 📌 Kiểm tra xem email có tồn tại trong hệ thống không
-            const user = await UserService.getUserByEmail(email);
-            
-            // 📌 Tạo link mời
-            var inviteLink = `http://localhost:5500/src/views/login.html`;
-            
+            let oldUser = [];
+            let newUser = [];
+            let inviteLinkForNewUser = `http://localhost:5500/src/views/login.html`;
+            let inviteLinkForOldUser = [];
 
-            if (user) {
-                // inviteLink = `http://localhost:5500/join?email=${encodeURIComponent(email)}`;
-                // 🔥 Tạo token bảo mật
-                const token = crypto.randomBytes(32).toString("hex");
-
-                // 🔥 Lưu token vào database (có thể sử dụng Redis hoặc MySQL)
-                await UserService.saveInviteToken(email, token);
-
-                // 📌 Link mời với token
-                inviteLink = `http://localhost:5500/join?email=${encodeURIComponent(email)}&token=${token}`;
-            
+            for (const email of emails) {
+                // 📌 Kiểm tra xem email có tồn tại trong hệ thống không
+                const user = await UserService.getUserByEmail(email);
+                
+                if (user) {
+                    const token = crypto.randomBytes(32).toString("hex");
+                    await UserService.saveInviteToken(email, token);
+                    let inviteLink = `http://localhost:5500/join?email=${encodeURIComponent(email)}&token=${token}`;
+                    inviteLinkForOldUser.push(inviteLink);
+                    oldUser.push(email);
+                } else
+                    newUser.push(email);
+                
             }
-            
-            console.log("Invite Link:", inviteLink);
 
             // 📩 Gửi email
-            await sendInvitationEmail(email, inviteLink);
+            if(newUser.length > 0){
+                try {
+                    await sendInvitationEmail(newUser, inviteLinkForNewUser);
+                    console.log("Invitation sent successfully for new user");
+                } catch (error) {
+                    console.log("Invitation sent fail for new user");
+                }
+            }
+            if(oldUser.length > 0){
+                countOldUser = oldUser.length;
+                for(let i =0; i < countOldUser; i++){
+                    try {
+                        await sendInvitationEmail(oldUser[i], inviteLinkForOldUser[i]);
+                        console.log("Invitation sent successfully for " + oldUser[i]);
+                    } catch (error) {
+                        console.log("Invitation sent fail for " + oldUser[i]);
+                    }
+                }
+            }
             res.json({ success: true, message: "Invitation sent successfully" });
         } catch (error) {
             console.error("Error sending invitation:", error);
