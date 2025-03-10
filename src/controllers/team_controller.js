@@ -117,4 +117,31 @@ exports.updateTeam = async (req, res) => {
     }
 };
 
+// Add this new function to get a single team
+exports.getTeam = async (req, res) => {
+    try {
+        const { teamId } = req.params;
+        
+        // Find team by ID
+        const team = await Team.findOne({
+            where: { team_id: teamId },
+            attributes: ['team_id', 'name', 'created_by', 'created_at']
+        });
+
+        if (!team) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Team not found' 
+            });
+        }
+
+        return res.status(200).json(team);
+    } catch (error) {
+        console.error('Error fetching team:', error);
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Error fetching team details'
+        });
+    }
+};
 module.exports = exports;

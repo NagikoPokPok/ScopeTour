@@ -2,6 +2,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const colors = ["#E08963", "#5E96AE", "#f15f0e", "#A2C139"];
     const urlParams = new URLSearchParams(window.location.search);
     const teamId = urlParams.get('teamId');
+
+    async function fetchTeamName() {
+        try {
+            const response = await fetch(`http://localhost:3000/api/team/${teamId}`);
+            if (!response.ok) throw new Error("Failed to fetch team");
+            const data = await response.json();
+            
+            // Update the team name in the header - use correct ID
+            const titleElement = document.getElementById("header-title");
+            if (titleElement) {
+                titleElement.textContent = data.name || 'Unknown Team';
+                console.log('Updated team name to:', data.name); // Debug log
+            } else {
+                console.error('Header title element not found - make sure ID="header-title" exists');
+            }
+        } catch (error) {
+            console.error("Error fetching team name:", error);
+            // Set a fallback name if there's an error
+            const titleElement = document.getElementById("header-title");
+            if (titleElement) {
+                titleElement.textContent = 'Unknown Team';
+            }
+        }
+    }
     // Function to render subjects dynamically
     function renderSubjects(subjects, isSearch = false) {
         const subjectList = document.getElementById("SubjectList");
@@ -104,8 +128,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 loadLottieAnimation("lottie-container", "error-loading");
             }, 0);
         }
+
     }
-      
+
+    // Check if teamId exists in URL
+    if (teamId) {
+        console.log('Fetching team name for teamId:', teamId); // Debug log
+        fetchTeamName(); // Call this first
+    } else {
+        openModalFailAction("Team ID is required");
+    }
 
     // Search Subjects based on query
     async function searchSubjects(searchQuery) {
@@ -404,6 +436,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initial load of all Subjects
     fetchAllSubjects();
+
+    
 });
 
 
