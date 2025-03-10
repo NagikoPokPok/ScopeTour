@@ -286,5 +286,5 @@ body{
 }
 
 .status-of-task[data-status="Upcoming"] {
-  color: var(--secondary-color);
+  color: #FB9706;
 }

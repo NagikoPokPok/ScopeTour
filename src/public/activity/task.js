@@ -166,23 +166,24 @@ function createTaskElement(task) {
     `;
   }
 
+  // Nếu thích mất luôn checkbox thì dùng display:none, còn nếu muốn giữ khoảng cách thì dùng visibility: hidden;
   container.innerHTML = `
     <div class="row w-100 gx-4 align-items-center justify-content-center my-3">
       <div class="col check-task">
         ${!isCompleted ? `
-          <div class="d-flex align-items-start">
-            ${canComplete ? `
-              <input class="checkbox-complete-task" type="checkbox" 
-                data-task-id="${task.task_id}" 
-                data-bs-toggle="modal" 
-                data-bs-target="#modal-confirmation-check-task">
-            ` : '<div style="width: 24px;"></div>'}
+          <div class="d-flex align-items-center">
+            <input class="checkbox-complete-task" type="checkbox"
+              data-task-id="${task.task_id}" 
+              data-bs-toggle="modal" 
+              data-bs-target="#modal-confirmation-check-task"
+              style="${canComplete ? '' : 'visibility: hidden;'}">
+              
             
             <div class="task text-start ms-3">
               <span class="task-title fw-medium">${task.title}</span>
               <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
               ${!canComplete ? `
-                <div class="text-warning small">
+                <div class="status-of-task small fw-light" data-status="Upcoming">
                   Task not yet started
                 </div>
               ` : ''}
@@ -196,7 +197,7 @@ function createTaskElement(task) {
                   ` : ''}
                   ${task.reminder_time ? `
                     <div class="option-reminder" style="font-size: 14px;">
-                      <i class="fa-solid fa-clock text-success"></i>
+                      <i class="fa-solid fa-clock text-success ms-3"></i>
                       <span class="ms-1">${formatTime(new Date(task.reminder_time))}</span>
                     </div>
                   ` : ''}
