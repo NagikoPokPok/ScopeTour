@@ -13,7 +13,7 @@ const sendInvitationEmail = async (recipientEmail, inviteLink) => {
 
         let mailOptions = {
             from: '"Your Website" <cuong2432004@gmail.com>',
-            to: recipientEmail,
+            to: recipientEmails,
             subject: "You're Invited to Join Our Group on Scope Tour! 🚀",
             html: `
                 <h2>Hi there!</h2>

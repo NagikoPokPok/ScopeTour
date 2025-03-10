@@ -85,6 +85,53 @@ class UserService {
             return false;
         }
     }
+
+    // 📌 Lưu token vào database
+    static async saveInviteToken(email, token) {
+        try {
+            await InviteToken.create({ email, token, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) }); // Hết hạn sau 24h
+        } catch (error) {
+            console.error("Error saving invite token:", error);
+        }
+    }
+
+    // 📌 Xác thực token
+    static async verifyInviteToken(email, token) {
+        try {
+            const invite = await InviteToken.findOne({ where: { email, token } });
+            if (!invite || new Date() > invite.expiresAt) return false; // Hết hạn
+            return true;
+        } catch (error) {
+            console.error("Error verifying invite token:", error);
+            return false;
+        }
+    }
+
+    // 📌 Xóa token sau khi dùng
+    static async deleteInviteToken(email) {
+        try {
+            await InviteToken.destroy({ where: { email } });
+        } catch (error) {
+            console.error("Error deleting invite token:", error);
+        }
+    }
+
+    // 📌 Thêm user vào nhóm
+    static async addUserToGroup(email) {
+        try {
+            const user = await User.findOne({ where: { email } });
+            if (!user) return false;
+            
+            // Giả sử mỗi user có 1 group_id để theo dõi nhóm
+            user.group_id = 1; // Hoặc lấy group_id từ lời mời
+            await user.save();
+
+            return true;
+        } catch (error) {
+            console.error("Error adding user to group:", error);
+            return false;
+        }
+    }
 }
 
 module.exports = UserService;
