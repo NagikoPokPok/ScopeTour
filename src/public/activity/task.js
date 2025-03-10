@@ -176,7 +176,7 @@ function createTaskElement(task) {
               data-task-id="${task.task_id}" 
               data-bs-toggle="modal" 
               data-bs-target="#modal-confirmation-check-task"
-              style="${canComplete ? '' : 'visibility: hidden;'}">
+              style="${canComplete ? '' : 'display:none;'}">
               
             
             <div class="task text-start ms-3">
