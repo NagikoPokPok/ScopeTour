@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get("email");
     const token = urlParams.get("token");
+    const team_id = urlParams.get("team_id");
 
     if (email) {
         document.getElementById("edt_email").value = email;
@@ -74,7 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem('userId', data.user.user_id);
                 localStorage.setItem('userEmail', data.user.email);
                 localStorage.setItem('userName', data.user.name);
-                window.location.href = "list-goal-team.html";
+                
+                if (token && team_id) {
+                    await completeJoin(email, token, team_id);
+                } else {
+                    window.location.href = "list-goal-team.html";
+                }
             } else {
                 alert(data.message);
             }
@@ -86,17 +92,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 📌 Gửi yêu cầu tham gia nhóm sau khi đăng nhập thành công
-async function completeJoin(email, token) {
+async function completeJoin(email, token, team_id) {
     try {
-        const response = await fetch("http://localhost:3000/api/completeJoin", {
+        const response = await fetch("http://localhost:3000/api/invitation/completeJoin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, token })
+            body: JSON.stringify({ email, token, team_id })
         });
 
         const data = await response.json();
         if (data.success) {
             window.location.href = data.redirectUrl; // Chuyển hướng đến giao diện nhóm
+            // window.location.href = `/team-dashboard?team_id=${team_id}`;
         } else {
             alert("Failed to join team: " + data.message);
         }
