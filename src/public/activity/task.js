@@ -44,27 +44,35 @@ function parseDateTimeToISO(dateTimeStr) {
 }
 
 async function fetchTasks(subjectId, teamId, search = '') {
-    try {
+  try {
       console.log('Fetching tasks with:', { subjectId, teamId, search });
-  
-      if (!subjectId || !teamId) {
-        throw new Error('subjectId and teamId are required');
+
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+          window.location.href = 'login.html';
+          return;
       }
-  
+
+      if (!subjectId || !teamId) {
+          throw new Error('subjectId and teamId are required');
+      }
+
       // Fetch both active and completed tasks
       const [tasksResponse, completedTasksResponse] = await Promise.all([
-        // Fetch active tasks
-        fetch(`${API_BASE_URL}?${new URLSearchParams({
-          subjectId,
-          teamId,
-          search: search || ''
-        })}`),
-        // Fetch completed tasks
-        fetch(`${API_BASE_URL}/completed?${new URLSearchParams({
-          subjectId,
-          teamId,
-          search: search || ''
-        })}`)
+          // Fetch active tasks
+          fetch(`${API_BASE_URL}?${new URLSearchParams({
+              subjectId,
+              teamId,
+              userId, // Add userId to the query
+              search: search || ''
+          })}`),
+          // Fetch completed tasks
+          fetch(`${API_BASE_URL}/completed?${new URLSearchParams({
+              subjectId,
+              teamId,
+              userId, // Add userId to the query
+              search: search || ''
+          })}`)
       ]);
   
       if (!tasksResponse.ok || !completedTasksResponse.ok) {
@@ -247,6 +255,14 @@ document.getElementById('createTaskForm').addEventListener('submit', async funct
   const formData = new FormData(this);
   const urlParams = new URLSearchParams(window.location.search);
   
+  // Get the actual user ID from localStorage
+  const userId = localStorage.getItem('userId');
+  if (!userId) {
+    alert('Please login first');
+    window.location.href = 'login.html';
+    return;
+  }
+  
   // Get date range values
   const dateTimeRange = formData.get('datetimes');
   let startDate = null;
@@ -265,7 +281,7 @@ document.getElementById('createTaskForm').addEventListener('submit', async funct
     due_date: dueDate,
     subject_id: urlParams.get('subjectId') || 'CDIO',
     team_id: urlParams.get('teamId'),
-    user_id: 1, // Placeholder; replace with actual user ID logic
+    user_id: parseInt(userId), // Use the actual user ID from localStorage
     high_priority: document.getElementById('high-priority').checked,
     reminder_time: document.getElementById('time-reminder').checked ? new Date().toISOString() : null
   };

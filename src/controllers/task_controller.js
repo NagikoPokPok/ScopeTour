@@ -44,16 +44,16 @@ exports.createTask = async (req, res) => {
     }
   };
 
-// Fetch tasks by subject and team (with optional search)
 exports.getTasks = async (req, res) => {
     try {
-        const { subjectId, teamId, search } = req.query;
+        const { subjectId, teamId, userId, search } = req.query;
         
         // Only fetch active tasks here, not completed ones
         const activeTasks = await Task.findAll({ 
             where: {
                 ...(subjectId && { subject_id: subjectId }),
                 ...(teamId && { team_id: teamId }),
+                ...(userId && { user_id: userId }), // Add user_id filter
                 ...(search && { title: { [Op.like]: `%${search.trim()}%` } })
             },
             order: [
@@ -70,6 +70,33 @@ exports.getTasks = async (req, res) => {
         console.error("Error fetching tasks:", error);
         return res.status(500).json({ error: error.message });
     }
+};
+
+exports.getCompletedTasks = async (req, res) => {
+  try {
+      const { subjectId, teamId, userId, search } = req.query;
+      
+      const completedTasks = await TaskCompleted.findAll({
+          where: {
+              ...(subjectId && { subject_id: subjectId }),
+              ...(teamId && { team_id: teamId }),
+              ...(userId && { user_id: userId }), // Add user_id filter
+              ...(search && { 
+                  title: { 
+                      [Op.like]: `%${search.trim()}%` 
+                  } 
+              })
+          },
+          order: [['completed_date', 'DESC']]
+      });
+
+      return res.status(200).json({
+          tasks: completedTasks
+      });
+  } catch (error) {
+      console.error("Error fetching completed tasks:", error);
+      return res.status(500).json({ error: error.message });
+  }
 };
 
 // Get a single task by id
@@ -182,33 +209,6 @@ exports.completeTask = async (req, res) => {
     } catch (error) {
         await t.rollback();
         console.error("Error completing task:", error);
-        return res.status(500).json({ error: error.message });
-    }
-};
-
-// Get completed tasks
-exports.getCompletedTasks = async (req, res) => {
-    try {
-        const { subjectId, teamId, search } = req.query;
-        
-        const completedTasks = await TaskCompleted.findAll({
-            where: {
-                ...(subjectId && { subject_id: subjectId }),
-                ...(teamId && { team_id: teamId }),
-                ...(search && { 
-                    title: { 
-                        [Op.like]: `%${search.trim()}%` 
-                    } 
-                })
-            },
-            order: [['completed_date', 'DESC']]
-        });
-
-        return res.status(200).json({
-            tasks: completedTasks
-        });
-    } catch (error) {
-        console.error("Error fetching completed tasks:", error);
         return res.status(500).json({ error: error.message });
     }
 };
