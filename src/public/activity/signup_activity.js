@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const email = urlParams.get("email");
     const token = urlParams.get("token");
+    const team_id = urlParams.get("team_id");
 
     if (email) {
         document.getElementById("edt_email").value = email;
@@ -18,6 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const confirmPassword = confirmPasswordInput.value;
     
         let isValid = true;
+
+        // // Kiểm tra username
+        // let usernameError = document.getElementById("username_error");
+        // if (!userName) {
+        //     usernameError.textContent = "Tên người dùng không được để trống!";
+        //     usernameError.style.display = "block";
+        //     isValid = false;
+        // } else {
+        //     usernameError.style.display = "none";
+        // }
     
         // Ẩn tất cả lỗi trước khi kiểm tra
         document.querySelectorAll(".error").forEach(error => {
@@ -69,7 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
     
             if (data.success) {
-                window.location.href = "list-goal-team.html";
+                if (token && team_id) {
+                    await completeJoin(email, token, team_id);
+                } else {
+                    window.location.href = "list-goal-team.html";
+                }
             } else {
                 alert(data.message);
             }
@@ -121,22 +136,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 📌 Gửi yêu cầu tham gia nhóm sau khi đăng ký thành công
-async function completeJoin(email, token) {
+// 📌 Gửi yêu cầu tham gia nhóm sau khi đăng nhập thành công
+async function completeJoin(email, token, team_id) {
     try {
-        const response = await fetch("http://localhost:3000/api/completeJoin", {
+        const response = await fetch("http://localhost:3000/api/invitation/completeJoin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, token })
+            body: JSON.stringify({ email, token, team_id })
         });
 
         const data = await response.json();
         if (data.success) {
             window.location.href = data.redirectUrl; // Chuyển hướng đến giao diện nhóm
+            // window.location.href = `/team-dashboard?team_id=${team_id}`;
         } else {
             alert("Failed to join team: " + data.message);
         }
     } catch (error) {
         alert("Lỗi tham gia nhóm!");
+        console.error(error);
     }
 }

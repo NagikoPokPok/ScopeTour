@@ -38,7 +38,7 @@ class UserController {
         try {
             console.log("Dữ liệu nhận được:", req.body);
             const {userName, email, password, confirmPassword} = req.body;
-            console.log('pass: ' + password + ", conf: " + confirmPassword);
+            console.log('pass: ' + password + ", conf: " + confirmPassword + ", name: " + userName);
             if(password !== confirmPassword){
                 res.status(400).json({ success: false, message: "Mật khẩu xác nhận không đúng!" });
             }else {
