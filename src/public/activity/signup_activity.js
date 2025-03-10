@@ -23,6 +23,16 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".error").forEach(error => {
             error.style.display = "none";
         });
+        // Kiểm tra username
+let usernameError = document.getElementById("username_error");
+if (!userName) {
+    usernameError.textContent = "Tên người dùng không được để trống!";
+    usernameError.style.display = "block";
+    isValid = false;
+} else {
+    usernameError.style.display = "none";
+}
+
     
         // Kiểm tra email
         let emailError = document.getElementById("email_error");
