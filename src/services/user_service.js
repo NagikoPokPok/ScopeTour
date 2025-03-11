@@ -81,9 +81,11 @@ class UserService {
     }
 
     // Cập nhật profile cho người dùng
-    static async updateProfile(userId, name, image) {
+    static async updateProfile(userId, name, image = null) {
         try {
-            const [updated] = await User.update({ user_name: name, user_image: image}, { where: { user_id: userId } });
+            const [updated] = await User.update({ user_name: name, user_img: image}, { where: { user_id: userId } });
+            console.log("update: " + userId + "name: " + name + "image: " + image);
+            console.log("updated: " + updated);
             return updated > 0; // Trả về true nếu cập nhật thành công
         } catch (error) {
             console.error("Lỗi khi cập nhật hồ sơ:", error);

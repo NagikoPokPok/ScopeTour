@@ -37,7 +37,8 @@ class UserController {
                     user_id: user.user_id,
                     email: user.email,
                     name: user.user_name,
-                    phone: user.phone_number
+                    phone: user.phone_number,
+                    image: user.user_img
                 }
             });
             // console.log(response.);
@@ -101,10 +102,20 @@ class UserController {
     static async updateProfile(req, res){
         try {
             const { userId, userName, image} = req.body;
+            
             const success = await UserService.updateProfile(userId, userName, image);
-
+            
             if(success){
-                res.json({success: true, message: "Đã cập nhật hồ sơ thành công"});
+                res.json({
+                    success: true, 
+                    user: {
+                        user_id: user.user_id,
+                        email: user.email,
+                        name: user.user_name,
+                        phone: user.phone_number,
+                        image: user.user_img
+                    },
+                    message: "Đã cập nhật hồ sơ thành công"});
             } else {
                 res.status(400).json({ success: false, message: "Không thể cập nhật hồ sơ!" });
             }

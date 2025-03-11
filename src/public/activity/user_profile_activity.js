@@ -5,30 +5,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const imageInput = document.getElementById("image");
     const profileImage = document.querySelector(".profile-image img");
 
-
-    
-    // // Lấy dữ liệu người dùng từ server
-    // fetch("http://localhost:3000/api/user-profile/load", {
-    //     method: "POST",  
-    //     credentials: "include",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ user_id: localStorage.getItem("userId")}) // Nếu cần gửi dữ liệu (ví dụ: userId)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     if (data.success) {
-    //         nameInput.value = data.user.user_name;
-    //         emailInput.value = data.user.email;
-    //         phoneInput.value = data.user.phone_number;
-    //         if (data.user.user_img) {
-    //             profileImage.src = data.user.user_img;
-    //         }
-    //     }else console.log("error profile");
-    // })
-    // .catch(error => console.error("Lỗi tải hồ sơ:", error));
-
     try {
         const userId = localStorage.getItem("userId");
 
@@ -55,13 +31,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (data.success) {
             // Gán dữ liệu vào giao diện với biến đúng
+            // const user = JSON.parse(data.user);
             nameInput.value = data.user.name ? data.user.name : "";
             emailInput.value = data.user.email;
             phoneInput.value = data.user.phone_number ? data.user.phone_number : "";
 
-            if (data.user.user_img) {
-                profileImage.src = data.user.user_img;
+            if (data.user.image) {
+                console.log(data.user.image)
+                profileImage.src = data.user.image;
             }
+            // console.log(JSON.parse(data.user.image));
 
             console.log("Hồ sơ người dùng đã tải thành công:", data.user);
         } else {
@@ -74,31 +53,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Xử lý cập nhật hồ sơ
-    // document.getElementById(".saveProfile").addEventListener("click", () => {
-    //     const formData = new FormData();
-    //     formData.append("user_name", nameInput.value);
-    //     formData.append("email", emailInput.value);
-    //     formData.append("phone_number", phoneInput.value);
-    //     if (imageInput.files[0]) {
-    //         formData.append("image", imageInput.files[0]);
-    //     }
+    document.getElementById("changeButton").addEventListener("click", () => {
+        const formData = new FormData();
+        formData.append("user_name", nameInput.value);
+        formData.append("email", emailInput.value);
+        formData.append("phone_number", phoneInput.value);
+        if (imageInput.files[0]) {
+            formData.append("image", imageInput.files[0]);
+        }
+        const userId = localStorage.getItem("userId");
+        // console.log("src: " + profileImage.getAttribute('src'));
 
-    //     fetch("/api/user-profile/update", {
-    //         method: "POST",
-    //         body: formData,
-    //         credentials: "include"
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.success) {
-    //             alert("Cập nhật thành công!");
-    //             location.reload();
-    //         } else {
-    //             alert("Lỗi cập nhật: " + data.message);
-    //         }
-    //     })
-    //     .catch(error => console.error("Lỗi cập nhật hồ sơ:", error));
-    // });
+        fetch("http://localhost:3000/api/user-profile/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: userId, userName: nameInput.value, image:  profileImage.getAttribute('src')})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Cập nhật thành công!");
+                location.reload();
+            } else {
+                alert("Lỗi cập nhật: " + data.message);
+            }
+        })
+        .catch(error => console.error("Lỗi cập nhật hồ sơ:", error));
+    });
 });
 function triggerFileInput() {
     document.getElementById("image").click();
