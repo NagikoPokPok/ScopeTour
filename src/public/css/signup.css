@@ -29,7 +29,7 @@ body {
     color: red;
     font-size: 12px;
     display: none;
-    margin-top: 4px;
+    margin-top: 0px;
     width: 100%;
     text-align: left;
 }
@@ -86,14 +86,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 0px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
     font-size: 14px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 
 .form-group label .required {
