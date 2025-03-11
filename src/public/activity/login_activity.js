@@ -114,3 +114,6 @@ async function completeJoin(email, token, team_id) {
         console.error(error);
     }
 }
+
+
+const gg_login = document.getElementById("gg-login");
