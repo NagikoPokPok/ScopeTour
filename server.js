@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./src/config/database');
-const passport = require("./src/config/passport"); // Thêm Passport
+// const passport = require("./src/config/passport"); // Thêm Passport
 
 // Import associations before routes
 require('./src/models/TUTM_association');

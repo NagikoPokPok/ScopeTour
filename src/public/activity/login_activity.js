@@ -118,12 +118,12 @@ async function completeJoin(email, token, team_id) {
 
 const gg_login = document.getElementById("gg-login");
 gg_login.addEventListener("click", function() {
-    google.accounts.id.initialize({
-        client_id: "381526760417-h5iji61k3hk1o22fgntmrfp771q98cg6.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-    });
+    // google.accounts.id.initialize({
+    //     client_id: "381526760417-h5iji61k3hk1o22fgntmrfp771q98cg6.apps.googleusercontent.com",
+    //     callback: handleCredentialResponse
+    // });
 
-    google.accounts.id.prompt(); // Hiển thị hộp thoại đăng nhập Google
+    // google.accounts.id.prompt(); // Hiển thị hộp thoại đăng nhập Google
 });
 
 async function handleCredentialResponse(response) {

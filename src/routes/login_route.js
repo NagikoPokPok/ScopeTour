@@ -6,6 +6,6 @@ router.post("/", UserController.getUser);
 
 // Đăng nhập bằng Google
 router.get("/google", UserController.googleAuth);
-router.get("/google/callback", UserController.googleAuthCallback);
+// router.get("/google/callback", UserController.googleAuthCallback);
 
 module.exports = router;
