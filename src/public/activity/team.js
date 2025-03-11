@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
     const colors = ['#E08963', '#5E96AE', '#f15f0e', '#A2C139']; // Màu luân phiên
+
+    const userName = document.getElementById('name-of-user');
+    userName.innerText = localStorage.getItem("userName");
   
     function renderTeams(teams, isSearch = false) {
         const teamList = document.getElementById('teamList');

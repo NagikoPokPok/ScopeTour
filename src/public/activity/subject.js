@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const teamId = urlParams.get('teamId');
 
+    const userName = document.getElementById('name-of-user');
+    userName.innerText = localStorage.getItem("userName");
+
     async function fetchTeamName() {
         try {
             const response = await fetch(`http://localhost:3000/api/team/${teamId}`);

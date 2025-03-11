@@ -638,6 +638,9 @@ async function updateTask() {
 document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   fetchTasks(urlParams.get('subjectId') || 'CDIO', urlParams.get('teamId'));
+
+  const userName = document.getElementById('name-of-user');
+  userName.innerText = localStorage.getItem("userName");
 });
 
 // SHOW MODAL ACTION FAIL OR SUCCESS

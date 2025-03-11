@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const imageInput = document.getElementById("image");
     const profileImage = document.querySelector(".profile-image img");
 
+    const userName = document.getElementById('name-of-user');
+    userName.innerText = localStorage.getItem("userName");
+
     try {
         const userId = localStorage.getItem("userId");
 
