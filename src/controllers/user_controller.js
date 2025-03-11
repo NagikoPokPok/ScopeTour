@@ -5,13 +5,41 @@ class UserController {
     // API lấy thông tin người dùng
     static async getUser(req, res) {
         console.log("Dữ liệu nhận được:", req.body);
+        const { userId, email, password } = req.body;
+        console.log("Userid:", userId);
+        if(!userId && !email){
+            return res.status(404).json({ success: false, message: "Chưa có dữ liệu đua vào!" });
+        }
         try {
-            if(req.body.email === 'cuong2432004@gmail.com' && req.body.password === '123') return res.json({ success: true, user: { email: req.body.email, name: "Test User" } });
-            const user = await UserService.getUserByEmail(req.body.email);
+            let user = null;
+
+            if (userId) {
+                user = await UserService.getUserById(userId);
+            } else if (email && password) {
+                const result = await UserService.getUserByEmail(email, password);
+
+                // Nếu có lỗi, trả lỗi về frontend
+                if (!result.success) {
+                    return res.status(result.status).json({ success: false, message: result.message });
+                }
+
+                user = result.user; // Nếu thành công, lấy user
+            }
+            
             if (!user) {
                 return res.status(404).json({ success: false, message: "Người dùng không tồn tại!" });
             }
-            res.json({ success: true, user });
+            // console.log(user);
+            res.json({ 
+                success: true, 
+                user: {
+                    user_id: user.user_id,
+                    email: user.email,
+                    name: user.user_name,
+                    phone: user.phone_number
+                }
+            });
+            // console.log(response.);
         } catch (error) {
             res.status(500).json({ success: false, message: "Lỗi server!" });
         }
@@ -38,7 +66,7 @@ class UserController {
         try {
             console.log("Dữ liệu nhận được:", req.body);
             const {userName, email, password, confirmPassword} = req.body;
-            console.log('pass: ' + password + ", conf: " + confirmPassword);
+            console.log('pass: ' + password + ", conf: " + confirmPassword + ", name: " + userName);
             if(password !== confirmPassword){
                 res.status(400).json({ success: false, message: "Mật khẩu xác nhận không đúng!" });
             }else {

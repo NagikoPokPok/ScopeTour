@@ -63,7 +63,7 @@ class InvitationController {
     static async joinGroup(req, res) {
         console.log("📩 API /api/joinGroup called");
         const { email, token } = req.query;
-
+        console.log("JoinGroup: "+req.query)
         if (!email || !token) {
             return res.status(400).json({ success: false, message: "Email and token are required" });
         }
@@ -80,10 +80,10 @@ class InvitationController {
             const user = await UserService.getUserByEmail(email);
             if (!user) {
                 // Người dùng mới → Chuyển đến trang đăng ký
-                return res.redirect(`/register?email=${encodeURIComponent(email)}&token=${token}`);
+                return res.redirect(`/src/views/signup.html?email=${encodeURIComponent(email)}&token=${token}`);
             } else {
                 // Người dùng cũ → Chuyển đến trang đăng nhập
-                return res.redirect(`/login?email=${encodeURIComponent(email)}&token=${token}`);
+                return res.redirect(`/src/views/login.html?email=${encodeURIComponent(email)}&token=${token}`);
             }
         } catch (error) {
             console.error("Error joining group:", error);
@@ -93,7 +93,7 @@ class InvitationController {
 
     static async completeJoin(req, res) {
         console.log("📩 API /api/completeJoin called");
-        const { email, token } = req.body;
+        const { email, token, team_id } = req.body;
 
         if (!email || !token) {
             return res.status(400).json({ success: false, message: "Email and token are required" });
@@ -107,17 +107,28 @@ class InvitationController {
                 return res.status(400).json({ success: false, message: "Invalid or expired token" });
             }
 
+            // 📌 Lấy `team_id` từ token
+            const invite = await UserService.getInviteByToken(email, token);
+            if (!invite) {
+                return res.status(400).json({ success: false, message: "Invalid or expired token" });
+            }
+
+            const team_id = invite.team_id;
+            if (!team_id) {
+                return res.status(400).json({ success: false, message: "Invalid team ID" });
+            }
+
             // 📌 Thêm user vào nhóm
-            const added = await UserService.addUserToGroup(email);
+            const added = await UserService.addUserToTeam(email, team_id);
             if (!added) {
-                return res.status(500).json({ success: false, message: "Failed to add user to group" });
+                return res.status(500).json({ success: false, message: "Failed to add user to team" });
             }
 
             // 📌 Xóa token sau khi dùng (tránh spam)
             await UserService.deleteInviteToken(email);
 
             // 📌 Chuyển hướng đến trang nhóm
-            res.json({ success: true, redirectUrl: "/team-dashboard" });
+            res.json({ success: true, redirectUrl: `http://localhost:5500//src/views/team-project.html?team_id=${team_id}` });
         } catch (error) {
             console.error("Error completing join:", error);
             res.status(500).json({ success: false, message: "Failed to complete joining group" });
@@ -128,9 +139,10 @@ class InvitationController {
         console.log("📩 API /api/sendInvitation được gọi");
         console.log(req.body);
         const { emails } = req.body;
+        const team_id = 1;
 
-        if (!emails || !Array.isArray(emails) || emails.length === 0) {
-            return res.status(400).json({ success: false, message: "Email list is required" });
+        if (!emails || !Array.isArray(emails) || emails.length === 0 || !team_id) {
+            return res.status(400).json({ success: false, message: "Emails and team_id are required" });
         }
 
         try {
@@ -143,13 +155,13 @@ class InvitationController {
                 const token = crypto.randomBytes(32).toString("hex");
 
                 // 📌 Lưu token vào database
-                await UserService.saveInviteToken(email, token);
+                await UserService.saveInviteToken(email, token, team_id);
 
                 let inviteLink = "";
                 if (user) {
-                    oldUserEmails.push({ email, inviteLink: `http://localhost:5500/login?email=${encodeURIComponent(email)}&token=${token}` });
+                    oldUserEmails.push({ email, inviteLink: `http://localhost:5500//src/views/signup.html?email=${encodeURIComponent(email)}&token=${token}&team_id=${team_id}` });
                 } else {
-                    newUserEmails.push({ email, inviteLink: `http://localhost:5500/register?email=${encodeURIComponent(email)}&token=${token}` });
+                    newUserEmails.push({ email, inviteLink: `http://localhost:5500//src/views/signup.html?email=${encodeURIComponent(email)}&token=${token}&team_id=${team_id}` });
                 }
             }
 

@@ -50,8 +50,6 @@ User.associate = function(models) {
   User.hasMany(models.Streak, { foreignKey: 'user_id' });
   User.hasMany(models.Task, { foreignKey: 'user_id' });
   User.hasMany(models.TasksCompleted, { foreignKey: 'user_id' });
-  User.hasMany(models.Team, { foreignKey: 'created_by', as: 'createdTeams' });
-  User.hasMany(models.TeamMember, { foreignKey: 'user_id' });
 };
 
 module.exports = User;

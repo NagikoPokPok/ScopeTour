@@ -1,17 +1,40 @@
 const User = require("../models/User");
+const InviteToken = require("../models/InviteToken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 class UserService {
     // Lấy thông tin người dùng bằng Email
-    static async getUserByEmail(email) {
+    static async getUserByEmail(email, password) {
         try {
-            return await User.findOne({ where: { email } });
+            if (!email || !password) {
+                return { success: false, status: 400, message: "Thiếu email hoặc mật khẩu." };
+            }
+    
+            const user = await User.findOne({ where: { email } });
+            if (!user) {
+                return { success: false, status: 404, message: "Email không tồn tại trong hệ thống." };
+            }
+    
+            // const hashedPassword = await bcrypt.hash(password, 10);
+            // console.log("pass: " + password + ", hash: " + hashedPassword + ", user.pass: " + user.password);
+            // if (hashedPassword !==user.password) {
+            //     return { success: false, status: 401, message: "Mật khẩu không chính xác." };
+            // }
+            
+            // Dùng bcrypt.compare() để kiểm tra password nhập vào với password đã hash trong database
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return { success: false, status: 401, message: "Mật khẩu không chính xác." };
+            }
+    
+            return { success: true, user }; // Trả về user nếu thành công
         } catch (error) {
-            console.error("Lỗi khi lấy người dùng theo email:", error);
-            throw error;
+            console.error("Lỗi khi lấy người dùng theo email:", error.message);
+            return { success: false, status: 500, message: "Lỗi server khi xử lý yêu cầu." };
         }
     }
+    
 
     // Lấy thông tin người dùng bằng ID
     static async getUserById(userId) {
@@ -36,10 +59,10 @@ class UserService {
     }
 
     // Tạo người dùng mới
-    static async createUser(email, name, password) {
+    static async createUser(email, user_name, password) {
         try {
             password = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
-            return await User.create({email, name, password});
+            return await User.create({email, user_name, password});
         } catch (error) {
             console.error("Lỗi khi tạo người dùng:", error);
             throw error;
@@ -87,9 +110,9 @@ class UserService {
     }
 
     // 📌 Lưu token vào database
-    static async saveInviteToken(email, token) {
+    static async saveInviteToken(email, token, team_id) {
         try {
-            await InviteToken.create({ email, token, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) }); // Hết hạn sau 24h
+            await InviteToken.create({ email, token, team_id, expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) }); // Hết hạn sau 24h
         } catch (error) {
             console.error("Error saving invite token:", error);
         }
@@ -131,6 +154,21 @@ class UserService {
             console.error("Error adding user to group:", error);
             return false;
         }
+    }
+
+    // 📌 Hàm lấy lời mời từ token
+    static async getInviteByToken(email, token) {
+        try {
+            return await InviteToken.findOne({ where: { email, token } });
+        } catch (error) {
+            console.error("❌ Error getting invite by token:", error);
+            return null;
+        }
+    }
+
+    // 📌 Hàm thêm user vào team
+    static async addUserToTeam(user_id, team_id) {
+        return 1;
     }
 }
 

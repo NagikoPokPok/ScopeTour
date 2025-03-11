@@ -77,7 +77,7 @@
       <div class=" button-list">
         <div class="create-btn">
           <button data-bs-toggle="modal" 
-          data-bs-target="#reg-modal">
+          data-bs-target="#reg-modal" onclick="resetDateTime()">
             <i class="fa-solid fa-circle-plus"></i>
             <span>Create</span>
           </button>
@@ -870,7 +870,7 @@
             <i class="fa-solid fa-trash-can type-confirmation-img"></i>
             <h5 class="modal-title ms-2 fw-bold" id="modal-title">
               Delete
-              <span class="type-of-object">Subject</span>
+              <span class="type-of-object">Task</span>
             </h5>
             <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
             <button type="button" class="btn-close" 
@@ -883,7 +883,7 @@
               <div class="question-confirmation fs-5 fw-medium">
                 <span>Are you sure want to delete</span>
                 <span class="object-deleted-name fw-semibold my-0">
-                  CDIO
+                  this task
                 </span>
                 <span>?</span>
               </div>
@@ -892,9 +892,9 @@
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span class="warning-content ms-1">
                   By Deleting this
-                  <span class="type-of-object">Subject</span>
+                  <span class="type-of-object">Task</span>
                   ,
-                  <span class="waring-desc">all the data about subject and task will also be deleted.</span>
+                  <span class="waring-desc">all the data about task will also be deleted.</span>
                 </span>
               </div>
               
@@ -926,7 +926,7 @@
              <i class="fa-solid fa-pen-to-square type-confirmation-img"></i>
              <h5 class="modal-title ms-2 fw-bold" id="modal-title">
                Edit
-               <span class="type-of-object">Subject</span>
+               <span class="type-of-object">Task</span>
              </h5>
              <!-- dismiss: Khi click vào button close thì sẽ đóng modal -->
              <button type="button" class="btn-close" 
@@ -939,7 +939,7 @@
                <div class="question-confirmation fs-5 fw-medium">
                  <span>Are you sure want to edit</span>
                  <span class="object-deleted-name fw-semibold my-0">
-                   CDIO
+                   this task
                  </span>
                  <span>?</span>
                </div>
@@ -955,7 +955,7 @@
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-               <button type="submit" class="btn btn-primary btn-yes">
+               <button type="button" class="btn btn-primary btn-yes" id="btn-confirm-edit">
                  Yes,
                  <span class="type-of-action">Edit</span>
                </button>
@@ -1065,6 +1065,28 @@
             }
         });
     });
+  </script>
+
+  <script>
+        function resetDateTime() {
+          console.log('Reset datetime');
+          let datetimeInput = $('input[name="datetimes"]');
+
+          // Reset giá trị hiển thị
+          datetimeInput.val('');
+
+          // Khởi tạo lại DateRangePicker với giá trị mặc định
+          datetimeInput.daterangepicker({
+              timePicker: true,
+              startDate: moment().startOf('hour'),
+              endDate: moment().startOf('hour').add(32, 'hour'),
+              locale: {
+                  format: 'DD/MM/YYYY hh:mm A'
+              }
+          });
+      }
+
+
   </script>
 
 

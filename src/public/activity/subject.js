@@ -2,6 +2,30 @@ document.addEventListener("DOMContentLoaded", function () {
     const colors = ["#E08963", "#5E96AE", "#f15f0e", "#A2C139"];
     const urlParams = new URLSearchParams(window.location.search);
     const teamId = urlParams.get('teamId');
+
+    async function fetchTeamName() {
+        try {
+            const response = await fetch(`http://localhost:3000/api/team/${teamId}`);
+            if (!response.ok) throw new Error("Failed to fetch team");
+            const data = await response.json();
+            
+            // Update the team name in the header - use correct ID
+            const titleElement = document.getElementById("header-title");
+            if (titleElement) {
+                titleElement.textContent = data.name || 'Unknown Team';
+                console.log('Updated team name to:', data.name); // Debug log
+            } else {
+                console.error('Header title element not found - make sure ID="header-title" exists');
+            }
+        } catch (error) {
+            console.error("Error fetching team name:", error);
+            // Set a fallback name if there's an error
+            const titleElement = document.getElementById("header-title");
+            if (titleElement) {
+                titleElement.textContent = 'Unknown Team';
+            }
+        }
+    }
     // Function to render subjects dynamically
     function renderSubjects(subjects, isSearch = false) {
         const subjectList = document.getElementById("SubjectList");
@@ -79,46 +103,73 @@ document.addEventListener("DOMContentLoaded", function () {
     async function fetchAllSubjects() {
         const SubjectList = document.getElementById("SubjectList");
         SubjectList.innerHTML = "<li>Loading...</li>";
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get('teamId');
+    
+        if (!teamId) {
+            openModalFailAction("Team ID is required");
+            return;
+        }
+    
         try {
-          let url = "http://localhost:3000/api/subject";
-          if (teamId) {
-            url += `?teamId=${teamId}`;
-          }
-          const response = await fetch(url);
-          if (!response.ok) throw new Error("Network response was not ok");
-          const data = await response.json();
-          renderSubjects(data.Subjects, false);
+            const url = `http://localhost:3000/api/subject?teamId=${teamId}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) throw new Error("Network response was not ok");
+            const data = await response.json();
+            renderSubjects(data.Subjects, false);
         } catch (error) {
-          console.error("Error fetching all Subjects:", error);
+            console.error("Error fetching all Subjects:", error);
             SubjectList.innerHTML = `
-            <div id="lottie-container"></div>
-            `            
-            ;
+                <div id="lottie-container"></div>
+            `;
             setTimeout(() => {
                 loadLottieAnimation("lottie-container", "error-loading");
             }, 0);
         }
-      }
-      
+
+    }
+
+    // Check if teamId exists in URL
+    if (teamId) {
+        console.log('Fetching team name for teamId:', teamId); // Debug log
+        fetchTeamName(); // Call this first
+    } else {
+        openModalFailAction("Team ID is required");
+    }
 
     // Search Subjects based on query
     async function searchSubjects(searchQuery) {
         const SubjectList = document.getElementById("SubjectList");
         SubjectList.innerHTML = "<li>Searching...</li>";
+        
+        // Get teamId from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get('teamId');
+    
+        if (!teamId) {
+            openModalFailAction("Team ID is required for searching subjects");
+            return;
+        }
+    
         try {
-        const url = `http://localhost:3000/api/Subject?search=${encodeURIComponent(
-            searchQuery.trim()
-        )}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
-        renderSubjects(data.Subjects, true); // Pass isSearch=true for search-specific messaging
+            const params = new URLSearchParams({
+                search: searchQuery.trim(),
+                teamId: teamId
+            });
+    
+            const url = `http://localhost:3000/api/subject?${params}`;
+            const response = await fetch(url);
+            
+            if (!response.ok) throw new Error("Network response was not ok");
+            const data = await response.json();
+            renderSubjects(data.Subjects, true);
         } catch (error) {
-        console.error("Error searching Subjects:", error);
-        SubjectList.innerHTML = `
-            <div id="lottie-container"></div>
-            `            
-            ;
+            console.error("Error searching Subjects:", error);
+            SubjectList.innerHTML = `
+                <div id="lottie-container"></div>
+            `;
             setTimeout(() => {
                 loadLottieAnimation("lottie-container", "error-loading");
             }, 0);
@@ -137,31 +188,39 @@ document.addEventListener("DOMContentLoaded", function () {
     // Setup search functionality
     const searchInput = document.getElementById("searchSubject");
     if (searchInput) {
-        const debouncedSearch = debounce((query) => {
+    const debouncedSearch = debounce((query) => {
         const trimmedQuery = query.trim();
-        if (trimmedQuery) {
-            searchSubjects(trimmedQuery); // Search when there's a query
-        } else {
-            fetchAllSubjects(); // Fetch all Subjects only when search is cleared
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get('teamId');
+
+        if (!teamId) {
+            openModalFailAction("Team ID is required");
+            return;
         }
-        }, 300);
 
-        searchInput.addEventListener("input", () => {
+        if (trimmedQuery) {
+            searchSubjects(trimmedQuery);
+        } else {
+            fetchAllSubjects();
+        }
+    }, 300);
+
+    searchInput.addEventListener("input", () => {
         debouncedSearch(searchInput.value);
-        });
+    });
 
-        searchInput.addEventListener("keydown", (e) => {
+    searchInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             const query = searchInput.value.trim();
             if (query) {
-            searchSubjects(query); // Immediate search on Enter
+                searchSubjects(query);
             } else {
-            fetchAllSubjects(); // Immediate fetch all on Enter when empty
+                fetchAllSubjects();
             }
         }
-        });
-    }
+    });
+}
 
     const params = new URLSearchParams(window.location.search);
     const currentTeamId = params.get('teamId');
@@ -377,6 +436,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initial load of all Subjects
     fetchAllSubjects();
+
+    
 });
 
 

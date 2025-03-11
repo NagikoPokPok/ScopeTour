@@ -85,7 +85,7 @@ class Sidebar extends HTMLElement {
                     </a>
                 </li>
                 <li data-id="log-out">
-                    <a href="log-out.html">
+                    <a href="#" id="logout_btn">
                     <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Log out</span>
                     </a>
@@ -95,6 +95,7 @@ class Sidebar extends HTMLElement {
         `;
 
         this.setActiveMenu();
+        this.setupLogout(); // 📌 Thêm sự kiện logout
     }
 
     setActiveMenu() {
@@ -116,6 +117,18 @@ class Sidebar extends HTMLElement {
             //         parentMenu.style.display = "block"; // Hiển thị sub-menu
             //     }
             // }
+        }
+    }
+    setupLogout() {
+        const logoutBtn = this.querySelector("#logout_btn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async () => {
+                localStorage.removeItem('userId');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+
+                window.location.href = "login.html";
+            });
         }
     }
 }

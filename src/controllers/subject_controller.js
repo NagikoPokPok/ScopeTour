@@ -29,25 +29,42 @@ exports.createSubject = async (req, res) => {
 // Fetch subjects (with optional search by name)
 exports.fetchSubjects = async (req, res) => {
   try {
-    const searchQuery = req.query.search || '';
-    const teamId = req.query.teamId; // Retrieve teamId from query parameters
-    let whereClause = {};
+    const { search, teamId } = req.query;
 
-    // If a teamId is provided, filter by that team
-    if (teamId) {
-      whereClause.team_id = teamId;
+    // Validate teamId is provided
+    if (!teamId) {
+      return res.status(400).json({ message: 'Team ID is required' });
     }
 
-    // If a search query is provided, add a filter on the subject name
-    if (searchQuery.trim()) {
-      whereClause.name = { [Op.like]: `%${searchQuery.trim()}%` };
+    // Build where clause
+    const whereClause = {
+      team_id: teamId // Always filter by team_id
+    };
+
+    // Add search condition if search query exists
+    if (search && search.trim()) {
+      whereClause.name = { 
+        [Op.like]: `%${search.trim()}%` 
+      };
     }
 
-    const subjects = await Subject.findAll({ where: whereClause });
-    return res.status(200).json({ Subjects: subjects });
+    const subjects = await Subject.findAll({ 
+      where: whereClause,
+      order: [['name', 'ASC']] // Optional: sort subjects by name
+    });
+
+    return res.status(200).json({ 
+      success: true,
+      Subjects: subjects,
+      teamId: teamId // Include teamId in response for verification
+    });
   } catch (error) {
     console.error('Error fetching subjects:', error);
-    return res.status(500).json({ message: 'Error fetching Subjects' });
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Error fetching subjects',
+      error: error.message 
+    });
   }
 };
 

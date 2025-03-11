@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Check login status at page load
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+        window.location.href = 'login.html';
+        return;
+    }
     const colors = ['#E08963', '#5E96AE', '#f15f0e', '#A2C139']; // Màu luân phiên
   
     function renderTeams(teams, isSearch = false) {
@@ -88,9 +94,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch all team
     async function fetchAllTeams() {
         const teamList = document.getElementById('teamList');
+        const userId = localStorage.getItem('userId'); // Get logged in user ID
+    
         teamList.innerHTML = '<span>Loading...</span>';
         try {
-            const response = await fetch('http://localhost:3000/api/team');
+            const response = await fetch(`http://localhost:3000/api/team?userId=${userId}`);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             renderTeams(data.teams, false);
@@ -312,48 +320,58 @@ document.addEventListener('DOMContentLoaded', function () {
         }
   
         const createTeamForm = document.getElementById('createTeamForm');
-        if (createTeamForm) {
-            createTeamForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const teamName = document.getElementById('modal-team-name').value.trim();
+    if (createTeamForm) {
+        createTeamForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const teamName = document.getElementById('modal-team-name').value.trim();
+            
+            const userId = localStorage.getItem('userId');
+            
+            if (!teamName) {
+                openModalFailAction('Team name is required.');
+                return;
+            }
+
+            if (!userId) {
+                window.location.href = 'login.html'; // Redirect to login if no user ID
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/team', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        teamName,
+                        userId: parseInt(userId) // Convert to number
+                    })
+                });
                 
-                if (!teamName) {
-                    alert('Team name is required.');
-                    return;
-                }
-        
-                try {
-                    const response = await fetch('http://localhost:3000/api/team', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ teamName })
-                    });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    const teamId = result.teamId;
+                    console.log('New team created with ID:', teamId);
                     
-                    const result = await response.json();
-                    
-                    if (response.ok) {
-                        const teamId = result.teamId; // Get the team ID from response
-                        console.log('New team created with ID:', teamId); // Log the team ID
-                        
-                        openModalSuccessAction("Create team successfully!");
-                        const currentQuery = searchInput.value.trim();
-                        if (currentQuery) {
-                            searchTeams(currentQuery);
-                        } else {
-                            fetchAllTeams();
-                        }
-                        
-                        bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
-                        createTeamForm.reset();
+                    openModalSuccessAction("Create team successfully!");
+                    const currentQuery = searchInput.value.trim();
+                    if (currentQuery) {
+                        searchTeams(currentQuery);
                     } else {
-                        openModalFailAction("Failed to create team.");
+                        fetchAllTeams();
                     }
-                } catch (error) {
-                    console.error('Error creating team:', error);
-                    openModalFailAction("An error occurred while creating the team.");
+                    
+                    bootstrap.Modal.getInstance(document.getElementById('reg-modal')).hide();
+                    createTeamForm.reset();
+                } else {
+                    openModalFailAction(result.message || "Failed to create team.");
                 }
-            });
-        }
+            } catch (error) {
+                console.error('Error creating team:', error);
+                openModalFailAction("An error occurred while creating the team.");
+            }
+        });
+    }
   
     fetchAllTeams();
 });

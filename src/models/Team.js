@@ -15,7 +15,12 @@ const Team = sequelize.define('Team', {
     type: DataTypes.STRING(500)
   },
   created_by: {
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    allowNull: false, 
+    references: {
+      model: 'user',
+      key: 'user_id'
+    }
   },
   created_at: {
     type: DataTypes.DATE,
@@ -25,14 +30,5 @@ const Team = sequelize.define('Team', {
   tableName: 'team',
   timestamps: false
 });
-
-// Định nghĩa quan hệ
-Team.associate = function(models) {
-  Team.belongsTo(models.User, { foreignKey: 'created_by', as: 'creator' });
-  Team.hasMany(models.Message, { foreignKey: 'team_id' });
-  Team.hasMany(models.Subject, { foreignKey: 'team_id' });
-  Team.hasMany(models.Task, { foreignKey: 'team_id' });
-  Team.hasMany(models.TeamMember, { foreignKey: 'team_id' });
-};
 
 module.exports = Team;

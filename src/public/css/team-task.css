@@ -106,7 +106,17 @@ body{
     .task-desc {
       font-size: 16px;
     }
+
+    .task-title, .task-desc {
+      white-space: nowrap;   /* Ngăn nội dung xuống dòng */
+      overflow: hidden;      /* Ẩn phần dư thừa */
+      text-overflow: ellipsis; /* Hiển thị dấu "..." nếu nội dung quá dài */
+      max-width: 200px; /* Điều chỉnh độ rộng phù hợp */
+      display: block; /* Đảm bảo các phần tử hiển thị đúng */
+  }
 }
+
+
 
 .list-task .time-of-task {
     
