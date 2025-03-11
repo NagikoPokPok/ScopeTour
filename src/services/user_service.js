@@ -2,6 +2,7 @@ const User = require("../models/User");
 const InviteToken = require("../models/InviteToken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const { TeamMember } = require("../models/TUTM_association");
 
 class UserService {
     // Lấy thông tin người dùng bằng Email
@@ -177,8 +178,19 @@ class UserService {
     }
 
     // 📌 Hàm thêm user vào team
-    static async addUserToTeam(user_id, team_id) {
-        return 1;
+    static async addUserToTeam(userId, teamId) {
+        try {
+            const result = await TeamMember.create({
+                team_id: teamId,
+                user_id: userId,
+                role: 'member',
+                joined_at: new Date()
+            });
+            return result;
+        } catch (error) {
+            console.error('Error adding user to team:', error);
+            throw error;
+        }
     }
 }
 

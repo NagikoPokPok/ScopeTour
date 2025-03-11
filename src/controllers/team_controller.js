@@ -1,6 +1,9 @@
 const { Op } = require('sequelize');
 const db = require('../config/database');  // Changed to use 'db' to avoid naming conflicts
 const { Team, TeamMember, User } = require('../models/TUTM_association');
+const sendInvitationEmail = require('../services/email_service');
+const crypto = require('crypto');
+const UserService = require('../services/user_service');
 
 exports.createTeam = async (req, res) => {
     try {
@@ -236,4 +239,69 @@ exports.getTeam = async (req, res) => {
         });
     }
 };
+
+exports.inviteTeamMember = async (req, res) => {
+    try {
+        const { teamId, emails } = req.body;
+        
+        console.log('📧 Processing invite request:', { teamId, emails });
+
+        if (!teamId || !emails || !Array.isArray(emails) || emails.length === 0) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Team ID and valid email array required' 
+            });
+        }
+
+        const team = await Team.findByPk(teamId);
+        if (!team) {
+            return res.status(404).json({
+                success: false,
+                message: 'Team not found'
+            });
+        }
+
+        const results = [];
+        for (const email of emails) {
+            try {
+                console.log(`Processing invitation for email: ${email}`);
+                const token = crypto.randomBytes(32).toString('hex');
+                
+                // Save invitation token
+                await UserService.saveInviteToken(email, token, teamId);
+
+                // Updated invitation link format
+                const inviteLink = `http://localhost:3000/api/invitation/joinGroup?email=${encodeURIComponent(email)}&token=${token}&team_id=${teamId}`;
+                
+                await sendInvitationEmail(email, inviteLink);
+                console.log(`✅ Successfully sent invitation to: ${email}`);
+
+                results.push({
+                    email,
+                    success: true,
+                    message: 'Invitation sent successfully'
+                });
+            } catch (error) {
+                console.error(`❌ Error sending invitation to ${email}:`, error);
+                results.push({
+                    email,
+                    success: false,
+                    message: 'Failed to send invitation'
+                });
+            }
+        }
+
+        return res.status(200).json({
+            success: true,
+            results
+        });
+    } catch (error) {
+        console.error('❌ Error in team invitation:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error processing invitations'
+        });
+    }
+};
+
 module.exports = exports;
