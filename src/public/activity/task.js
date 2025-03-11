@@ -189,7 +189,7 @@ function createTaskElement(task) {
               style="${canComplete ? '' : 'display:none;'}">
               
             
-            <div class="task text-start ms-3">
+            <div class="task text-start">
               <span class="task-title fw-medium">${task.title}</span>
               <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
               ${!canComplete ? `
@@ -441,6 +441,9 @@ document.addEventListener('click', async function (e) {
           document.getElementById('update-task-id').value = task.task_id;
           document.getElementById('update-task-name').value = task.title;
           document.getElementById('update-task-description').value = task.description || '';
+
+          document.getElementById('char-count-task-name-update').innerText = `${task.title.length}/50 characters`;
+          document.getElementById('char-count-task-des-update').innerText = `${task.description.length}/100 characters`;
           
           // Set date range
           const startDate = task.start_date ? moment(task.start_date) : moment();
