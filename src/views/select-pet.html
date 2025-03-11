@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Boostrap -->
+  <link href="../public/css/main.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/src/public/css/main-style.css">
-    <link rel="stylesheet" href="/src/public/css/select-pet.css">
+
+    <link rel="stylesheet" href="../public/css/select-pet.css">
+
     <link rel="stylesheet" href="../public/css/list-goal-team.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,10 +31,10 @@
           <i class="fa-solid fa-circle-user"></i>
         </div>
         <div class="user-name">
-          <h3>Trần Quang Hiếu</h3>
+          <h3 class="my-0">Trần Quang Hiếu</h3>
         </div>
         <div class="user-streak">
-          <img src="/src/public/img/list-team-goal/slider2.png" alt="" class="icon-streak">
+          <img src="../public/img/list-team-goal/slider2.png" alt="" class="icon-streak">
           <div class="number-streak">
             <span>30</span>
           </div>
@@ -38,35 +42,34 @@
       </div>
 
       <div class="header-time">
-        <h4 class="time">
+        <h4 class="time my-0">
           9:41
         </h4>
       </div>
     </div>
     <!--End: Header -->
     
-    
+    <!-- Begin: Button List -->
     <div id="buttons">
-      <div class="button-list">
-        <div class="create-btn">
-          <button>
-            <i class="fa-solid fa-circle-plus"></i>
-            <span>Create</span>
-          </button>
-        </div> 
-
-        <div class="search-btn">
-          <input  type="email" placeholder="Seach your team name" required="" name="" id="" class="email">
+      <div class=" button-list">  
+        <div class="search-btn ps-0">
+          <input  type="email" placeholder="Seach pet name" required="" name="" id="searchSubject" class="email">
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
-        <ul>
-          <li><i class="fa-solid fa-user-plus"></i></li>
-          <li><i class="fa-solid fa-filter"></i></li>
-          <li><i class="fa-solid fa-sort"></i></li>
-          
-        </ul>
+        <ul class="button-list-second">
         
+          <li data-bs-toggle="modal" 
+            data-bs-target="#modal-filter">
+            <i class="fa-solid fa-filter"></i>
+            <span>Filter</span>
+          </li>
+          <li data-bs-toggle="modal" 
+          data-bs-target="#modal-sort">
+            <i class="fa-solid fa-sort"></i>
+            <span>Sort</span>
+          </li>
+        </ul>
       </div>
     </div>
 
