@@ -5,30 +5,41 @@ class UserController {
     // API lấy thông tin người dùng
     static async getUser(req, res) {
         console.log("Dữ liệu nhận được:", req.body);
+        const { userId, email, password } = req.body;
+        console.log("Userid:", userId);
+        if(!userId && !email){
+            return res.status(404).json({ success: false, message: "Chưa có dữ liệu đua vào!" });
+        }
         try {
-            if(req.body.email === 'cuong2432004@gmail.com' && req.body.password === '123') {
-                // Return user ID in the response
-                return res.json({ 
-                    success: true, 
-                    user: { 
-                        user_id: 1, // Add the user ID
-                        email: req.body.email, 
-                        name: "Test User" 
-                    } 
-                });
+            let user = null;
+
+            if (userId) {
+                user = await UserService.getUserById(userId);
+            } else if (email && password) {
+                const result = await UserService.getUserByEmail(email, password);
+
+                // Nếu có lỗi, trả lỗi về frontend
+                if (!result.success) {
+                    return res.status(result.status).json({ success: false, message: result.message });
+                }
+
+                user = result.user; // Nếu thành công, lấy user
             }
-            const user = await UserService.getUserByEmail(req.body.email);
+            
             if (!user) {
                 return res.status(404).json({ success: false, message: "Người dùng không tồn tại!" });
             }
+            // console.log(user);
             res.json({ 
                 success: true, 
                 user: {
                     user_id: user.user_id,
                     email: user.email,
-                    name: user.name
+                    name: user.user_name,
+                    phone: user.phone_number
                 }
             });
+            // console.log(response.);
         } catch (error) {
             res.status(500).json({ success: false, message: "Lỗi server!" });
         }

@@ -60,15 +60,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
             });
+
+            const data = await response.json();
     
             // Kiểm tra lỗi HTTP
             if (!response.ok) {
-                alert("Lỗi đăng nhập! Kiểm tra email/mật khẩu.");
+                alert(data.message);
                 console.log(response);
                 return;
             }
     
-            const data = await response.json();
+            
     
             if (data.success) {
                 // Store user data including ID

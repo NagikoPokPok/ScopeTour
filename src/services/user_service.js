@@ -5,14 +5,36 @@ const crypto = require("crypto");
 
 class UserService {
     // Lấy thông tin người dùng bằng Email
-    static async getUserByEmail(email) {
+    static async getUserByEmail(email, password) {
         try {
-            return await User.findOne({ where: { email } });
+            if (!email || !password) {
+                return { success: false, status: 400, message: "Thiếu email hoặc mật khẩu." };
+            }
+    
+            const user = await User.findOne({ where: { email } });
+            if (!user) {
+                return { success: false, status: 404, message: "Email không tồn tại trong hệ thống." };
+            }
+    
+            // const hashedPassword = await bcrypt.hash(password, 10);
+            // console.log("pass: " + password + ", hash: " + hashedPassword + ", user.pass: " + user.password);
+            // if (hashedPassword !==user.password) {
+            //     return { success: false, status: 401, message: "Mật khẩu không chính xác." };
+            // }
+            
+            // Dùng bcrypt.compare() để kiểm tra password nhập vào với password đã hash trong database
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return { success: false, status: 401, message: "Mật khẩu không chính xác." };
+            }
+    
+            return { success: true, user }; // Trả về user nếu thành công
         } catch (error) {
-            console.error("Lỗi khi lấy người dùng theo email:", error);
-            throw error;
+            console.error("Lỗi khi lấy người dùng theo email:", error.message);
+            return { success: false, status: 500, message: "Lỗi server khi xử lý yêu cầu." };
         }
     }
+    
 
     // Lấy thông tin người dùng bằng ID
     static async getUserById(userId) {
