@@ -91,9 +91,11 @@ if (!userName) {
     
             if (data.success) {
                 // Store user data including ID
+                console.log("user_name: " + data.user);
                 localStorage.setItem('userId', data.user.user_id);
                 localStorage.setItem('userEmail', data.user.email);
                 localStorage.setItem('userName', data.user.name);
+                
                 
                 if (token && team_id) {
                     await completeJoin(email, token, team_id);
@@ -108,47 +110,47 @@ if (!userName) {
         }
     });
     
-    // Gửi OTP
-    document.querySelector(".btn-send-otp").addEventListener("click", async () => {
-        const email = document.querySelector("#edt_email").value.trim();
+//     // Gửi OTP
+//     document.querySelector(".btn-send-otp").addEventListener("click", async () => {
+//         const email = document.querySelector("#edt_email").value.trim();
     
-        try {
-            const response = await fetch("http://localhost:3000/api/signup/send-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email })
-            });
+//         try {
+//             const response = await fetch("http://localhost:3000/api/signup/send-otp", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify({ email })
+//             });
     
-            const data = await response.json();
-            alert(data.message);
-            document.querySelector(".otp-section").style.display = "block"; // Hiện ô nhập OTP
-        } catch (error) {
-            alert("Lỗi gửi OTP!");
-        }
-    });
+//             const data = await response.json();
+//             alert(data.message);
+//             document.querySelector(".otp-section").style.display = "block"; // Hiện ô nhập OTP
+//         } catch (error) {
+//             alert("Lỗi gửi OTP!");
+//         }
+//     });
     
-    // Xác minh OTP
-    document.querySelector(".btn-verify-otp").addEventListener("click", async () => {
-        const email = document.querySelector("#edt_email").value.trim();
-        const otp = document.querySelector("#edt_otp").value.trim();
+//     // Xác minh OTP
+//     document.querySelector(".btn-verify-otp").addEventListener("click", async () => {
+//         const email = document.querySelector("#edt_email").value.trim();
+//         const otp = document.querySelector("#edt_otp").value.trim();
     
-        try {
-            const response = await fetch("http://localhost:3000/api/signup/verify-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, otp })
-            });
+//         try {
+//             const response = await fetch("http://localhost:3000/api/signup/verify-otp", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify({ email, otp })
+//             });
     
-            const data = await response.json();
-            if (data.success) {
-                alert("OTP verified! Proceed with registration.");
-            } else {
-                alert(data.error);
-            }
-        } catch (error) {
-            alert("Lỗi xác minh OTP!");
-        }
-    });
+//             const data = await response.json();
+//             if (data.success) {
+//                 alert("OTP verified! Proceed with registration.");
+//             } else {
+//                 alert(data.error);
+//             }
+//         } catch (error) {
+//             alert("Lỗi xác minh OTP!");
+//         }
+//     });
 });
 
 // 📌 Gửi yêu cầu tham gia nhóm sau khi đăng nhập thành công
