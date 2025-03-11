@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             if (data.success) {
                 // Store user data including ID
-                localStorage.setItem('userId', data.user.user_id);
+                localStorage.setItem('userId', data.user.user_id.toString()); // Đảm bảo lưu dạng string
                 localStorage.setItem('userEmail', data.user.email);
                 localStorage.setItem('userName', data.user.name);
                 

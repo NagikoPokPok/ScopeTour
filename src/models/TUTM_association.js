@@ -8,16 +8,36 @@ User.associations = {};
 TeamMember.associations = {};
 
 // Team associations
-Team.belongsTo(User, { foreignKey: 'created_by', as: 'creator' });
-Team.hasMany(TeamMember, { foreignKey: 'team_id' });
+Team.belongsTo(User, { 
+    foreignKey: 'created_by', 
+    as: 'creator',
+    targetKey: 'user_id'
+});
+Team.hasMany(TeamMember, { 
+    foreignKey: 'team_id',
+    sourceKey: 'team_id'
+});
 
 // User associations 
-User.hasMany(Team, { foreignKey: 'created_by', as: 'createdTeams' });
-User.hasMany(TeamMember, { foreignKey: 'user_id' });
+User.hasMany(Team, { 
+    foreignKey: 'created_by',
+    as: 'createdTeams',
+    sourceKey: 'user_id'
+});
+User.hasMany(TeamMember, { 
+    foreignKey: 'user_id',
+    sourceKey: 'user_id'
+});
 
 // TeamMember associations
-TeamMember.belongsTo(Team, { foreignKey: 'team_id' });
-TeamMember.belongsTo(User, { foreignKey: 'user_id' });
+TeamMember.belongsTo(Team, { 
+    foreignKey: 'team_id',
+    targetKey: 'team_id'
+});
+TeamMember.belongsTo(User, { 
+    foreignKey: 'user_id',
+    targetKey: 'user_id'
+});
 
 module.exports = {
     Team,

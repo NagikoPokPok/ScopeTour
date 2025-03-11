@@ -74,60 +74,60 @@ async function fetchTasks(subjectId, teamId, search = '') {
               search: search || ''
           })}`)
       ]);
-  
+
       if (!tasksResponse.ok || !completedTasksResponse.ok) {
-        throw new Error('Failed to fetch tasks');
+          throw new Error('Failed to fetch tasks');
       }
-  
+
       const [activeTasks, completedTasks] = await Promise.all([
-        tasksResponse.json(),
-        completedTasksResponse.json()
+          tasksResponse.json(),
+          completedTasksResponse.json()
       ]);
-  
+
       // Combine active and completed tasks
       const allTasks = [
-        ...(activeTasks.tasks || []),
-        ...(completedTasks.tasks || []).map(task => ({
-          ...task,
-          status: 'completed'
-        }))
+          ...(activeTasks.tasks || []),
+          ...(completedTasks.tasks || []).map(task => ({
+              ...task,
+              status: 'completed'
+          }))
       ];
-  
+
       console.log('All tasks:', allTasks);
       renderTasks(allTasks);
-    } catch (error) {
+  } catch (error) {
       console.error('Error fetching tasks:', error.message);
       alert('Failed to fetch tasks. Check the console for details.');
-    }
   }
+}
 
 // Render tasks into Available and Submitted sections
 function renderTasks(tasks) {
-    const availableTasksContainer = document.querySelector('#panelsStayOpen-collapseOne .accordion-body');
-    const submittedTasksContainer = document.querySelector('#panelsStayOpen-collapseTwo .accordion-body');
-  
-    availableTasksContainer.innerHTML = '';
-    submittedTasksContainer.innerHTML = '';
-  
-    if (!tasks) return;
-  
-    tasks.forEach(task => {
-        const taskElement = createTaskElement(task);
-        // Check if task is completed
-        if (task.status === 'completed' || task.completed_date) {
-            submittedTasksContainer.appendChild(taskElement);
-        } else {
-            availableTasksContainer.appendChild(taskElement);
-        }
-    });
+  const availableTasksContainer = document.querySelector('#panelsStayOpen-collapseOne .accordion-body');
+  const submittedTasksContainer = document.querySelector('#panelsStayOpen-collapseTwo .accordion-body');
 
-    // Show/hide "No tasks" message
-    if (availableTasksContainer.children.length === 0) {
-        availableTasksContainer.innerHTML = '<div class="text-center text-muted">No available tasks</div>';
-    }
-    if (submittedTasksContainer.children.length === 0) {
-        submittedTasksContainer.innerHTML = '<div class="text-center text-muted">No completed tasks</div>';
-    }
+  availableTasksContainer.innerHTML = '';
+  submittedTasksContainer.innerHTML = '';
+
+  if (!tasks) return;
+
+  tasks.forEach(task => {
+      const taskElement = createTaskElement(task);
+      // Check if task is completed
+      if (task.status === 'completed' || task.completed_date) {
+          submittedTasksContainer.appendChild(taskElement);
+      } else {
+          availableTasksContainer.appendChild(taskElement);
+      }
+  });
+
+  // Show/hide "No tasks" message
+  if (availableTasksContainer.children.length === 0) {
+      availableTasksContainer.innerHTML = '<div class="text-center text-muted">No available tasks</div>';
+  }
+  if (submittedTasksContainer.children.length === 0) {
+      submittedTasksContainer.innerHTML = '<div class="text-center text-muted">No completed tasks</div>';
+  }
 }
 
 function createTaskElement(task) {
@@ -320,8 +320,42 @@ document.addEventListener('DOMContentLoaded', function () {
   const subjectId = urlParams.get('subjectId');
   const teamId = urlParams.get('teamId');
   console.log('URL Params:', { subjectId, teamId });
-  fetchTasks(subjectId, teamId);
+  if (subjectId) {
+     fetchSubjectName(subjectId);
+     fetchTasks(subjectId, teamId);
+  } else {
+    openModalFailAction("Subject ID is required");
+}
 });
+
+// Fetch subject name
+async function fetchSubjectName(subjectId) {
+  try {
+      const response = await fetch(`http://localhost:3000/api/subject/${subjectId}`);
+      
+      if (!response.ok) {
+          throw new Error('Failed to fetch subject details');
+      }
+
+      const data = await response.json();
+      console.log('Subject data:', data);
+
+      if (data.success && data.subject) {
+          const subjectNameElement = document.getElementById('subject-name');
+          if (subjectNameElement) {
+              subjectNameElement.textContent = data.subject.name;
+          }
+      } else {
+          throw new Error('Invalid subject data');
+      }
+  } catch (error) {
+      console.error('Error fetching subject name:', error);
+      const subjectNameElement = document.getElementById('subject-name');
+      if (subjectNameElement) {
+          subjectNameElement.textContent = 'Unknown Subject';
+      }
+  }
+}
 
 // Search tasks
 document.getElementById('searchSubject').addEventListener('input', function () {
