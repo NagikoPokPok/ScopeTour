@@ -1,4 +1,5 @@
 const UserService = require("../services/user_service");
+const passport = require("passport");
 const { sendOTPEmail, generateOTP } = require("../services/email_service");
 
 class UserController {
@@ -111,6 +112,20 @@ class UserController {
             res.status(500).json({ success: false, message: "Lỗi server!" });
         }
     }
+
+    //Login with google
+    static googleAuth = passport.authenticate("google", { scope: ["profile", "email"] });
+
+    static googleAuthCallback = (req, res) => {
+        passport.authenticate("google", { session: false }, (err, data) => {
+        if (err || !data.user) {
+            return res.status(401).json({ message: "Google authentication failed" });
+        }
+        res.json({ message: "Login successful", user: data.user, token: data.token });
+        })(req, res);
+    };
+
+
     // Gửi OTP
     static async sendOTP(req, res) {
         const { email } = req.body;

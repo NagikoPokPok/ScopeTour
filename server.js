@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./src/config/database');
+const passport = require("./src/config/passport"); // Thêm Passport
 // Import associations before routes
 require('./src/models/TUTM_association');
 
@@ -17,6 +18,7 @@ const userProfileRoutes = require("./src/routes/user_profile_route");
 const app = express();
 const PORT = 3000; // Your Express server port
 
+app.use(passport.initialize());
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -118,5 +118,55 @@ async function completeJoin(email, token, team_id) {
 
 const gg_login = document.getElementById("gg-login");
 gg_login.addEventListener("click", function() {
-    
+    google.accounts.id.initialize({
+        client_id: "381526760417-h5iji61k3hk1o22fgntmrfp771q98cg6.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+
+    google.accounts.id.prompt(); // Hiển thị hộp thoại đăng nhập Google
 });
+
+async function handleCredentialResponse(response) {
+    console.log("Google OAuth Response:", response);
+
+    if (response.credential) {
+        try {
+            // Gửi token Google đến backend để xác thực
+            const res = await fetch("http://localhost:3000/api/login/google", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token: response.credential })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert("Đăng nhập Google thất bại: " + data.message);
+                return;
+            }
+
+            // Lưu thông tin user vào localStorage
+            localStorage.setItem("userId", data.user.user_id);
+            localStorage.setItem("userEmail", data.user.email);
+            localStorage.setItem("userName", data.user.name);
+
+            alert("Đăng nhập Google thành công!");
+
+            // Nếu có lời mời tham gia nhóm, thực hiện join
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get("token");
+            const team_id = urlParams.get("team_id");
+
+            if (token && team_id) {
+                await completeJoin(data.user.email, token, team_id);
+            } else {
+                window.location.href = "list-goal-team.html"; // Chuyển hướng sau khi đăng nhập
+            }
+        } catch (error) {
+            alert("Lỗi kết nối máy chủ!");
+            console.error("Lỗi:", error);
+        }
+    } else {
+        alert("Đăng nhập Google thất bại!");
+    }
+}

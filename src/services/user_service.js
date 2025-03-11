@@ -64,16 +64,17 @@ class UserService {
             const [updated] = await User.update({ password: hashedPassword }, { where: { user_id: userId } });
             return updated > 0; // Trả về true nếu cập nhật thành công
         } catch (error) {
-            console.error("Lỗi khi cập nhật mật khẩu:", error);
+            console.error("Lỗi khi cập nhật mật khẩu: ", error);
             throw error;
         }
     }
 
     // Tạo người dùng mới
-    static async createUser(email, user_name, password) {
+    static async createUser(email, user_name, password = null) {
         try {
-            password = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
-            return await User.create({email, user_name, password});
+            // password = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
+            let hashedPassword = password ? await bcrypt.hash(password, 10) : null;
+            return await User.create({email, user_name, hashedPassword});
         } catch (error) {
             console.error("Lỗi khi tạo người dùng:", error);
             throw error;
