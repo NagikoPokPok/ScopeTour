@@ -89,25 +89,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   
   
-    
-  
     // Fetch all team
     async function fetchAllTeams() {
         const teamList = document.getElementById('teamList');
-        const userId = localStorage.getItem('userId'); // Get logged in user ID
+        const userId = localStorage.getItem('userId');
+        
+        console.log('⚡️ Fetching teams with userId:', userId); // Debug log
+        
+        if (!userId) {
+            console.error('No userId found in localStorage');
+            window.location.href = 'login.html';
+            return;
+        }
     
         teamList.innerHTML = '<span>Loading...</span>';
         try {
-            const response = await fetch(`http://localhost:3000/api/team?userId=${userId}`);
-            if (!response.ok) throw new Error('Network response was not ok');
+            // Sửa URL để đảm bảo userId được gửi đúng
+            const response = await fetch(`http://localhost:3000/api/team?userId=${encodeURIComponent(userId)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            console.log('Response status:', response.status); // Debug log
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Network response was not ok');
+            }
+            
             const data = await response.json();
+            console.log('📦 Received team data:', data); // Debug log
+            
+            if (!data.teams) {
+                throw new Error('No teams data received');
+            }
+            
             renderTeams(data.teams, false);
         } catch (error) {
-            console.error('Error fetching all teams:', error);
-            teamList.innerHTML = `
-            <div id="lottie-container"></div>
-            `            
-            ;
+            console.error('❌ Error fetching teams:', error);
+            teamList.innerHTML = `<div id="lottie-container"></div>`;
             setTimeout(() => {
                 loadLottieAnimation("lottie-container", "error-loading");
             }, 0);
