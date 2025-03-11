@@ -62,8 +62,8 @@ h2{
     display: inline-block;
 }
 .profile-image img {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #ddd;
@@ -72,7 +72,7 @@ h2{
     justify-content: center;
     align-items: center;
     text-align: left;
-    margin-top: 30px;
+    margin-top: 12px;
     width: 80%;
 }
 .input-container label {
@@ -90,4 +90,21 @@ h2{
 
 #image{
   display: none;
+}
+
+
+#changeButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  width: 100px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#changeButton:hover {
+  opacity: 0.7  ;
 }

@@ -4,4 +4,8 @@ const router = express.Router();
 
 router.post("/", UserController.getUser);
 
+// Đăng nhập bằng Google
+router.get("/google", UserController.googleAuth);
+router.get("/google/callback", UserController.googleAuthCallback);
+
 module.exports = router;

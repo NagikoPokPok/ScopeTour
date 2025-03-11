@@ -121,5 +121,35 @@ exports.updateSubject = async (req, res) => {
   }
 };
 
+exports.getSubjectById = async (req, res) => {
+  try {
+      const { subjectId } = req.params;
+      console.log('Fetching subject with ID:', subjectId);
+
+      const subject = await Subject.findOne({
+          where: { subject_id: subjectId },
+          attributes: ['subject_id', 'name', 'description', 'team_id']
+      });
+
+      if (!subject) {
+          return res.status(404).json({
+              success: false,
+              message: 'Subject not found'
+          });
+      }
+
+      return res.status(200).json({
+          success: true,
+          subject
+      });
+  } catch (error) {
+      console.error('Error fetching subject:', error);
+      return res.status(500).json({
+          success: false,
+          message: 'Error fetching subject details'
+      });
+  }
+};
+
 
 module.exports = exports;

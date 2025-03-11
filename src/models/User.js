@@ -39,7 +39,13 @@ const User = sequelize.define('User', {
   }
 }, {
   tableName: 'user',
-  timestamps: false
+  timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['email']
+    }
+  ]
 });
 
 // Định nghĩa quan hệ
