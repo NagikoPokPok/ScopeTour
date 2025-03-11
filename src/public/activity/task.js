@@ -189,7 +189,7 @@ function createTaskElement(task) {
               style="${canComplete ? '' : 'display:none;'}">
               
             
-            <div class="task text-start ms-3">
+            <div class="task text-start">
               <span class="task-title fw-medium">${task.title}</span>
               <span class="task-desc fw-light text-secondary">${task.description || ''}</span>
               ${!canComplete ? `
