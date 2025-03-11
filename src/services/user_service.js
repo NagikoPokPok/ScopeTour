@@ -5,7 +5,7 @@ const crypto = require("crypto");
 
 class UserService {
     // Lấy thông tin người dùng bằng Email
-    static async getUserByEmail(email, password) {
+    static async getUserByAccount(email, password) {
         try {
             if (!email || !password) {
                 return { success: false, status: 400, message: "Thiếu email hoặc mật khẩu." };
@@ -32,6 +32,16 @@ class UserService {
         } catch (error) {
             console.error("Lỗi khi lấy người dùng theo email:", error.message);
             return { success: false, status: 500, message: "Lỗi server khi xử lý yêu cầu." };
+        }
+    }
+
+    // Lấy thông tin người dùng bằng email
+    static async getUserByEmail(email) {
+        try {
+            return await User.findOne({ where: { email } });
+        } catch (error) {
+            console.error("Lỗi khi lấy người dùng theo ID:", error);
+            throw error;
         }
     }
     

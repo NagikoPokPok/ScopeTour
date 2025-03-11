@@ -16,7 +16,7 @@ class UserController {
             if (userId) {
                 user = await UserService.getUserById(userId);
             } else if (email && password) {
-                const result = await UserService.getUserByEmail(email, password);
+                const result = await UserService.getUserByAccount(email, password);
 
                 // Nếu có lỗi, trả lỗi về frontend
                 if (!result.success) {
@@ -71,10 +71,19 @@ class UserController {
                 res.status(400).json({ success: false, message: "Mật khẩu xác nhận không đúng!" });
             }else {
                 const isExist = await UserService.getUserByEmail(email);
+
                 if(!isExist){
-                    const success = await UserService.createUser(email, userName, password);
-                    if(success){
-                        res.json({success: true, message: "Đã đăng kí thành công"});
+                    const user = await UserService.createUser(email, userName, password);
+                    if(user){
+                        res.json({
+                            success: true, 
+                            user: {
+                                user_id: user.user_id,
+                                email: user.email,
+                                name: user.user_name,
+                                phone: user.phone_number
+                            },
+                            message: "Đã đăng kí thành công"});
                     } else {
                         res.status(400).json({ success: false, message: "Không thể đăng kí hồ sơ!" });
                     }
