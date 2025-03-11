@@ -19,7 +19,7 @@ const userProfileRoutes = require("./src/routes/user_profile_route");
 const app = express();
 const PORT = 3000; // Your Express server port
 
-app.use(passport.initialize());
+// app.use(passport.initialize());
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

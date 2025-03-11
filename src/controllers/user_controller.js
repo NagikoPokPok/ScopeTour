@@ -1,5 +1,5 @@
 const UserService = require("../services/user_service");
-const passport = require("passport");
+// const passport = require("passport");
 const { sendOTPEmail, generateOTP } = require("../services/email_service");
 
 class UserController {
@@ -100,22 +100,26 @@ class UserController {
 
     //API cập nhật thông tin cá nhân
     static async updateProfile(req, res){
+        
         try {
             const { userId, userName, image} = req.body;
+            // if(image) image="kha986sa";
             
-            const success = await UserService.updateProfile(userId, userName, image);
+            const user = await UserService.updateProfile(userId, userName, image);
             
-            if(success){
+            if(user){
+                console.log("hello1");
                 res.json({
                     success: true, 
                     user: {
                         user_id: user.user_id,
                         email: user.email,
                         name: user.user_name,
-                        phone: user.phone_number,
+                        // phone: user.phone_number,
                         image: user.user_img
                     },
                     message: "Đã cập nhật hồ sơ thành công"});
+                    console.log("hello2");
             } else {
                 res.status(400).json({ success: false, message: "Không thể cập nhật hồ sơ!" });
             }
@@ -125,16 +129,16 @@ class UserController {
     }
 
     //Login with google
-    static googleAuth = passport.authenticate("google", { scope: ["profile", "email"] });
+    // static googleAuth = passport.authenticate("google", { scope: ["profile", "email"] });
 
-    static googleAuthCallback = (req, res) => {
-        passport.authenticate("google", { session: false }, (err, data) => {
-        if (err || !data.user) {
-            return res.status(401).json({ message: "Google authentication failed" });
-        }
-        res.json({ message: "Login successful", user: data.user, token: data.token });
-        })(req, res);
-    };
+    // static googleAuthCallback = (req, res) => {
+    //     passport.authenticate("google", { session: false }, (err, data) => {
+    //     if (err || !data.user) {
+    //         return res.status(401).json({ message: "Google authentication failed" });
+    //     }
+    //     res.json({ message: "Login successful", user: data.user, token: data.token });
+    //     })(req, res);
+    // };
 
 
     // Gửi OTP

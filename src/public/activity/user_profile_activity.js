@@ -38,7 +38,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (data.user.image) {
                 console.log(data.user.image)
-                profileImage.src = data.user.image;
+                // profileImage.src = data.user.image;
+            }
+            let userImage;
+            try {
+                userImage = JSON.parse(localStorage.getItem("userImage"));
+                profileImage.src = userImage;
+            } catch (error) {
+                
             }
             // console.log(JSON.parse(data.user.image));
 
@@ -73,6 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         .then(data => {
             if (data.success) {
                 alert("Cập nhật thành công!");
+                localStorage.setItem('userImage', JSON.stringify(profileImage.getAttribute('src')));
                 location.reload();
             } else {
                 alert("Lỗi cập nhật: " + data.message);

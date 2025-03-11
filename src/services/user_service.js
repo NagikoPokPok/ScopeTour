@@ -84,7 +84,9 @@ class UserService {
     // Cập nhật profile cho người dùng
     static async updateProfile(userId, name, image = null) {
         try {
-            const [updated] = await User.update({ user_name: name, user_img: image}, { where: { user_id: userId } });
+            image = "37kakhs651";
+            let hashedImage = image ? await bcrypt.hash(image, 10) : null;
+            const [updated] = await User.update({ user_name: name, user_img: hashedImage}, { where: { user_id: userId } });
             console.log("update: " + userId + "name: " + name + "image: " + image);
             console.log("updated: " + updated);
             return updated > 0; // Trả về true nếu cập nhật thành công
