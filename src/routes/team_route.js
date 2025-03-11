@@ -15,6 +15,6 @@ router.get('/', teamController.fetchTeams);
 router.delete('/:teamId', teamController.deleteTeam);
 router.put('/:teamId', teamController.updateTeam);
 router.get('/:teamId', teamController.getTeam);
-
+router.post('/invite-members', teamController.inviteTeamMember);
 
 module.exports = router;

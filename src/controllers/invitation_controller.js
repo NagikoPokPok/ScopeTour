@@ -92,46 +92,50 @@ class InvitationController {
     }
 
     static async completeJoin(req, res) {
-        console.log("📩 API /api/completeJoin called");
-        const { email, token, team_id } = req.body;
-
-        if (!email || !token) {
-            return res.status(400).json({ success: false, message: "Email and token are required" });
-        }
-
         try {
-            // 📌 Kiểm tra token có hợp lệ không
+            const { email, token, team_id } = req.body;
+    
+            if (!email || !token || !team_id) {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: 'Email, token and team_id are required' 
+                });
+            }
+    
+            // Verify invitation token
             const isValid = await UserService.verifyInviteToken(email, token);
-
             if (!isValid) {
-                return res.status(400).json({ success: false, message: "Invalid or expired token" });
+                return res.status(400).json({
+                    success: false,
+                    message: 'Invalid or expired invitation'
+                });
             }
-
-            // 📌 Lấy `team_id` từ token
-            const invite = await UserService.getInviteByToken(email, token);
-            if (!invite) {
-                return res.status(400).json({ success: false, message: "Invalid or expired token" });
+    
+            // Get user info
+            const user = await UserService.getUserByEmail(email);
+            if (!user) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'User not found'
+                });
             }
-
-            const team_id = invite.team_id;
-            if (!team_id) {
-                return res.status(400).json({ success: false, message: "Invalid team ID" });
-            }
-
-            // 📌 Thêm user vào nhóm
-            const added = await UserService.addUserToTeam(email, team_id);
-            if (!added) {
-                return res.status(500).json({ success: false, message: "Failed to add user to team" });
-            }
-
-            // 📌 Xóa token sau khi dùng (tránh spam)
+    
+            // Add user to team
+            await UserService.addUserToTeam(user.user_id, team_id);
+    
+            // Delete used invitation token
             await UserService.deleteInviteToken(email);
-
-            // 📌 Chuyển hướng đến trang nhóm
-            res.json({ success: true, redirectUrl: `http://localhost:5500//src/views/team-project.html?team_id=${team_id}` });
+    
+            return res.status(200).json({
+                success: true,
+                message: 'Successfully joined team'
+            });
         } catch (error) {
-            console.error("Error completing join:", error);
-            res.status(500).json({ success: false, message: "Failed to complete joining group" });
+            console.error('Error completing team join:', error);
+            return res.status(500).json({
+                success: false,
+                message: 'Error joining team'
+            });
         }
     }
 
